@@ -1,6 +1,6 @@
 {
-    "name": "battery_shop",
-    "short_name": "battery_shop",
+    "name": "admin_battery",
+    "short_name": "admin_battery",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -20,10 +20,10 @@
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="battery_shop">
+  <meta name="apple-mobile-web-app-title" content="admin_battery">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-  <title>battery_shop</title>
+  <title>admin_battery</title>
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
@@ -94,5 +94,30 @@
       loadMainDartJs();
     }
   </script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+  
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+  
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>
+  
+
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyD9pvQDG9SiGAEJfbwwab56j4-6KktzSs4",
+      authDomain: "getyourbatteries.firebaseapp.com",
+      projectId: "getyourbatteries",
+      storageBucket: "getyourbatteries.appspot.com",
+      messagingSenderId: "963875137313",
+      appId: "1:963875137313:web:d255f4868702f67785c060"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
 </body>
+
+
 </html>

@@ -1,5 +1,12 @@
-import 'package:battery_shop/repository/services/firebase_service.dart';
-import 'package:battery_shop/screens/home/home_screen.dart';
+import 'package:admin_battery/blocs/auth/auth_bloc.dart';
+
+import 'package:admin_battery/repositories/auth/auth_repo.dart';
+import 'package:admin_battery/repositories/firebase/firebase_repository.dart';
+import 'package:admin_battery/repositories/firebase_services.dart';
+import 'package:admin_battery/repositories/storage/storage_repo.dart';
+import 'package:admin_battery/screens/battery/battery_screen.dart';
+import 'package:admin_battery/screens/excel/excel_screeen.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,16 +22,37 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.deepOrange),
-      debugShowCheckedModeBanner: false,
-      home: MultiRepositoryProvider(
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<AuthRepository>(
+          create: (_) => AuthRepository(),
+        ),
+        RepositoryProvider<FirebaseServices>(
+          create: (_) => FirebaseServices(),
+        ),
+        RepositoryProvider<StorageRepository>(
+          create: (_) => StorageRepository(),
+        ),
+        RepositoryProvider<FirebaseRepository>(
+          create: (_) => FirebaseRepository(),
+        )
+      ],
+      child: MultiBlocProvider(
         providers: [
-          RepositoryProvider<FirebaseService>(
-            create: (_) => FirebaseService(),
-          )
+          BlocProvider<AuthBloc>(
+            create: (context) => AuthBloc(
+              authRepository: context.read<AuthRepository>(),
+            ),
+          ),
         ],
-        child: HomeScreen(),
+        child: MaterialApp(
+          theme: ThemeData(primarySwatch: Colors.green),
+          debugShowCheckedModeBanner: false,
+          // onGenerateRoute: CustomRouter.onGenerateRoute,
+          // initialRoute: AuthWrapper.routeName,
+          //home: ExcelScreen(),
+          home: BatteryScreen(),
+        ),
       ),
     );
   }
