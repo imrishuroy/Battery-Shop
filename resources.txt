@@ -1,1 +1,5 @@
-Third Deployment - https://script.google.com/macros/s/AKfycbwwVUzcYrxI5dv9uR4bzbe1v0kIKMeV9PY7eSZzRDF6jxsL4ydnCCisayJtM4aljbE/exec
+AMARON API - https://script.google.com/macros/s/AKfycbwwVUzcYrxI5dv9uR4bzbe1v0kIKMeV9PY7eSZzRDF6jxsL4ydnCCisayJtM4aljbE/exec
+
+SKY API - https://script.googleusercontent.com/macros/echo?user_content_key=oUk3TKFBmiP5_K77XK1hyHvH2nleC6u_Iqv2VZwfiH_0SrguwwdsG4BPP5kKZxNW1g8Mime55w60slpxIFh4i9XmIATxHgo6m5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnGAkKxEjFSxQ0VTOisZzy-9H33RauCUiyKlPpwSl-bwbTfU1rbFZvQoKFoR-m5IsDdLOB9eNkyqclWX9-obwMWjqgRNgpOKiyw&lib=Mnq9GLopNcpIZj9j-lBMEQ3ImAf41yL87
+
+EXIDE API - https://script.google.com/macros/s/AKfycbypiDOw94ZCrKsxWMgXXrWNMBLtnQ4Z6njLZoZloYWFEsvNXqwsraIlHKcyiyP34pD0hw/exec

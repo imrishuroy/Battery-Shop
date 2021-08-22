@@ -1,29 +1,45 @@
-import 'package:admin_battery/constants/constants.dart';
 import 'package:admin_battery/models/battery.dart';
-import 'package:dio/dio.dart';
+import 'package:admin_battery/models/failure.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirebaseRepository {
-  final _dio = Dio();
+  final _firestore = FirebaseFirestore.instance;
 
-  Future<List<Battery?>> getAmaronBattery() async {
-    List<Battery?> batteries = [];
+  Future<void> uploadBattery({
+    required List<Battery?> batteries,
+    required String collectionName,
+  }) async {
     try {
-      final response = await _dio.get(Urls.amaronUrl);
-      // print(response.data);
-      // print(response.statusCode);
-      // print(response.data[0].runtimeType);
+      for (var battery in batteries) {
+        if (battery != null) {
+          // print('this runs 2 $batteries');
+          final data = await _firestore
+              .collection(collectionName)
+              .doc(battery.type)
+              .get();
+          if (data.exists) {
+            await _firestore
+                .collection(collectionName)
+                .doc(battery.type)
+                .update(battery.toMap());
 
-      if (response.statusCode == 200) {
-        final List? data = response.data;
-        data?.forEach((element) {
-          final battery = Battery.fromMap(element);
-          batteries.add(battery);
-        });
+            print('Data Exist');
+          } else {
+            //final uid = Uuid().v4();
+            // final myBattery = battery.copyWith(id: uid);
+            await _firestore
+                .collection(collectionName)
+                .doc(battery.type)
+                .set(battery.toMap());
+            print('Data donot exists');
+          }
+
+          //   await _firestore.collection(Paths.battery).add(battery.toMap());
+        }
       }
-      return batteries;
     } catch (error) {
-      print('Errro getting amaron battery');
-      throw error;
+      print('Error uploading batteries ${error.toString()}');
+      throw Failure(message: 'Error uploading batteries');
     }
   }
 }

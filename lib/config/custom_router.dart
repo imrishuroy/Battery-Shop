@@ -1,4 +1,5 @@
 import 'package:admin_battery/config/auth_wrapper.dart';
+import 'package:admin_battery/screens/battery/battery_dashboard.dart';
 import 'package:admin_battery/screens/home/home_screen.dart';
 import 'package:admin_battery/screens/login/login_screen.dart';
 import 'package:admin_battery/succus_screen.dart';
@@ -21,6 +22,9 @@ class CustomRouter {
 
       case HomeScreen.routeName:
         return HomeScreen.route();
+
+      case BatteryDashBoard.routeName:
+        return BatteryDashBoard.route();
 
       case SuccussScreen.routeName:
         return SuccussScreen.route();

@@ -1,4 +1,10 @@
 class Urls {
   static const amaronUrl =
       'https://script.googleusercontent.com/macros/echo?user_content_key=bAkBa0DG45cUI314SLK3KO-M30rm0zsZ-sxRjPDfBLe_CEtQ6Hb87EqGKFUzhzpbSQxfrSCnAICwcZ9A_MGSQKhWEGHmLRRjm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnOT79aDTSBdFVxfaL_qxLF6o3hgvZn7lRw-IHRWhg4l2RWsfPVtF3fvY3u-wTD4wGfZel70imOZjbQznY9a_y2ajiKe7BFLCdg&lib=Mdaw06SYGfkPY0AplIcjP0XImAf41yL87';
+
+  static const skyUrl =
+      'https://script.googleusercontent.com/macros/echo?user_content_key=Q2UhxGwzb5B4oycMbvjXWnG6777ah_58eXfsCgqg6uak9Yd0OvuE8_lKPLM4ZxgnZi4zpVYqL7MKIcuHlQ_o2nsHMXEY7Lagm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnGAkKxEjFSxQ0VTOisZzy-9H33RauCUiyKlPpwSl-bwbTfU1rbFZvQoKFoR-m5IsDdLOB9eNkyqclWX9-obwMWjqgRNgpOKiyw&lib=Mnq9GLopNcpIZj9j-lBMEQ3ImAf41yL87';
+
+  static const exideUrl =
+      'https://script.googleusercontent.com/macros/echo?user_content_key=P2H-pFSe1DxnugaiSFHj8HWN2DP_EFHec-ZPJSQVY6jDYMBZedu68zsZncuTh2aodTNRNNpDOTC2FBFUVaob9Th09my2u2RTm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnE9oNAf8bFfwWkF1InI4MGok97c1whMn6rkeEMeP5e7DF8GtiSi2BGucUKvZBdAEJ6KWuyLH9iaUVOcemIALEuL6jz-41VOu99z9Jw9Md8uu&lib=M8YnFwbCKnm7t3RA22Kz39QMz0pnu8441';
 }

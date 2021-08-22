@@ -4,10 +4,10 @@ import 'package:admin_battery/widgets/table_heading_text.dart';
 
 import 'package:flutter/material.dart';
 
-class AmaronTable extends StatelessWidget {
-  final List<Battery?> amaron;
+class BatteryTable extends StatelessWidget {
+  final List<Battery?> batteries;
 
-  const AmaronTable({Key? key, required this.amaron}) : super(key: key);
+  const BatteryTable({Key? key, required this.batteries}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +26,7 @@ class AmaronTable extends StatelessWidget {
                   children: [
                     TableRow(
                       children: [
+                        TableHeadingText(label: 'S.N0.'),
                         Padding(
                           padding: const EdgeInsets.only(left: 6.0),
                           child: TableHeadingText(
@@ -40,21 +41,24 @@ class AmaronTable extends StatelessWidget {
                         TableHeadingText(label: 'SCRAP'),
                       ],
                     ),
-                    for (var item in amaron)
+                    for (int i = 0; i < batteries.length; i++)
+                      //   for (var amaronBatteries[i] in amaronBatteries)
+
                       TableRow(
                         children: [
+                          TableEntryText(value: '${i + 1}'),
                           Padding(
                             padding: const EdgeInsets.only(left: 6.0),
                             child: TableEntryText(
-                              value: item?.type,
+                              value: batteries[i]?.type,
                               textAlign: TextAlign.start,
                             ),
                           ),
-                          TableEntryText(value: '${item?.ratting}'),
-                          TableEntryText(value: '${item?.warranty}'),
-                          TableEntryText(value: '${item?.price}'),
-                          TableEntryText(value: '${item?.mrp}'),
-                          TableEntryText(value: '${item?.scrap}'),
+                          TableEntryText(value: '${batteries[i]?.ratting}'),
+                          TableEntryText(value: '${batteries[i]?.warranty}'),
+                          TableEntryText(value: '${batteries[i]?.price}'),
+                          TableEntryText(value: '${batteries[i]?.mrp}'),
+                          TableEntryText(value: '${batteries[i]?.scrap}'),
                         ],
                       )
                   ],

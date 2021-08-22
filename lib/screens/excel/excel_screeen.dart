@@ -14,7 +14,7 @@ class ExcelScreen extends StatefulWidget {
 class _ExcelScreenState extends State<ExcelScreen> {
   File? _file;
   List<Data?> _rowData = [];
-  List<List<Data?>> _columnData = [];
+  // List<List<Data?>> _columnData = [];
   List<Map<String, dynamic>> _myData = [];
 
   _pickFile() async {

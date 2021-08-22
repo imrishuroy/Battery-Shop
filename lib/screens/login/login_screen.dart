@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
           automaticallyImplyLeading: false,
           title: Text('Admin Login'),
           centerTitle: true,
-          backgroundColor: Color.fromRGBO(0, 141, 82, 1),
+          //  backgroundColor: Color.fromRGBO(0, 141, 82, 1),
         ),
         body: _isLoading
             ? LoadingIndicator()
@@ -161,12 +161,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (_isLoading) CircularProgressIndicator(),
                               if (!_isLoading)
                                 ElevatedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                      Color.fromRGBO(0, 141, 82, 1),
-                                    ),
-                                  ),
+                                  // style: ButtonStyle(
+                                  //   backgroundColor:
+                                  //       MaterialStateProperty.all<Color>(
+                                  //     Color.fromRGBO(0, 141, 82, 1),
+                                  //   ),
+                                  // ),
                                   onPressed: _login,
                                   //  _adminLogin(context);
 

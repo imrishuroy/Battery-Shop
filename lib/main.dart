@@ -3,13 +3,18 @@ import 'package:admin_battery/blocs/auth/auth_bloc.dart';
 import 'package:admin_battery/repositories/auth/auth_repo.dart';
 import 'package:admin_battery/repositories/firebase/firebase_repository.dart';
 import 'package:admin_battery/repositories/firebase_services.dart';
+import 'package:admin_battery/repositories/rest-apis/rest_apis_repo.dart';
 import 'package:admin_battery/repositories/storage/storage_repo.dart';
-import 'package:admin_battery/screens/battery/battery_screen.dart';
-import 'package:admin_battery/screens/excel/excel_screeen.dart';
+import 'package:admin_battery/screens/amaron/bloc/amaron_bloc.dart';
+import 'package:admin_battery/screens/exide/bloc/exide_bloc.dart';
+import 'package:admin_battery/screens/sky/bloc/sky_bloc.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'config/auth_wrapper.dart';
+import 'config/custom_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,6 +40,9 @@ class MyApp extends StatelessWidget {
         ),
         RepositoryProvider<FirebaseRepository>(
           create: (_) => FirebaseRepository(),
+        ),
+        RepositoryProvider<RestApisRepository>(
+          create: (_) => RestApisRepository(),
         )
       ],
       child: MultiBlocProvider(
@@ -44,14 +52,37 @@ class MyApp extends StatelessWidget {
               authRepository: context.read<AuthRepository>(),
             ),
           ),
+          BlocProvider<AmaronBloc>(
+            create: (context) => AmaronBloc(
+              restApisRepository: context.read<RestApisRepository>(),
+            ),
+          ),
+          BlocProvider<SkyBloc>(
+            create: (context) => SkyBloc(
+              restApisRepository: context.read<RestApisRepository>(),
+            ),
+          ),
+          BlocProvider<ExideBloc>(
+            create: (context) => ExideBloc(
+              restApisRepository: context.read<RestApisRepository>(),
+            ),
+          ),
         ],
         child: MaterialApp(
-          theme: ThemeData(primarySwatch: Colors.green),
+          theme: ThemeData(
+            primaryColor: Colors.redAccent.shade700,
+            primarySwatch: Colors.red,
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.redAccent.shade700,
+              ),
+            ),
+          ),
           debugShowCheckedModeBanner: false,
-          // onGenerateRoute: CustomRouter.onGenerateRoute,
-          // initialRoute: AuthWrapper.routeName,
+          onGenerateRoute: CustomRouter.onGenerateRoute,
+          initialRoute: AuthWrapper.routeName,
           //home: ExcelScreen(),
-          home: BatteryScreen(),
+          // home: BatteryScreen(),
         ),
       ),
     );
