@@ -1,8 +1,11 @@
+import 'package:battery_shop/constants/constants.dart';
 import 'package:battery_shop/models/brand.dart';
 import 'package:battery_shop/repository/services/firebase_service.dart';
+import 'package:battery_shop/screens/home/search_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+
 import 'package:uuid/uuid.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,49 +41,60 @@ class BatteryTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _service = context.read<FirebaseService>();
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10.0,
-        horizontal: 10.0,
-      ),
-      child: Column(
-        children: [
-          Expanded(
-            child: FutureBuilder<QuerySnapshot<Brand?>>(
-              future: _service.getCarBrands(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                return AnimationLimiter(
-                  child: GridView.builder(
-                    itemCount: brands.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                    ),
-                    itemBuilder: (context, index) {
-                      return AnimationConfiguration.staggeredGrid(
-                        duration: const Duration(milliseconds: 375),
-                        position: index,
-                        columnCount: brands.length,
-                        child: ScaleAnimation(
-                          child: FadeInAnimation(
-                            child: BrandCard(
-                              imageUrl: brands[index].logoUrl!,
-                              name: brands[index].name!,
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 10.0,
+          horizontal: 10.0,
+        ),
+        child: Column(
+          children: [
+            Container(
+              height: 140.0,
+              width: double.infinity,
+              child: Image.network(
+                adBanner,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Search(),
+            Expanded(
+              child: FutureBuilder<QuerySnapshot<Brand?>>(
+                future: _service.getCarBrands(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return AnimationLimiter(
+                    child: GridView.builder(
+                      itemCount: brands.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                      ),
+                      itemBuilder: (context, index) {
+                        return AnimationConfiguration.staggeredGrid(
+                          duration: const Duration(milliseconds: 375),
+                          position: index,
+                          columnCount: brands.length,
+                          child: ScaleAnimation(
+                            child: FadeInAnimation(
+                              child: BrandCard(
+                                imageUrl: brands[index].logoUrl!,
+                                name: brands[index].name!,
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                );
-              },
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

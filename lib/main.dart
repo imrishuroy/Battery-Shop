@@ -16,7 +16,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.deepOrange),
+      theme: ThemeData(
+        primaryColor: Colors.redAccent.shade700,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.redAccent.shade700,
+          ),
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       home: MultiRepositoryProvider(
         providers: [

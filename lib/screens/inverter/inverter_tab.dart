@@ -86,7 +86,6 @@ class _InveterTabState extends State<InveterTab> {
 
   String? _loadInWatt;
   String? backup;
-  int _totalWatt = 0;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -158,6 +157,13 @@ class _InveterTabState extends State<InveterTab> {
                 child: Column(
                   children: [
                     TextFormField(
+                      style: TextStyle(
+                        fontSize: 17.0,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1.0,
+                      ),
+                      validator: (value) =>
+                          value!.isEmpty ? 'Load can\'t be empty' : null,
                       controller: _loadContoller,
                       // onChanged: (value) {
                       //   setState(() {
@@ -206,21 +212,21 @@ class _InveterTabState extends State<InveterTab> {
                     //   children: [Text('Total Watt $_totalWatt')],
                     // ),
                     const SizedBox(height: 25.0),
-                    // TextFormField(
-                    //   keyboardType: TextInputType.number,
-                    //   decoration: InputDecoration(
-                    //     hintText: 'Backup Required ( In Hours )',
-                    //     labelText: 'Backup Required ( In Hours )',
-                    //     labelStyle: TextStyle(
-                    //       fontSize: 16.0,
-                    //       fontWeight: FontWeight.w600,
-                    //       letterSpacing: 1.2,
-                    //     ),
-                    //     border: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.circular(4.0),
-                    //     ),
-                    //   ),
-                    // ),
+                    TextFormField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        hintText: 'Backup Required ( In Hours )',
+                        labelText: 'Backup Required ( In Hours )',
+                        labelStyle: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 1.2,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
+                      ),
+                    ),
                     //TextFormField(),
                     const SizedBox(height: 25.0),
                     FormField<String>(
