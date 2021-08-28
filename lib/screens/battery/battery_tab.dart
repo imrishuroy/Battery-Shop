@@ -25,7 +25,7 @@ class BatteryTab extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                  child: StreamBuilder<List<Brand?>>(
+                  child: StreamBuilder<List<VehicleBrand?>>(
                 stream: _service.carBrandsStream(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {

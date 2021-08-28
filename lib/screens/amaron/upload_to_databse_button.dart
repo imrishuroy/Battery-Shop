@@ -37,6 +37,17 @@ class _UploadToDatabaseButtonState extends State<UploadToDatabaseButton> {
           _isUploading = false;
         });
       }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.green,
+          content: Text(
+            'Added to database',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      );
     } on Failure catch (error) {
       print(error.message);
       setState(() {

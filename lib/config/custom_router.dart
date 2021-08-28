@@ -11,8 +11,9 @@ class CustomRouter {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-            settings: const RouteSettings(name: '/'),
-            builder: (_) => Scaffold());
+          settings: const RouteSettings(name: '/'),
+          builder: (_) => Scaffold(),
+        );
 
       case AuthWrapper.routeName:
         return AuthWrapper.route();

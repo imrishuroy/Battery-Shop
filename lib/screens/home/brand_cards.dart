@@ -1,4 +1,5 @@
 import 'package:admin_battery/constants/constants.dart';
+import 'package:admin_battery/screens/vehicle_type/vehicle_type_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -21,11 +22,11 @@ class BrandCard extends StatelessWidget {
           child: InkWell(
             hoverColor: Colors.greenAccent.shade100.withOpacity(0.2),
             onTap: () {
-              // Navigator.of(context).push(
-              //   MaterialPageRoute(
-              //     builder: (context) => VehicleTypeScreen(),
-              //   ),
-              // );
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => VehicleTypeScreen(),
+                ),
+              );
             },
             child: Card(
               //   elevation: 5,

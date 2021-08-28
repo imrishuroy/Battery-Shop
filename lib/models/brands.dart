@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
-class Brand extends Equatable {
+class VehicleBrand extends Equatable {
   final String? name;
   final String? logoUrl;
   final String? id;
 
-  Brand({
+  VehicleBrand({
     required this.name,
     required this.logoUrl,
     required this.id,
@@ -16,12 +16,12 @@ class Brand extends Equatable {
   @override
   List<Object?> get props => [name, logoUrl, id];
 
-  Brand copyWith({
+  VehicleBrand copyWith({
     String? name,
     String? logo,
     String? id,
   }) {
-    return Brand(
+    return VehicleBrand(
       name: name ?? this.name,
       logoUrl: logo ?? this.logoUrl,
       id: id ?? this.id,
@@ -36,8 +36,8 @@ class Brand extends Equatable {
     };
   }
 
-  factory Brand.fromMap(Map<String, dynamic>? map) {
-    return Brand(
+  factory VehicleBrand.fromMap(Map<String, dynamic>? map) {
+    return VehicleBrand(
       name: map?['name'],
       logoUrl: map?['logoUrl'],
       id: map?['id'],
@@ -46,7 +46,8 @@ class Brand extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory Brand.fromJson(String source) => Brand.fromMap(json.decode(source));
+  factory VehicleBrand.fromJson(String source) =>
+      VehicleBrand.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;

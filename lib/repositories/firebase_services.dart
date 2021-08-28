@@ -6,12 +6,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FirebaseServices {
   final _fireStore = FirebaseFirestore.instance;
 
-  Stream<List<Brand?>> carBrandsStream() {
+  Stream<List<VehicleBrand?>> carBrandsStream() {
     try {
       return _fireStore
           .collection(Paths.car_brands)
-          .withConverter<Brand>(
-              fromFirestore: (snapshot, _) => Brand.fromMap(snapshot.data()),
+          .withConverter<VehicleBrand>(
+              fromFirestore: (snapshot, _) =>
+                  VehicleBrand.fromMap(snapshot.data()),
               toFirestore: (brand, _) => brand.toMap())
           .snapshots()
           .map((snap) => snap.docs.map((doc) => doc.data()).toList());
@@ -21,7 +22,7 @@ class FirebaseServices {
     }
   }
 
-  Future addNewVehicle({required Brand brand}) async {
+  Future addNewVehicle({required VehicleBrand brand}) async {
     try {
       final result =
           await _fireStore.collection(Paths.car_brands).add(brand.toMap());

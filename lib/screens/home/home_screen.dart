@@ -1,4 +1,4 @@
-import 'package:admin_battery/screens/battery/battery_tab.dart';
+import 'package:admin_battery/screens/vehicle-brands/vehicle_brands_tab.dart';
 import 'package:admin_battery/widgets/tab_item.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +51,8 @@ class HomeScreen extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
-              const BatteryTab(),
+              const VehicleBrandsTab(),
+              //    const BatteryTab(),
               const Center(child: Text('N/A')),
               //InveterTab(),
             ],

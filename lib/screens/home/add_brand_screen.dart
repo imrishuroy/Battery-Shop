@@ -61,7 +61,7 @@ class _AddBrandScreenState extends State<AddBrandScreen> {
           final id = Uuid().v4();
           final imageUrl =
               await _storageRepo.uploadImageWeb(file: _file!, id: id);
-          final brand = Brand(name: _name, logoUrl: imageUrl, id: id);
+          final brand = VehicleBrand(name: _name, logoUrl: imageUrl, id: id);
           await _firebaseService.addNewVehicle(brand: brand);
         }
       }
