@@ -2,7 +2,7 @@ import 'package:admin_battery/screens/vehicle-brands/vehicle_brands_tab.dart';
 import 'package:admin_battery/widgets/tab_item.dart';
 import 'package:flutter/material.dart';
 
-import 'add_brand_screen.dart';
+import 'add_vehicle_brand_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = '/home';
@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (_) => AddBrandScreen(),
+                  builder: (_) => AddVehicleBrandScreen(),
                 ),
               );
             },

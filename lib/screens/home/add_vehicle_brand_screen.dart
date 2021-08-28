@@ -12,14 +12,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:uuid/uuid.dart';
 
-class AddBrandScreen extends StatefulWidget {
-  AddBrandScreen({Key? key}) : super(key: key);
+class AddVehicleBrandScreen extends StatefulWidget {
+  AddVehicleBrandScreen({Key? key}) : super(key: key);
 
   @override
-  _AddBrandScreenState createState() => _AddBrandScreenState();
+  _AddVehicleBrandScreenState createState() => _AddVehicleBrandScreenState();
 }
 
-class _AddBrandScreenState extends State<AddBrandScreen> {
+class _AddVehicleBrandScreenState extends State<AddVehicleBrandScreen> {
   void _pickImage(BuildContext context) async {
     final ImagePicker _picker = ImagePicker();
 

@@ -1,6 +1,7 @@
 import 'package:admin_battery/blocs/auth/auth_bloc.dart';
 
 import 'package:admin_battery/repositories/auth/auth_repo.dart';
+import 'package:admin_battery/repositories/battery/battery_repository.dart';
 import 'package:admin_battery/repositories/firebase/firebase_repository.dart';
 import 'package:admin_battery/repositories/firebase_services.dart';
 import 'package:admin_battery/repositories/rest-apis/rest_apis_repo.dart';
@@ -44,6 +45,9 @@ class MyApp extends StatelessWidget {
         ),
         RepositoryProvider<RestApisRepository>(
           create: (_) => RestApisRepository(),
+        ),
+        RepositoryProvider(
+          create: (_) => BatteryRepository(),
         )
       ],
       child: MultiBlocProvider(
@@ -53,21 +57,21 @@ class MyApp extends StatelessWidget {
               authRepository: context.read<AuthRepository>(),
             ),
           ),
-          BlocProvider<AmaronBloc>(
-            create: (context) => AmaronBloc(
-              restApisRepository: context.read<RestApisRepository>(),
-            ),
-          ),
-          BlocProvider<SkyBloc>(
-            create: (context) => SkyBloc(
-              restApisRepository: context.read<RestApisRepository>(),
-            ),
-          ),
-          BlocProvider<ExideBloc>(
-            create: (context) => ExideBloc(
-              restApisRepository: context.read<RestApisRepository>(),
-            ),
-          ),
+          // BlocProvider<AmaronBloc>(
+          //   create: (context) => AmaronBloc(
+          //     restApisRepository: context.read<RestApisRepository>(),
+          //   ),
+          // ),
+          // BlocProvider<SkyBloc>(
+          //   create: (context) => SkyBloc(
+          //     restApisRepository: context.read<RestApisRepository>(),
+          //   ),
+          // ),
+          // BlocProvider<ExideBloc>(
+          //   create: (context) => ExideBloc(
+          //     restApisRepository: context.read<RestApisRepository>(),
+          //   ),
+          // ),
           BlocProvider<VehicleBrandsBloc>(
             create: (context) => VehicleBrandsBloc(
               firebaseServices: context.read<FirebaseServices>(),

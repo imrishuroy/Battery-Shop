@@ -53,8 +53,7 @@ class VehicleBrandsTab extends StatelessWidget {
                               child: ScaleAnimation(
                                 child: FadeInAnimation(
                                   child: BrandCard(
-                                    imageUrl: brand?.logoUrl,
-                                    name: brand!.name!,
+                                    vehicleBrand: brand,
                                   ),
                                 ),
                               ),

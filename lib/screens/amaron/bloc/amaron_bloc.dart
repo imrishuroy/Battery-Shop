@@ -11,16 +11,16 @@ part 'amaron_event.dart';
 part 'amaron_state.dart';
 
 class AmaronBloc extends Bloc<AmaronEvent, AmaronState> {
-  final RestApisRepository _apisRepository;
+  final _repository;
   StreamSubscription? _batterySubscription;
 
-  AmaronBloc({required RestApisRepository restApisRepository})
-      : _apisRepository = restApisRepository,
+  AmaronBloc({required repository, required String path})
+      // TODO: Add amaron url when fetching data form rest API
+      : _repository = repository,
         super(AmaronState.initial()) {
     _batterySubscription?.cancel();
-    _batterySubscription =
-        Stream.fromFuture(_apisRepository.getBatteries(Urls.amaronUrl)).listen(
-            (batteries) => add(LoadAmaronBatteries(batteries: batteries)));
+    _batterySubscription = Stream.fromFuture(_repository.getBatteries(path))
+        .listen((batteries) => add(LoadAmaronBatteries(batteries: batteries)));
   }
 
   @override
@@ -52,7 +52,7 @@ class AmaronBloc extends Bloc<AmaronEvent, AmaronState> {
     _batterySubscription?.cancel();
     // yield state.copyWith(status: AmaronStatus.loading);
     _batterySubscription =
-        Stream.fromFuture(_apisRepository.getBatteries(Urls.amaronUrl)).listen(
+        Stream.fromFuture(_repository.getBatteries(Urls.amaronUrl)).listen(
             (batteries) => add(LoadAmaronBatteries(batteries: batteries)));
     //yield state.copyWith(status: AmaronStatus.loaded);
   }

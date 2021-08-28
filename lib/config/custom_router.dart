@@ -2,6 +2,7 @@ import 'package:admin_battery/config/auth_wrapper.dart';
 import 'package:admin_battery/screens/battery/battery_dashboard.dart';
 import 'package:admin_battery/screens/home/home_screen.dart';
 import 'package:admin_battery/screens/login/login_screen.dart';
+import 'package:admin_battery/screens/remote-battery/remote-battery_screen.dart';
 import 'package:admin_battery/succus_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,9 @@ class CustomRouter {
 
       case BatteryDashBoard.routeName:
         return BatteryDashBoard.route();
+
+      case RemoteBatteryScreen.routeName:
+        return RemoteBatteryScreen.route();
 
       case SuccussScreen.routeName:
         return SuccussScreen.route();

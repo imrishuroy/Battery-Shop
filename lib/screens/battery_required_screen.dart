@@ -1,6 +1,12 @@
+import 'package:admin_battery/config/paths.dart';
+import 'package:admin_battery/enums/enums.dart';
 import 'package:admin_battery/models/battery_required.dart';
+import 'package:admin_battery/repositories/battery/battery_repository.dart';
+import 'package:admin_battery/screens/amaron/bloc/amaron_bloc.dart';
+import 'package:admin_battery/screens/battery/add_battery_to_vehicle.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,11 +23,39 @@ List<BatteryRequired> batteries = [
 ];
 
 class BatteryRequiredScreen extends StatelessWidget {
-  const BatteryRequiredScreen({Key? key}) : super(key: key);
+  final String? vehicleBrandId;
+  final FuelType fuelType;
+  final String? vehicleId;
+
+  const BatteryRequiredScreen(
+      {Key? key,
+      required this.vehicleBrandId,
+      required this.fuelType,
+      required this.vehicleId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            PageRouteBuilder(
+              pageBuilder: (context, _, __) => BlocProvider<AmaronBloc>(
+                create: (context) => AmaronBloc(
+                    repository: context.read<BatteryRepository>(),
+                    path: Paths.amaron),
+                child: AddBatteryToVehicle(
+                  vehicleBrandId: vehicleBrandId,
+                  vehicleId: vehicleId,
+                  fuelType: fuelType,
+                ),
+              ),
+            ),
+          );
+        },
+        child: Icon(Icons.add),
+      ),
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         centerTitle: true,

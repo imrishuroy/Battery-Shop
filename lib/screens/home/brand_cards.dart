@@ -1,14 +1,14 @@
 import 'package:admin_battery/constants/constants.dart';
-import 'package:admin_battery/screens/vehicle_type/vehicle_type_screen.dart';
+import 'package:admin_battery/models/brands.dart';
+import 'package:admin_battery/screens/fule-type/fule_type_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class BrandCard extends StatelessWidget {
-  final String? imageUrl;
-  final String name;
+  final VehicleBrand? vehicleBrand;
 
-  const BrandCard({Key? key, required this.imageUrl, required this.name})
-      : super(key: key);
+  const BrandCard({Key? key, required this.vehicleBrand}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,9 @@ class BrandCard extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => VehicleTypeScreen(),
+                  builder: (context) => FuleTypeScreen(
+                    vehicleBrandId: vehicleBrand?.id,
+                  ),
                 ),
               );
             },
@@ -41,7 +43,7 @@ class BrandCard extends StatelessWidget {
                     height: size.localWidgetSize.height - 40.0,
                     width: size.localWidgetSize.width,
                     child: Image.network(
-                      imageUrl ?? errorImage,
+                      vehicleBrand?.logoUrl ?? errorImage,
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -56,7 +58,7 @@ class BrandCard extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      '$name',
+                      '${vehicleBrand?.name ?? 'N/A'}',
                       style: TextStyle(
                         fontSize: 18.0,
                         // fontWeight: FontWeight.w500,

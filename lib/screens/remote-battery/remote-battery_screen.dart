@@ -1,28 +1,32 @@
 import 'package:admin_battery/constants/urls.dart';
+import 'package:admin_battery/repositories/battery/battery_repository.dart';
 import 'package:admin_battery/repositories/rest-apis/rest_apis_repo.dart';
-import 'package:admin_battery/screens/amaron/amaron_tab.dart';
 import 'package:admin_battery/screens/amaron/bloc/amaron_bloc.dart';
 import 'package:admin_battery/screens/exide/bloc/exide_bloc.dart';
 import 'package:admin_battery/screens/exide/exide_tab.dart';
+import 'package:admin_battery/screens/remote-battery/remote_amaron_tab.dart';
 import 'package:admin_battery/screens/sky/bloc/sky_bloc.dart';
 import 'package:admin_battery/screens/sky/sky_tab.dart';
 import 'package:admin_battery/widgets/tab_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BatteryDashBoard extends StatelessWidget {
-  static const String routeName = '/battery-dashboard';
+class RemoteBatteryArguments {}
+
+class RemoteBatteryScreen extends StatelessWidget {
+  static const String routeName = '/remote-battery';
 
   static Route route() {
     return PageRouteBuilder(
-      settings: RouteSettings(name: routeName),
+      settings:
+          RouteSettings(name: routeName, arguments: RemoteBatteryArguments),
       transitionDuration: const Duration(seconds: 0),
       pageBuilder: (context, _, __) {
         return MultiBlocProvider(providers: [
           BlocProvider<AmaronBloc>(
             create: (context) => AmaronBloc(
               path: Urls.amaronUrl,
-              repository: context.read<RestApisRepository>(),
+              repository: context.read<BatteryRepository>(),
             ),
           ),
           BlocProvider<SkyBloc>(
@@ -35,12 +39,12 @@ class BatteryDashBoard extends StatelessWidget {
               restApisRepository: context.read<RestApisRepository>(),
             ),
           ),
-        ], child: BatteryDashBoard());
+        ], child: RemoteBatteryScreen());
       },
     );
   }
 
-  const BatteryDashBoard({Key? key}) : super(key: key);
+  const RemoteBatteryScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +66,8 @@ class BatteryDashBoard extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            AmaronTab(),
+            //AmaronTab(),()
+            RemoteAmaronTab(),
             ExideTab(),
             SkyTab(),
           ],

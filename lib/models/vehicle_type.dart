@@ -1,9 +1,8 @@
 import 'dart:convert';
 
+import 'package:admin_battery/enums/enums.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:equatable/equatable.dart';
-
-enum FuelType { petrol, diesel }
 
 class VehicleType extends Equatable {
   final FuelType? type;
