@@ -85,7 +85,13 @@ class VehiclesScreen extends StatelessWidget {
                                         child: InkWell(
                                           onTap: () {
                                             Navigator.of(context).pushNamed(
-                                                RemoteBatteryScreen.routeName);
+                                              RemoteBatteryScreen.routeName,
+                                              arguments: RemoteBatteryArguments(
+                                                vehicleBrandId: vehicleBrandId,
+                                                fuelType: fuelType,
+                                                vehicleId: vehicle?.vehicleId,
+                                              ),
+                                            );
                                             // Navigator.of(context).pushNamed(
                                             //     BatteryDashBoard.routeName);
 

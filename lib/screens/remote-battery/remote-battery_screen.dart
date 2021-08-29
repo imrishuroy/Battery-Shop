@@ -1,4 +1,6 @@
+import 'package:admin_battery/config/paths.dart';
 import 'package:admin_battery/constants/urls.dart';
+import 'package:admin_battery/enums/enums.dart';
 import 'package:admin_battery/repositories/battery/battery_repository.dart';
 import 'package:admin_battery/repositories/rest-apis/rest_apis_repo.dart';
 import 'package:admin_battery/screens/amaron/bloc/amaron_bloc.dart';
@@ -11,40 +13,65 @@ import 'package:admin_battery/widgets/tab_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RemoteBatteryArguments {}
+class RemoteBatteryArguments {
+  final String? vehicleBrandId;
+  final FuelType fuelType;
+  final String? vehicleId;
+
+  const RemoteBatteryArguments({
+    required this.vehicleBrandId,
+    required this.fuelType,
+    required this.vehicleId,
+  });
+}
 
 class RemoteBatteryScreen extends StatelessWidget {
+  final String? vehicleBrandId;
+  final FuelType? fuelType;
+  final String? vehicleId;
+
   static const String routeName = '/remote-battery';
 
-  static Route route() {
+  const RemoteBatteryScreen({
+    Key? key,
+    required this.vehicleBrandId,
+    required this.fuelType,
+    required this.vehicleId,
+  }) : super(key: key);
+
+  static Route route({required RemoteBatteryArguments? args}) {
     return PageRouteBuilder(
-      settings:
-          RouteSettings(name: routeName, arguments: RemoteBatteryArguments),
+      settings: RouteSettings(name: routeName),
       transitionDuration: const Duration(seconds: 0),
       pageBuilder: (context, _, __) {
-        return MultiBlocProvider(providers: [
-          BlocProvider<AmaronBloc>(
-            create: (context) => AmaronBloc(
-              path: Urls.amaronUrl,
-              repository: context.read<BatteryRepository>(),
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<AmaronBloc>(
+              create: (context) => AmaronBloc(
+                path: Paths.amaron,
+                repository: context.read<BatteryRepository>(),
+              ),
             ),
-          ),
-          BlocProvider<SkyBloc>(
-            create: (context) => SkyBloc(
-              restApisRepository: context.read<RestApisRepository>(),
+            BlocProvider<SkyBloc>(
+              create: (context) => SkyBloc(
+                restApisRepository: context.read<RestApisRepository>(),
+              ),
             ),
-          ),
-          BlocProvider<ExideBloc>(
-            create: (context) => ExideBloc(
-              restApisRepository: context.read<RestApisRepository>(),
+            BlocProvider<ExideBloc>(
+              create: (context) => ExideBloc(
+                restApisRepository: context.read<RestApisRepository>(),
+              ),
             ),
+          ],
+          child: RemoteBatteryScreen(
+            vehicleBrandId: args?.vehicleBrandId,
+            vehicleId: args?.vehicleId,
+            fuelType: args?.fuelType,
           ),
-        ], child: RemoteBatteryScreen());
+        );
       },
     );
   }
-
-  const RemoteBatteryScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +94,11 @@ class RemoteBatteryScreen extends StatelessWidget {
         body: TabBarView(
           children: [
             //AmaronTab(),()
-            RemoteAmaronTab(),
+            RemoteAmaronTab(
+              vehicleBrandId: vehicleBrandId,
+              fuelType: fuelType ?? FuelType.petrol,
+              vehicleId: vehicleId,
+            ),
             ExideTab(),
             SkyTab(),
           ],

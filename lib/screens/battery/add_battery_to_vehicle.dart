@@ -1,4 +1,7 @@
+import 'package:admin_battery/blocs/vehicle-blocs/vehicle_batteries_bloc.dart';
+import 'package:admin_battery/config/paths.dart';
 import 'package:admin_battery/enums/enums.dart';
+import 'package:admin_battery/repositories/battery/battery_repository.dart';
 import 'package:admin_battery/screens/amaron/bloc/amaron_bloc.dart';
 import 'package:admin_battery/screens/battery/select_battery_tabel.dart';
 import 'package:flutter/material.dart';
@@ -71,11 +74,19 @@ class _AddBatteryToVehicleState extends State<AddBatteryToVehicle> {
                       child: Text('Something went wrong'),
                     );
                   case AmaronStatus.loaded:
-                    return SelectBatteryTable(
-                      batteries: state.batteries,
-                      vehicleBrandId: widget.vehicleBrandId,
-                      vehicleId: widget.vehicleId,
-                      fuelType: widget.fuelType,
+                    return BlocProvider<VehicleBatteriesBloc>(
+                      create: (context) => VehicleBatteriesBloc(
+                        batteryRepository: context.read<BatteryRepository>(),
+                        vehicleBrandId: widget.vehicleBrandId,
+                        fuelType: widget.fuelType,
+                        vehicleId: widget.vehicleId,
+                      ),
+                      child: SelectBatteryTable(
+                        batteries: state.batteries,
+                        vehicleBrandId: widget.vehicleBrandId,
+                        vehicleId: widget.vehicleId,
+                        fuelType: widget.fuelType,
+                      ),
                     );
 
                   default:

@@ -23,3 +23,13 @@ class RefreshAmaronBatteries extends AmaronEvent {
   @override
   bool? get stringify => true;
 }
+
+class LoadRemoteBatteries extends AmaronEvent {
+  final List<Battery?> remoteBatteries;
+
+  LoadRemoteBatteries({required this.remoteBatteries});
+  @override
+  List<Object> get props => [remoteBatteries];
+  @override
+  bool? get stringify => true;
+}

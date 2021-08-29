@@ -29,7 +29,8 @@ class CustomRouter {
         return BatteryDashBoard.route();
 
       case RemoteBatteryScreen.routeName:
-        return RemoteBatteryScreen.route();
+        return RemoteBatteryScreen.route(
+            args: settings.arguments as RemoteBatteryArguments?);
 
       case SuccussScreen.routeName:
         return SuccussScreen.route();

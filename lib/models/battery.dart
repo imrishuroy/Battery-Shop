@@ -1,8 +1,9 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class Battery extends Equatable {
-  final String? id;
+  // final String? id;
   final String? type;
   final int? ratting;
   final double? price;
@@ -10,8 +11,7 @@ class Battery extends Equatable {
   final int? scrap;
   final String? warranty;
 
-  Battery({
-    this.id,
+  const Battery({
     required this.type,
     required this.ratting,
     required this.price,
@@ -23,7 +23,6 @@ class Battery extends Equatable {
   @override
   List<Object?> get props {
     return [
-      id,
       type,
       ratting,
       price,
@@ -43,7 +42,7 @@ class Battery extends Equatable {
     String? warranty,
   }) {
     return Battery(
-      id: id ?? this.id,
+      //   id: id ?? this.id,
       type: type ?? this.type,
       ratting: ratting ?? this.ratting,
       price: price ?? this.price,
@@ -55,7 +54,7 @@ class Battery extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      //   'id': id,
       'type': type,
       'ratting': ratting,
       'price': price,
@@ -65,9 +64,18 @@ class Battery extends Equatable {
     };
   }
 
+  static const emptyBattery = Battery(
+    type: null,
+    ratting: 0,
+    price: 0.0,
+    mrp: 0.0,
+    scrap: 0,
+    warranty: '',
+  );
+
   factory Battery.fromMap(Map<String, dynamic> map) {
     return Battery(
-      id: map['id'],
+      //  id: map['id'],
       type: map['type'],
       ratting: map['ratting'],
       price: map['price'],
@@ -76,6 +84,38 @@ class Battery extends Equatable {
       warranty: map['warranty'],
     );
   }
+
+  static Future<Battery?> fromDocument(Map<String, dynamic> map) async {
+    // print('Map $map');
+    final DocumentReference? doc = map['battery'];
+    //  print('Runtime ${doc.runtimeType}');
+    // print('Doc $doc');
+    final response = await doc?.get();
+    final data = response?.data() as Map<String, dynamic>?;
+    // print('Data $data');
+
+    if (data != null) {
+      return Battery.fromMap(data);
+    }
+
+    // final data = await doc?.get() as Map<String, dynamic>?;
+    // print('Data $data');
+    // if (data != null) {
+    //   return Battery.fromMap(data);
+    // }
+    // return Battery.emptyBattery;
+  }
+
+  // factory Battery.fromDocument(Map<String, dynamic> map) async{
+  //   print('Runtime type ${map['battery']}');
+  //   final DocumentReference? doc = map['battery'];
+
+  //   final data =  await doc?.get() as Map<String, dynamic>?;
+  //   if (data != null) {
+  //     return Battery.fromMap(data);
+  //   }
+  //   return Battery.emptyBattery;
+  // }
 
   String toJson() => json.encode(toMap());
 

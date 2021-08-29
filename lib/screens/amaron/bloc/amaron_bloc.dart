@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:admin_battery/constants/urls.dart';
 import 'package:admin_battery/models/battery.dart';
 import 'package:admin_battery/models/failure.dart';
+import 'package:admin_battery/repositories/battery/battery_repository.dart';
 import 'package:admin_battery/repositories/rest-apis/rest_apis_repo.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -12,20 +13,28 @@ part 'amaron_state.dart';
 
 class AmaronBloc extends Bloc<AmaronEvent, AmaronState> {
   final _repository;
+
   StreamSubscription? _batterySubscription;
 
-  AmaronBloc({required repository, required String path})
-      // TODO: Add amaron url when fetching data form rest API
-      : _repository = repository,
+  final String _path;
+
+  AmaronBloc({
+    required repository,
+    required String path,
+  })  
+  // TODO: Add amaron url when fetching data form rest API
+  : _repository = repository,
+        _path = path,
         super(AmaronState.initial()) {
     _batterySubscription?.cancel();
-    _batterySubscription = Stream.fromFuture(_repository.getBatteries(path))
+    _batterySubscription = Stream.fromFuture(_repository.getBatteries(_path))
         .listen((batteries) => add(LoadAmaronBatteries(batteries: batteries)));
   }
 
   @override
   Future<void> close() {
     _batterySubscription?.cancel();
+
     return super.close();
   }
 
