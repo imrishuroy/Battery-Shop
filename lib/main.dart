@@ -6,9 +6,6 @@ import 'package:admin_battery/repositories/firebase/firebase_repository.dart';
 import 'package:admin_battery/repositories/firebase_services.dart';
 import 'package:admin_battery/repositories/rest-apis/rest_apis_repo.dart';
 import 'package:admin_battery/repositories/storage/storage_repo.dart';
-import 'package:admin_battery/screens/amaron/bloc/amaron_bloc.dart';
-import 'package:admin_battery/screens/exide/bloc/exide_bloc.dart';
-import 'package:admin_battery/screens/sky/bloc/sky_bloc.dart';
 import 'package:admin_battery/screens/vehicle-brands/bloc/vehicle_brands_bloc.dart';
 
 import 'package:firebase_core/firebase_core.dart';

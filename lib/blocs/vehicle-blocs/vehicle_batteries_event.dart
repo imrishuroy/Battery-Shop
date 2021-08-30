@@ -18,3 +18,37 @@ class LoadVehicleBatteries extends VehicleBatteriesEvent {
   @override
   bool? get stringify => true;
 }
+
+class UpdateVehicleBatteries extends VehicleBatteriesEvent {
+  final List<Battery?> updatedBatteries;
+
+  UpdateVehicleBatteries({required this.updatedBatteries});
+
+  @override
+  List<Object> get props => [updatedBatteries];
+
+  @override
+  bool? get stringify => true;
+}
+
+class DeleteAVehicleBattery extends VehicleBatteriesEvent {
+  final Battery battery;
+
+  DeleteAVehicleBattery({required this.battery});
+  @override
+  List<Object> get props => [battery];
+
+  @override
+  bool? get stringify => true;
+}
+
+class AddAVehicleBattery extends VehicleBatteriesEvent {
+  final Battery battery;
+
+  AddAVehicleBattery({required this.battery});
+  @override
+  List<Object> get props => [battery];
+
+  @override
+  bool? get stringify => true;
+}

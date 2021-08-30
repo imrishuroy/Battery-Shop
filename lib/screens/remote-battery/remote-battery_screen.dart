@@ -1,5 +1,4 @@
 import 'package:admin_battery/config/paths.dart';
-import 'package:admin_battery/constants/urls.dart';
 import 'package:admin_battery/enums/enums.dart';
 import 'package:admin_battery/repositories/battery/battery_repository.dart';
 import 'package:admin_battery/repositories/rest-apis/rest_apis_repo.dart';

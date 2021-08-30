@@ -1,13 +1,13 @@
 import 'package:admin_battery/blocs/vehicle-blocs/vehicle_batteries_bloc.dart';
 import 'package:admin_battery/enums/enums.dart';
 import 'package:admin_battery/models/battery.dart';
-import 'package:admin_battery/repositories/firebase_services.dart';
+
 import 'package:admin_battery/widgets/table_entry_text.dart';
 import 'package:admin_battery/widgets/table_heading_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
-class SelectBatteryTable extends StatefulWidget {
+class SelectBatteryTable extends StatelessWidget {
   final List<Battery?> batteries;
   final String? vehicleBrandId;
   final FuelType fuelType;
@@ -21,31 +21,35 @@ class SelectBatteryTable extends StatefulWidget {
     required this.vehicleId,
   }) : super(key: key);
 
-  @override
-  _SelectBatteryTableState createState() => _SelectBatteryTableState();
-}
+  void _addOrDeleteBattery(
+    BuildContext context, {
+    required Battery? currentBattery,
+    required List<Battery?> batteries,
+  }) async {
+    try {
+      if (currentBattery != null) {
+        if (batteries.contains(currentBattery)) {
+          print('Contains');
 
-class _SelectBatteryTableState extends State<SelectBatteryTable> {
-  _submit(BuildContext context) async {
-    final _firebaseService = context.read<FirebaseServices>();
-    await _firebaseService.addBatteryToVehicle(
-      vehicleBrandId: widget.vehicleBrandId,
-      fuelType: widget.fuelType,
-      vehicleId: widget.vehicleId,
-      battery: _battery,
-      batteryBrand: 'amaron',
-    );
+          context
+              .read<VehicleBatteriesBloc>()
+              .add(DeleteAVehicleBattery(battery: currentBattery));
+        } else {
+          print('Dones not contains');
+
+          context
+              .read<VehicleBatteriesBloc>()
+              .add(AddAVehicleBattery(battery: currentBattery));
+        }
+      }
+    } catch (error) {
+      print('Error addding deleting battery ${error.toString()}');
+    }
   }
-
-  Battery? _battery;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _submit(context),
-        child: Icon(Icons.add),
-      ),
       body: BlocConsumer<VehicleBatteriesBloc, VehicleBatteriesState>(
         listener: (context, state) {
           print('Vehicel Bloc Status ${state.status}');
@@ -58,21 +62,6 @@ class _SelectBatteryTableState extends State<SelectBatteryTable> {
               );
 
             case VehicleBatteriesStatus.succuss:
-              // print('Vehilce Battery ${state.vehicleBatteries}');
-              // print('Widget Batteries ${widget.batteries}');
-              // List<String?> batteriesType = [];
-              // widget.batteries.forEach((element) {
-              //   batteriesType.add(element?.type);
-              // });
-              List<String?> vehicleBatteryType = [];
-              state.vehicleBatteries.forEach((element) {
-                vehicleBatteryType.add(element?.type);
-              });
-              print('vehicleBatteryType $vehicleBatteryType');
-              // print('battery Type $batteriesType');
-              // print('Vehilce Battery ${state.vehicleBatteries[1]?.type}');
-              // print('Widget Batteries ${widget.batteries[1]?.type}');
-
               return Center(
                 child: SingleChildScrollView(
                   child: Column(
@@ -107,56 +96,36 @@ class _SelectBatteryTableState extends State<SelectBatteryTable> {
                                   TableHeadingText(label: 'Select')
                                 ],
                               ),
-                              for (int i = 0; i < widget.batteries.length; i++)
-                                //   for (var amaronBatteries[i] in amaronBatteries)
-
+                              for (int i = 0; i < batteries.length; i++)
                                 TableRow(
                                   children: [
                                     TableEntryText(value: '${i + 1}'),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 6.0),
                                       child: TableEntryText(
-                                        value: widget.batteries[i]?.type,
+                                        value: batteries[i]?.type,
                                         textAlign: TextAlign.start,
                                       ),
                                     ),
                                     TableEntryText(
-                                        value:
-                                            '${widget.batteries[i]?.ratting}'),
+                                        value: '${batteries[i]?.ratting}'),
                                     TableEntryText(
-                                        value:
-                                            '${widget.batteries[i]?.warranty}'),
+                                        value: '${batteries[i]?.warranty}'),
                                     TableEntryText(
-                                        value: '${widget.batteries[i]?.price}'),
+                                        value: '${batteries[i]?.price}'),
                                     TableEntryText(
-                                        value: '${widget.batteries[i]?.mrp}'),
+                                        value: '${batteries[i]?.mrp}'),
                                     TableEntryText(
-                                        value: '${widget.batteries[i]?.scrap}'),
-                                    // Checkbox(value: false, onChanged: (value) {})
+                                        value: '${batteries[i]?.scrap}'),
                                     SelectOneBattery(
-                                        onCheckboxChanged: (value) {},
-                                        // this was working but not efficient
-                                        // isSelected: state.vehicleBatteries
-                                        //     .contains(widget.batteries[i]),
-                                        isSelected: vehicleBatteryType
-                                            .contains(widget.batteries[i]?.type)
-
-                                        // isSelected: false,
-
-                                        // isSelected:
-                                        //     state.vehicleBatteries[i]?.type ==
-                                        //         widget.batteries[i]?.type,
-                                        // isSelected: state.vehicleBatteries
-                                        //     .contains(widget.batteries[i])
-
-                                        // state.vehicleBatteries[i].id ==
-                                        //     widget.batteries[i + 1].id,
-                                        // onPressed: () {
-                                        //   setState(() {
-                                        //     _battery = widget.batteries[i];
-                                        //   });
-                                        // },
-                                        ),
+                                      onCheckboxChanged: (_) =>
+                                          _addOrDeleteBattery(context,
+                                              currentBattery: batteries[i],
+                                              batteries:
+                                                  state.vehicleBatteries),
+                                      isSelected: state.vehicleBatteries
+                                          .contains(batteries[i]),
+                                    ),
                                   ],
                                 )
                             ],
@@ -177,7 +146,7 @@ class _SelectBatteryTableState extends State<SelectBatteryTable> {
   }
 }
 
-class SelectOneBattery extends StatefulWidget {
+class SelectOneBattery extends StatelessWidget {
   //final Function onPressed;
   final ValueChanged<bool?>? onCheckboxChanged;
   final bool isSelected;
@@ -186,15 +155,10 @@ class SelectOneBattery extends StatefulWidget {
       {Key? key, this.onCheckboxChanged, required this.isSelected})
       : super(key: key);
 
-  @override
-  _SelectOneBatteryState createState() => _SelectOneBatteryState();
-}
-
-class _SelectOneBatteryState extends State<SelectOneBattery> {
   // bool _isSelected = false;
 
   // void _onSelect(bool? value) {
-  //   widget.onPressed();
+  //   onPressed();
   //   setState(() {
   //     if (value != null) {
   //       _isSelected = value;
@@ -204,7 +168,6 @@ class _SelectOneBatteryState extends State<SelectOneBattery> {
 
   @override
   Widget build(BuildContext context) {
-    return Checkbox(
-        value: widget.isSelected, onChanged: widget.onCheckboxChanged);
+    return Checkbox(value: isSelected, onChanged: onCheckboxChanged);
   }
 }

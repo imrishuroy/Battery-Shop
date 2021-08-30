@@ -24,8 +24,8 @@ class RemoteAmaronTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton:
-          FloatingActionButton(onPressed: () {}, child: Icon(Icons.check)),
+      // floatingActionButton:
+      //     FloatingActionButton(onPressed: () {}, child: Icon(Icons.check)),
       // floatingActionButton: UploadToDatabaseButton(
       //   batteries: context.read<AmaronBloc>().state.batteries,
       //   collectionName: Paths.amaron,

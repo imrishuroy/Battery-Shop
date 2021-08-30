@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:admin_battery/enums/enums.dart';
 import 'package:admin_battery/models/battery.dart';
 import 'package:admin_battery/models/failure.dart';
@@ -65,6 +64,14 @@ class VehicleBatteriesBloc
     if (event is LoadVehicleBatteries) {
       yield* _mapLoadVehicleBatteriesToState(event);
     }
+    //else if (event is UpdateVehicleBatteries) {
+    //yield* _mapUpdateVehicleBatteriesToState(event);
+    //}
+    else if (event is DeleteAVehicleBattery) {
+      yield* _mapDeleteABatteryToState(event);
+    } else if (event is AddAVehicleBattery) {
+      yield* _mapAddAVehicleBatteryToState(event);
+    }
   }
 
   Stream<VehicleBatteriesState> _mapLoadVehicleBatteriesToState(
@@ -73,5 +80,57 @@ class VehicleBatteriesBloc
       vehicleBatteries: event.vehicleBatteries,
       status: VehicleBatteriesStatus.succuss,
     );
+  }
+
+  // Stream<VehicleBatteriesState> _mapUpdateVehicleBatteriesToState(
+  //     UpdateVehicleBatteries event) async* {
+  //   // yield VehicleBatteriesState.loaded(batteries: event.updatedBatteries);
+  //   yield state.copyWith(
+  //     vehicleBatteries: event.updatedBatteries,
+  //     status: VehicleBatteriesStatus.succuss,
+  //   );
+  // }
+
+  Stream<VehicleBatteriesState> _mapAddAVehicleBatteryToState(
+      AddAVehicleBattery event) async* {
+    _batteryRepository.addBatteryToVehicle(
+      vehicleBrandId: _vehicleBrandId,
+      fuelType: _fuelType,
+      vehicleId: _vehicleId,
+      batteryType: event.battery.type,
+      batteryBrand: 'amaron',
+    );
+  }
+
+  Stream<VehicleBatteriesState> _mapDeleteABatteryToState(
+      DeleteAVehicleBattery event) async* {
+    _batteryRepository.removeBatteryFromVehicle(
+      vehicleBrandId: _vehicleBrandId,
+      fuelType: _fuelType,
+      vehicleId: _vehicleId,
+      batteryType: event.battery.type,
+    );
+
+    // if (state.vehicleBatteries.contains(event.battery)) {
+    //   print('Vehicle Battery Contains ${event.battery}');
+    //   final batteries = state.vehicleBatteries;
+    //   final result = batteries.remove(event.battery);
+    //   print('Batteris $batteries');
+
+    //   if (result) {
+    //     //state.vehicleBatteries.remove(event.battery);
+    //     // yield state.copyWith(
+    //     //   vehicleBatteries: batteries,
+    //     //   status: VehicleBatteriesStatus.succuss,
+    //     // );
+    //     yield VehicleBatteriesState.loaded(batteries: batteries);
+    //   }
+    // } else {
+    //   print('Vehicle Battery Does not contains the ${event.battery}');
+    //   yield state.copyWith(
+    //     vehicleBatteries: state.vehicleBatteries,
+    //     status: VehicleBatteriesStatus.succuss,
+    //   );
+    // }
   }
 }

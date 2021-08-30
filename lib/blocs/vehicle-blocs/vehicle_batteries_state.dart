@@ -21,6 +21,13 @@ class VehicleBatteriesState extends Equatable {
       failure: Failure(),
       status: VehicleBatteriesStatus.initial);
 
+  factory VehicleBatteriesState.loaded({required List<Battery?> batteries}) =>
+      VehicleBatteriesState(
+        vehicleBatteries: batteries,
+        failure: Failure(),
+        status: VehicleBatteriesStatus.succuss,
+      );
+
   VehicleBatteriesState copyWith({
     List<Battery?>? vehicleBatteries,
     Failure? failure,
