@@ -21,6 +21,7 @@ class _UploadToDatabaseButtonState extends State<UploadToDatabaseButton> {
   bool _isUploading = false;
 
   Future<void> _uploadToDataBase(BuildContext context) async {
+    print('Batteries To Upload ${widget.batteries}');
     try {
       final result = await _askToUpload();
       print('Result $result');
@@ -111,7 +112,7 @@ class _UploadToDatabaseButtonState extends State<UploadToDatabaseButton> {
             radius: 30.0,
             child: IconButton(
                 onPressed: () => _uploadToDataBase(context),
-                icon: Icon(Icons.add)),
+                icon: Icon(Icons.upload)),
           );
   }
 }

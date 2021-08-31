@@ -1,5 +1,5 @@
 import 'package:admin_battery/enums/enums.dart';
-import 'package:admin_battery/screens/battery/battery_dashboard.dart';
+
 import 'package:admin_battery/screens/remote-battery/remote-battery_screen.dart';
 import 'package:admin_battery/vehicles/add_vehicle_to_brand.dart';
 import 'package:admin_battery/vehicles/bloc/vehicles_bloc.dart';
@@ -39,9 +39,11 @@ class VehiclesScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     PageRouteBuilder(
-                        pageBuilder: (context, _, __) => AddVehicleToBrand(
-                            vehicleBrandId: vehicleBrandId,
-                            fuelType: fuelType)),
+                      pageBuilder: (context, _, __) => AddVehicleToBrand(
+                        vehicleBrandId: vehicleBrandId,
+                        fuelType: fuelType,
+                      ),
+                    ),
                   );
                 },
                 child: Icon(Icons.add),
@@ -58,12 +60,14 @@ class VehiclesScreen extends StatelessWidget {
               body: Column(
                 children: [
                   state.vehicles.length == 0
-                      ? Center(
-                          child: Text(
-                            'No Vehicles Added :(',
-                            style: TextStyle(
-                              fontSize: 17.0,
-                              letterSpacing: 1.2,
+                      ? Expanded(
+                          child: Center(
+                            child: Text(
+                              'No Vehicles Added :(',
+                              style: TextStyle(
+                                fontSize: 17.0,
+                                letterSpacing: 1.2,
+                              ),
                             ),
                           ),
                         )
@@ -92,20 +96,6 @@ class VehiclesScreen extends StatelessWidget {
                                                 vehicleId: vehicle?.vehicleId,
                                               ),
                                             );
-                                            // Navigator.of(context).pushNamed(
-                                            //     BatteryDashBoard.routeName);
-
-                                            // Navigator.of(context).push(
-                                            //   MaterialPageRoute(
-                                            //     builder: (context) =>
-                                            //         BatteryRequiredScreen(
-                                            //       vehicleBrandId:
-                                            //           vehicleBrandId,
-                                            //       fuelType: fuelType,
-                                            //       vehicleId: vehicle?.vehicleId,
-                                            //     ),
-                                            //   ),
-                                            // );
                                           },
                                           child: Card(
                                               child: Container(

@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:admin_battery/constants/urls.dart';
 import 'package:admin_battery/models/battery.dart';
 import 'package:admin_battery/models/failure.dart';
-import 'package:admin_battery/repositories/battery/battery_repository.dart';
-import 'package:admin_battery/repositories/rest-apis/rest_apis_repo.dart';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -22,7 +21,7 @@ class AmaronBloc extends Bloc<AmaronEvent, AmaronState> {
     required repository,
     required String path,
   })  
-  // TODO: Add amaron url when fetching data form rest API
+  // Todo Add amaron url when fetching data form rest API
   : _repository = repository,
         _path = path,
         super(AmaronState.initial()) {

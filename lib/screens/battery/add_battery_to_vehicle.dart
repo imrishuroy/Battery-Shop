@@ -76,11 +76,11 @@ class _AddBatteryToVehicleState extends State<AddBatteryToVehicle> {
                   case AmaronStatus.loaded:
                     return BlocProvider<VehicleBatteriesBloc>(
                       create: (context) => VehicleBatteriesBloc(
-                        batteryRepository: context.read<BatteryRepository>(),
-                        vehicleBrandId: widget.vehicleBrandId,
-                        fuelType: widget.fuelType,
-                        vehicleId: widget.vehicleId,
-                      ),
+                          batteryRepository: context.read<BatteryRepository>(),
+                          vehicleBrandId: widget.vehicleBrandId,
+                          fuelType: widget.fuelType,
+                          vehicleId: widget.vehicleId,
+                          batteryBrand: Paths.amaron),
                       child: SelectBatteryTable(
                         batteries: state.batteries,
                         vehicleBrandId: widget.vehicleBrandId,

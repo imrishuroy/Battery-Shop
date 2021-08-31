@@ -17,16 +17,19 @@ class VehicleBatteriesBloc
   final String? _vehicleBrandId;
   final FuelType _fuelType;
   final String? _vehicleId;
+  final String? _batteryBrand;
 
   VehicleBatteriesBloc({
     required BatteryRepository batteryRepository,
     required String? vehicleBrandId,
     required FuelType fuelType,
     required String? vehicleId,
+    required String? batteryBrand,
   })  : _batteryRepository = batteryRepository,
         _fuelType = fuelType,
         _vehicleBrandId = vehicleBrandId,
         _vehicleId = vehicleId,
+        _batteryBrand = batteryBrand,
         super(VehicleBatteriesState.initial()) {
     _batterySubscription?.cancel();
     _batterySubscription = _batteryRepository
@@ -93,13 +96,15 @@ class VehicleBatteriesBloc
 
   Stream<VehicleBatteriesState> _mapAddAVehicleBatteryToState(
       AddAVehicleBattery event) async* {
-    _batteryRepository.addBatteryToVehicle(
-      vehicleBrandId: _vehicleBrandId,
-      fuelType: _fuelType,
-      vehicleId: _vehicleId,
-      batteryType: event.battery.type,
-      batteryBrand: 'amaron',
-    );
+    if (_batteryBrand != null) {
+      _batteryRepository.addBatteryToVehicle(
+        vehicleBrandId: _vehicleBrandId,
+        fuelType: _fuelType,
+        vehicleId: _vehicleId,
+        batteryType: event.battery.type,
+        batteryBrand: _batteryBrand!,
+      );
+    }
   }
 
   Stream<VehicleBatteriesState> _mapDeleteABatteryToState(

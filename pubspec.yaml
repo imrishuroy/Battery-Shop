@@ -43,7 +43,6 @@ dependencies:
   font_awesome: ^5.10.1
   http: ^0.13.3
   image_picker: ^0.8.3+2
-  image_picker_web: ^2.0.3+1
   intl: ^0.17.0
   photo_view: ^0.12.0
   responsive_builder: ^0.4.1

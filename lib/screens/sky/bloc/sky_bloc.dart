@@ -1,9 +1,6 @@
 import 'dart:async';
-
-import 'package:admin_battery/constants/urls.dart';
 import 'package:admin_battery/models/battery.dart';
 import 'package:admin_battery/models/failure.dart';
-import 'package:admin_battery/repositories/rest-apis/rest_apis_repo.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -11,15 +8,20 @@ part 'sky_event.dart';
 part 'sky_state.dart';
 
 class SkyBloc extends Bloc<SkyEvent, SkyState> {
-  final RestApisRepository _apisRepository;
+  final _apisRepository;
   StreamSubscription? _batterySubscription;
 
-  SkyBloc({required RestApisRepository restApisRepository})
-      : _apisRepository = restApisRepository,
+  final String _path;
+
+  SkyBloc({
+    required restApisRepository,
+    required String path,
+  })  : _apisRepository = restApisRepository,
+        _path = path,
         super(SkyState.initial()) {
     _batterySubscription?.cancel();
     _batterySubscription =
-        Stream.fromFuture(_apisRepository.getBatteries(Urls.skyUrl))
+        Stream.fromFuture(_apisRepository.getBatteries(_path))
             .listen((batteries) => add(LoadSkyBatteries(batteries: batteries)));
   }
 
@@ -51,7 +53,7 @@ class SkyBloc extends Bloc<SkyEvent, SkyState> {
   Stream<SkyState> _mapRefreshExideBatteryToState() async* {
     _batterySubscription?.cancel();
     _batterySubscription =
-        Stream.fromFuture(_apisRepository.getBatteries(Urls.skyUrl))
+        Stream.fromFuture(_apisRepository.getBatteries(_path))
             .listen((batteries) => add(LoadSkyBatteries(batteries: batteries)));
   }
 }

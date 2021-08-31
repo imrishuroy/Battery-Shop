@@ -107,7 +107,7 @@ class BatteryRepository {
       print('FuelType $fuelPath');
       print('Vehicle Id $vehicleId');
       print('Battery Type $batteryType');
-      print('Battery Brand $batteryBrand');
+      // print('Battery Brand $batteryBrand');
 
       await _fireStore
           .collection(Paths.vehicle_brands)

@@ -4,10 +4,11 @@ import 'package:admin_battery/repositories/battery/battery_repository.dart';
 import 'package:admin_battery/repositories/rest-apis/rest_apis_repo.dart';
 import 'package:admin_battery/screens/amaron/bloc/amaron_bloc.dart';
 import 'package:admin_battery/screens/exide/bloc/exide_bloc.dart';
-import 'package:admin_battery/screens/exide/exide_tab.dart';
+
 import 'package:admin_battery/screens/remote-battery/remote_amaron_tab.dart';
+import 'package:admin_battery/screens/remote-battery/remote_exide_batteries.dart';
+import 'package:admin_battery/screens/remote-battery/remote_sky_tab.dart';
 import 'package:admin_battery/screens/sky/bloc/sky_bloc.dart';
-import 'package:admin_battery/screens/sky/sky_tab.dart';
 import 'package:admin_battery/widgets/tab_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,7 +54,8 @@ class RemoteBatteryScreen extends StatelessWidget {
             ),
             BlocProvider<SkyBloc>(
               create: (context) => SkyBloc(
-                restApisRepository: context.read<RestApisRepository>(),
+                path: Paths.sky,
+                restApisRepository: context.read<BatteryRepository>(),
               ),
             ),
             BlocProvider<ExideBloc>(
@@ -98,8 +100,17 @@ class RemoteBatteryScreen extends StatelessWidget {
               fuelType: fuelType ?? FuelType.petrol,
               vehicleId: vehicleId,
             ),
-            ExideTab(),
-            SkyTab(),
+            RemoteExideTab(
+              vehicleBrandId: vehicleBrandId,
+              fuelType: fuelType ?? FuelType.petrol,
+              vehicleId: vehicleId,
+            ),
+            RemoteSkyTab(
+                vehicleBrandId: vehicleBrandId,
+                fuelType: FuelType.petrol,
+                vehicleId: vehicleId),
+            // ExideTab(),
+            //  SkyTab(),
           ],
         ),
       ),

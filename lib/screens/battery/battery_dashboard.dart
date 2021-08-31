@@ -27,6 +27,7 @@ class BatteryDashBoard extends StatelessWidget {
           ),
           BlocProvider<SkyBloc>(
             create: (context) => SkyBloc(
+              path: Urls.skyUrl,
               restApisRepository: context.read<RestApisRepository>(),
             ),
           ),
@@ -50,7 +51,7 @@ class BatteryDashBoard extends StatelessWidget {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
-          title: Text('Admin Panel'),
+          title: Text('Battery DashBoard'),
           bottom: TabBar(
             indicatorColor: Colors.white,
             tabs: [
