@@ -3,22 +3,26 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class Vehicle extends Equatable {
+  final String? vehicleId;
   final String? name;
   final String? imageUrl;
 
   Vehicle({
+    required this.vehicleId,
     required this.name,
     required this.imageUrl,
   });
 
   @override
-  List<Object?> get props => [name, imageUrl];
+  List<Object?> get props => [name, imageUrl, vehicleId];
 
   Vehicle copyWith({
     String? name,
     String? imageUrl,
+    String? vehicleId,
   }) {
     return Vehicle(
+      vehicleId: vehicleId ?? this.vehicleId,
       name: name ?? this.name,
       imageUrl: imageUrl ?? this.imageUrl,
     );
@@ -26,6 +30,7 @@ class Vehicle extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
+      'vehicleId': vehicleId,
       'name': name,
       'imageUrl': imageUrl,
     };
@@ -33,6 +38,7 @@ class Vehicle extends Equatable {
 
   factory Vehicle.fromMap(Map<String, dynamic> map) {
     return Vehicle(
+      vehicleId: map['vehicleId'],
       name: map['name'],
       imageUrl: map['imageUrl'],
     );

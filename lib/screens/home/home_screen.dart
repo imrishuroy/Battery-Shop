@@ -1,12 +1,21 @@
 import 'package:battery_shop/screens/inverter/inverter_tab.dart';
 import 'package:battery_shop/screens/vehicles/widgets/tab_item.dart';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'battery_tab.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const String routeName = '/home-screen';
   const HomeScreen({Key? key}) : super(key: key);
+
+  static Route route() {
+    return MaterialPageRoute(
+      settings: RouteSettings(name: routeName),
+      builder: (context) => HomeScreen(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

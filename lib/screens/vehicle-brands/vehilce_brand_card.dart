@@ -1,12 +1,12 @@
+import 'package:battery_shop/models/vehilce_brands.dart';
 import 'package:battery_shop/screens/vehicle-type/vehicle_type_screen.dart';
 import 'package:battery_shop/widgets/display_image.dart';
 import 'package:flutter/material.dart';
 
 class VehicleBrandCard extends StatelessWidget {
-  final String? imageUrl;
-  final String? name;
+  final VehicleBrand? vehicleBrand;
 
-  const VehicleBrandCard({Key? key, required this.imageUrl, required this.name})
+  const VehicleBrandCard({Key? key, required this.vehicleBrand})
       : super(key: key);
 
   @override
@@ -20,7 +20,9 @@ class VehicleBrandCard extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => VehicleTypeScreen(),
+              builder: (context) => VehicleTypeScreen(
+                vehicleBrandId: vehicleBrand?.id,
+              ),
             ),
           );
         },
@@ -35,7 +37,7 @@ class VehicleBrandCard extends StatelessWidget {
               Container(
                 height: 100.0,
                 width: 100.0,
-                child: DisplayImage(imageUrl: imageUrl),
+                child: DisplayImage(imageUrl: vehicleBrand?.logoUrl),
               ),
               Spacer(),
               Container(
@@ -48,7 +50,7 @@ class VehicleBrandCard extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  '$name',
+                  '${vehicleBrand?.name}',
                   style: TextStyle(
                     fontSize: 18.0,
                     // fontWeight: FontWeight.w500,

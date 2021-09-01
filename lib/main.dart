@@ -1,3 +1,4 @@
+import 'package:battery_shop/config/custom_router.dart';
 import 'package:battery_shop/repository/services/firebase_service.dart';
 import 'package:battery_shop/screens/home/home_screen.dart';
 import 'package:battery_shop/screens/vehicle-brands/bloc/vehilce_brands_bloc.dart';
@@ -16,29 +17,33 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Colors.redAccent.shade700,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            primary: Colors.redAccent.shade700,
-          ),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<FirebaseServices>(
+          create: (_) => FirebaseServices(),
         ),
-      ),
-      debugShowCheckedModeBanner: false,
-      home: MultiRepositoryProvider(
+      ],
+      child: MultiBlocProvider(
         providers: [
-          RepositoryProvider<FirebaseService>(
-            create: (_) => FirebaseService(),
-          )
-        ],
-        child: MultiBlocProvider(providers: [
           BlocProvider<VehilceBrandsBloc>(
             create: (context) => VehilceBrandsBloc(
-              firebaseService: context.read<FirebaseService>(),
+              firebaseService: context.read<FirebaseServices>(),
             ),
-          )
-        ], child: HomeScreen()),
+          ),
+        ],
+        child: MaterialApp(
+          theme: ThemeData(
+            primaryColor: Colors.redAccent.shade700,
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.redAccent.shade700,
+              ),
+            ),
+          ),
+          debugShowCheckedModeBanner: false,
+          onGenerateRoute: CustomRouter.onGenerateRoute,
+          initialRoute: HomeScreen.routeName,
+        ),
       ),
     );
   }

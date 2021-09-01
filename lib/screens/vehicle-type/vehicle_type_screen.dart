@@ -15,7 +15,10 @@ List<VehicleType> vehiclesType = [
 ];
 
 class VehicleTypeScreen extends StatelessWidget {
-  const VehicleTypeScreen({Key? key}) : super(key: key);
+  final String? vehicleBrandId;
+
+  const VehicleTypeScreen({Key? key, required this.vehicleBrandId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +34,15 @@ class VehicleTypeScreen extends StatelessWidget {
           VehicleTypeCard(
             imageUrl: 'assets/petrol.png',
             label: 'PETROL',
+            fuelType: FuelType.petrol,
+            vehicleBrandId: vehicleBrandId,
           ),
           Spacer(),
           VehicleTypeCard(
             imageUrl: 'assets/diesel.png',
             label: 'DIESEL',
+            fuelType: FuelType.diesel,
+            vehicleBrandId: vehicleBrandId,
           ),
           Spacer(),
         ],
@@ -44,51 +51,36 @@ class VehicleTypeScreen extends StatelessWidget {
   }
 }
 
-class VehicleTypeWidget extends StatelessWidget {
-  const VehicleTypeWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      //crossAxisAlignment: CrossAxisAlignment.,
-      children: [
-        Spacer(),
-        VehicleTypeCard(
-          imageUrl: 'assets/petrol.png',
-          label: 'PETROL',
-        ),
-        Spacer(),
-        VehicleTypeCard(
-          imageUrl: 'assets/diesel.png',
-          label: 'DIESEL',
-        ),
-        Spacer(),
-      ],
-    );
-  }
-}
-
 class VehicleTypeCard extends StatelessWidget {
   final String imageUrl;
   final String label;
+  final FuelType fuelType;
+  final String? vehicleBrandId;
 
   const VehicleTypeCard({
     Key? key,
     required this.imageUrl,
     required this.label,
+    required this.fuelType,
+    required this.vehicleBrandId,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => VehiclesScreen(),
-          ),
-        );
+        Navigator.of(context).pushNamed(VehiclesScreen.routeName,
+            arguments: VehiclesScreenArgs(
+                vehilceBrandId: vehicleBrandId, fuelType: fuelType));
+
+        // Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //     builder: (_) => VehiclesScreen(
+        //       vehicleBrandId: vehicleBrandId,
+        //       fuelType: fuelType,
+        //     ),
+        //   ),
+        // );
       },
       child: Column(
         children: [

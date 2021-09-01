@@ -1,3 +1,4 @@
+import 'package:battery_shop/models/vehicle_type.dart';
 import 'package:battery_shop/screens/home/widgets/drop_down_tile.dart';
 import 'package:battery_shop/screens/vehicles/vehicles_screen.dart';
 import 'package:flutter/material.dart';
@@ -225,7 +226,10 @@ class _SearchState extends State<Search> {
                     });
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (_) => VehiclesScreen(),
+                        builder: (_) => VehiclesScreen(
+                          vehicleBrandId: '',
+                          fuelType: FuelType.petrol,
+                        ),
                       ),
                     );
                   },
@@ -254,7 +258,10 @@ class _SearchState extends State<Search> {
                     });
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (_) => VehiclesScreen(),
+                        builder: (_) => VehiclesScreen(
+                          vehicleBrandId: '',
+                          fuelType: FuelType.petrol,
+                        ),
                       ),
                     );
                   },

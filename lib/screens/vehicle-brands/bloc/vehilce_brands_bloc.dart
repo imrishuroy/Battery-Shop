@@ -10,10 +10,10 @@ part 'vehilce_brands_event.dart';
 part 'vehilce_brands_state.dart';
 
 class VehilceBrandsBloc extends Bloc<VehilceBrandsEvent, VehilceBrandsState> {
-  final FirebaseService _firebaseService;
+  final FirebaseServices _firebaseService;
   StreamSubscription? _brandsSubscription;
 
-  VehilceBrandsBloc({required FirebaseService firebaseService})
+  VehilceBrandsBloc({required FirebaseServices firebaseService})
       : _firebaseService = firebaseService,
         super(VehilceBrandsState.initial()) {
     _brandsSubscription?.cancel();
