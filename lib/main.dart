@@ -1,5 +1,6 @@
 import 'package:battery_shop/repository/services/firebase_service.dart';
 import 'package:battery_shop/screens/home/home_screen.dart';
+import 'package:battery_shop/screens/vehicle-brands/bloc/vehilce_brands_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,7 +32,13 @@ class MyApp extends StatelessWidget {
             create: (_) => FirebaseService(),
           )
         ],
-        child: HomeScreen(),
+        child: MultiBlocProvider(providers: [
+          BlocProvider<VehilceBrandsBloc>(
+            create: (context) => VehilceBrandsBloc(
+              firebaseService: context.read<FirebaseService>(),
+            ),
+          )
+        ], child: HomeScreen()),
       ),
     );
   }

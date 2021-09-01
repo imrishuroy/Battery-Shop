@@ -2,11 +2,11 @@ import 'package:battery_shop/screens/vehicle-type/vehicle_type_screen.dart';
 import 'package:battery_shop/widgets/display_image.dart';
 import 'package:flutter/material.dart';
 
-class BrandCard extends StatelessWidget {
+class VehicleBrandCard extends StatelessWidget {
   final String? imageUrl;
-  final String name;
+  final String? name;
 
-  const BrandCard({Key? key, required this.imageUrl, required this.name})
+  const VehicleBrandCard({Key? key, required this.imageUrl, required this.name})
       : super(key: key);
 
   @override
@@ -25,7 +25,6 @@ class BrandCard extends StatelessWidget {
           );
         },
         child: Card(
-          //   elevation: 5,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
           child: Column(

@@ -1,4 +1,5 @@
 import 'package:battery_shop/screens/home/widgets/drop_down_tile.dart';
+import 'package:battery_shop/screens/vehicles/vehicles_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -222,6 +223,11 @@ class _SearchState extends State<Search> {
                       _selectedBrand = null;
                       _selectedBrand = null;
                     });
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => VehiclesScreen(),
+                      ),
+                    );
                   },
                   child: Column(
                     children: [
@@ -246,6 +252,11 @@ class _SearchState extends State<Search> {
                       _selectedBrand = null;
                       _selectedBrand = null;
                     });
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => VehiclesScreen(),
+                      ),
+                    );
                   },
                   child: Column(
                     children: [

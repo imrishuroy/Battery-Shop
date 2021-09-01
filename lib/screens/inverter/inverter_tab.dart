@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 const _klabelStyle = TextStyle(fontSize: 16.0, letterSpacing: 1.2);
 
@@ -13,15 +14,19 @@ class InveterTab extends StatefulWidget {
 }
 
 class _InveterTabState extends State<InveterTab> {
-  var _load = ['20', '50', '70', '100'];
+  // var _load = ['20', '50', '70', '100'];
 
-  String? _currentSelectedValue = '50';
+  // String? _currentSelectedValue = '50';
   bool isFanTileExpaned = false;
   bool isTvTileExpanded = false;
   bool isPcTIleExpaned = false;
   bool isMotoTileExpanded = false;
 
-  void _displayDialog({required int value}) {
+  void _displayDialog({
+    required int? load,
+    required int? ah,
+    required int? noOfBattery,
+  }) {
     showDialog(
       context: context,
       builder: (context) {
@@ -41,7 +46,8 @@ class _InveterTabState extends State<InveterTab> {
                     style: _klabelStyle,
                   ),
                   Text(
-                    '100AH',
+                    // '100AH',
+                    '${ah ?? 'N/A'} AH',
                     style: _kValueStyle,
                   ),
                 ],
@@ -56,7 +62,7 @@ class _InveterTabState extends State<InveterTab> {
                   ),
                   Text(
                     //'650AV',
-                    '$value' + 'AV',
+                    '${load ?? 'N/A'}' + 'AV',
                     style: _kValueStyle,
                   ),
                 ],
@@ -71,7 +77,7 @@ class _InveterTabState extends State<InveterTab> {
                   ),
                   const SizedBox(width: 17.0),
                   Text(
-                    '1',
+                    '${noOfBattery ?? 'N/A'}',
                     style: _kValueStyle,
                   ),
                   const SizedBox(height: 3.0),
@@ -84,26 +90,45 @@ class _InveterTabState extends State<InveterTab> {
     );
   }
 
-  String? _loadInWatt;
-  String? backup;
+  String? _loadInWatt = '0';
+  String? _backupInHour = '0';
 
   final _formKey = GlobalKey<FormState>();
 
-  final _loadContoller = TextEditingController();
+  final _loadController = TextEditingController();
+  final _hourController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadController.text = '0';
+    _hourController.text = '0';
+  }
 
   void _calculateInverter() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      if (_loadInWatt != null) {
+      if (_loadInWatt != null && _backupInHour != null) {
         double? load = double.tryParse(_loadInWatt!);
-        if (load != null) {
-          double initialCalculation = int.parse(_loadContoller.text) / 0.8;
-          double twentyFivePer = initialCalculation * 0.25;
-          double total = initialCalculation + twentyFivePer;
+        double? _backup = double.tryParse(_backupInHour!);
+        if (load != null && _backup != null) {
+          double initialLoad = int.parse(_loadController.text) / 0.8;
+          double initialAH = initialLoad * _backup / 12;
+          int totalAH = (initialAH * 0.35).ceil();
+          print('Total Ah $totalAH');
+
+          double twentyFivePer = initialLoad * 0.25;
+          double total = initialLoad + twentyFivePer;
           print('Total ${total.ceil()}');
           print('Total ${total.runtimeType}');
-          _displayDialog(value: total.ceil());
+
+          if (totalAH > 220) {
+            _displayDialog(
+                load: 1500, ah: (totalAH / 2).ceil(), noOfBattery: 2);
+          } else {
+            _displayDialog(load: total.ceil(), noOfBattery: 1, ah: totalAH);
+          }
         }
       }
     }
@@ -114,18 +139,29 @@ class _InveterTabState extends State<InveterTab> {
 
   void _increaseWatt(int value) {
     setState(() {
-      _loadContoller.text = (int.parse(_loadContoller.text) + value).toString();
+      _loadController.text =
+          (int.parse(_loadController.text) + value).toString();
       // _totalWatt = _totalWatt + value;
     });
   }
 
   void _decreaseWatt(int value) {
     setState(() {
-      if (int.tryParse(_loadContoller.text)! > 0) {
-        _loadContoller.text =
-            (int.parse(_loadContoller.text) - value).toString();
+      print('LoadController text -  ${_loadController.text}');
+      if (int.tryParse(_loadController.text)! > 0) {
+        int? loadValue = int.tryParse(_loadController.text);
+
+        if (loadValue != null && loadValue >= value) {
+          _loadController.text = (loadValue - value).toString();
+        }
+
+        // _loadController.text =
+        //     (int.parse(_loadController.text) - value).toString() ?? ;
         //_totalWatt = _totalWatt - value;
       }
+      // if (_loadController.text == null) {
+      //   _loadController.text = '0';
+      // }
     });
   }
 
@@ -157,43 +193,27 @@ class _InveterTabState extends State<InveterTab> {
                 child: Column(
                   children: [
                     TextFormField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(RegExp('[0-9]+')),
+                      ],
                       style: TextStyle(
                         fontSize: 17.0,
                         fontWeight: FontWeight.w600,
                         letterSpacing: 1.0,
                       ),
-                      validator: (value) =>
-                          value!.isEmpty ? 'Load can\'t be empty' : null,
-                      controller: _loadContoller,
-                      // onChanged: (value) {
-                      //   setState(() {
-                      //     if (value.length > 0) {
-                      //       _check = true;
-                      //       _changingValue = value;
-                      //       print(_changingValue);
-                      //     } else {
-                      //       _check = false;
-                      //     }
-                      //     //  _totalWatt = _totalWatt! + int.parse(value);
-                      //   });
-                      // },
+                      validator: (value) {
+                        print('Value $value');
+                        print('Runtime type ${value.runtimeType}');
+                        if (value!.isEmpty) {
+                          return 'Load can\'t be empty';
+                        } else if (value == '0') {
+                          return 'Load can\'t be 0';
+                        }
+                      },
+                      controller: _loadController,
                       onSaved: (value) => _loadInWatt = value,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        // suffix: _check
-                        //     ? InkWell(
-                        //         child: Icon(Icons.check,
-                        //             size: 16, color: Colors.green),
-                        //         onTap: () {
-                        //           setState(() {
-                        //             _totalWatt =
-                        //                 _totalWatt + int.parse(_changingValue!);
-
-                        //             // r
-                        //           });
-                        //         },
-                        //       )
-                        //     : null,
                         hintText: 'Enter load ( In Watt )',
                         labelText: 'Load ( In Watt )',
                         labelStyle: TextStyle(
@@ -213,6 +233,18 @@ class _InveterTabState extends State<InveterTab> {
                     // ),
                     const SizedBox(height: 25.0),
                     TextFormField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(RegExp('[0-9]+')),
+                      ],
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please add your backup hours';
+                        } else if (value == '0') {
+                          return 'Backup can\'t be 0';
+                        }
+                      },
+                      onSaved: (value) => _backupInHour = value,
+                      controller: _hourController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         hintText: 'Backup Required ( In Hours )',
@@ -228,38 +260,38 @@ class _InveterTabState extends State<InveterTab> {
                       ),
                     ),
                     //TextFormField(),
-                    const SizedBox(height: 25.0),
-                    FormField<String>(
-                      builder: (FormFieldState<String> state) {
-                        return InputDecorator(
-                          decoration: InputDecoration(
-                              //labelStyle: textStyle,
-                              errorStyle: TextStyle(
-                                  color: Colors.redAccent, fontSize: 16.0),
-                              hintText: 'Please select expense',
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
-                          isEmpty: _currentSelectedValue == '',
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton<String>(
-                              value: _currentSelectedValue,
-                              isDense: true,
-                              onChanged: (value) {
-                                setState(() {
-                                  _currentSelectedValue = value;
-                                });
-                              },
-                              items: _load.map((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                    // const SizedBox(height: 25.0),
+                    // FormField<String>(
+                    //   builder: (FormFieldState<String> state) {
+                    //     return InputDecorator(
+                    //       decoration: InputDecoration(
+                    //           //labelStyle: textStyle,
+                    //           errorStyle: TextStyle(
+                    //               color: Colors.redAccent, fontSize: 16.0),
+                    //           hintText: 'Please select expense',
+                    //           border: OutlineInputBorder(
+                    //               borderRadius: BorderRadius.circular(5.0))),
+                    //       isEmpty: _currentSelectedValue == '',
+                    //       child: DropdownButtonHideUnderline(
+                    //         child: DropdownButton<String>(
+                    //           value: _currentSelectedValue,
+                    //           isDense: true,
+                    //           onChanged: (value) {
+                    //             setState(() {
+                    //               _currentSelectedValue = value;
+                    //             });
+                    //           },
+                    //           items: _load.map((String value) {
+                    //             return DropdownMenuItem<String>(
+                    //               value: value,
+                    //               child: Text(value),
+                    //             );
+                    //           }).toList(),
+                    //         ),
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
                     const SizedBox(height: 10.0),
                     ExpansionTile(
                       onExpansionChanged: (value) {
@@ -439,7 +471,7 @@ class _InveterTabState extends State<InveterTab> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20.0),
+                    const SizedBox(height: 35.0),
 
                     SizedBox(
                       height: 40.0,
