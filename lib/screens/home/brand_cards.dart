@@ -1,5 +1,5 @@
 import 'package:admin_battery/constants/constants.dart';
-import 'package:admin_battery/models/brands.dart';
+import 'package:admin_battery/models/vehicle_brands.dart';
 import 'package:admin_battery/screens/fule-type/fule_type_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -23,8 +23,8 @@ class BrandCard extends StatelessWidget {
             hoverColor: Colors.greenAccent.shade100.withOpacity(0.2),
             onTap: () {
               Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => FuleTypeScreen(
+                PageRouteBuilder(
+                  pageBuilder: (context, _, __) => FuleTypeScreen(
                     vehicleBrandId: vehicleBrand?.id,
                   ),
                 ),

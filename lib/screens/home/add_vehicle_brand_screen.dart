@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:admin_battery/models/brands.dart';
+import 'package:admin_battery/models/vehicle_brands.dart';
 import 'package:admin_battery/repositories/firebase_services.dart';
 import 'package:admin_battery/repositories/storage/storage_repo.dart';
 import 'package:admin_battery/widgets/loading_indicator.dart';

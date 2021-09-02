@@ -6,6 +6,7 @@ import 'package:admin_battery/repositories/firebase/firebase_repository.dart';
 import 'package:admin_battery/repositories/firebase_services.dart';
 import 'package:admin_battery/repositories/rest-apis/rest_apis_repo.dart';
 import 'package:admin_battery/repositories/storage/storage_repo.dart';
+import 'package:admin_battery/screens/home/bloc/app_actions_bloc.dart';
 import 'package:admin_battery/screens/vehicle-brands/bloc/vehicle_brands_bloc.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -73,6 +74,9 @@ class MyApp extends StatelessWidget {
             create: (context) => VehicleBrandsBloc(
               firebaseServices: context.read<FirebaseServices>(),
             ),
+          ),
+          BlocProvider<AppActionsBloc>(
+            create: (context) => AppActionsBloc(),
           )
         ],
         child: MaterialApp(

@@ -1,6 +1,6 @@
 import 'package:admin_battery/config/paths.dart';
 import 'package:admin_battery/models/battery.dart';
-import 'package:admin_battery/models/brands.dart';
+import 'package:admin_battery/models/vehicle_brands.dart';
 import 'package:admin_battery/models/failure.dart';
 import 'package:admin_battery/models/vehicle.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

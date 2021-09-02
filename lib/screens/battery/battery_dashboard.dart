@@ -18,25 +18,28 @@ class BatteryDashBoard extends StatelessWidget {
       settings: RouteSettings(name: routeName),
       transitionDuration: const Duration(seconds: 0),
       pageBuilder: (context, _, __) {
-        return MultiBlocProvider(providers: [
-          BlocProvider<AmaronBloc>(
-            create: (context) => AmaronBloc(
-              path: Urls.amaronUrl,
-              repository: context.read<RestApisRepository>(),
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<AmaronBloc>(
+              create: (context) => AmaronBloc(
+                path: Urls.amaronUrl,
+                repository: context.read<RestApisRepository>(),
+              ),
             ),
-          ),
-          BlocProvider<SkyBloc>(
-            create: (context) => SkyBloc(
-              path: Urls.skyUrl,
-              restApisRepository: context.read<RestApisRepository>(),
+            BlocProvider<SkyBloc>(
+              create: (context) => SkyBloc(
+                path: Urls.skyUrl,
+                restApisRepository: context.read<RestApisRepository>(),
+              ),
             ),
-          ),
-          BlocProvider<ExideBloc>(
-            create: (context) => ExideBloc(
-              restApisRepository: context.read<RestApisRepository>(),
+            BlocProvider<ExideBloc>(
+              create: (context) => ExideBloc(
+                restApisRepository: context.read<RestApisRepository>(),
+              ),
             ),
-          ),
-        ], child: BatteryDashBoard());
+          ],
+          child: BatteryDashBoard(),
+        );
       },
     );
   }
@@ -49,9 +52,21 @@ class BatteryDashBoard extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
           centerTitle: true,
           title: Text('Battery DashBoard'),
+          actions: [
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                'Set Priority',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.0,
+                ),
+              ),
+            ),
+            const SizedBox(width: 15.0)
+          ],
           bottom: TabBar(
             indicatorColor: Colors.white,
             tabs: [

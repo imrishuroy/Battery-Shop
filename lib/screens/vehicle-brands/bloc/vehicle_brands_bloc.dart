@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:admin_battery/models/brands.dart';
+import 'package:admin_battery/models/vehicle_brands.dart';
 import 'package:admin_battery/models/failure.dart';
 import 'package:admin_battery/repositories/firebase_services.dart';
 import 'package:bloc/bloc.dart';

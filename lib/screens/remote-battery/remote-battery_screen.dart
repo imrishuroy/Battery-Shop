@@ -4,7 +4,6 @@ import 'package:admin_battery/repositories/battery/battery_repository.dart';
 import 'package:admin_battery/repositories/rest-apis/rest_apis_repo.dart';
 import 'package:admin_battery/screens/amaron/bloc/amaron_bloc.dart';
 import 'package:admin_battery/screens/exide/bloc/exide_bloc.dart';
-
 import 'package:admin_battery/screens/remote-battery/remote_amaron_tab.dart';
 import 'package:admin_battery/screens/remote-battery/remote_exide_batteries.dart';
 import 'package:admin_battery/screens/remote-battery/remote_sky_tab.dart';
@@ -80,13 +79,12 @@ class RemoteBatteryScreen extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
           centerTitle: true,
-          title: Text('Admin Panel'),
+          title: Text('Batteries'),
           bottom: TabBar(
             indicatorColor: Colors.white,
             tabs: [
-              TabItem(label: 'Amaron', icon: Icons.battery_full),
+              TabItem(label: 'Amaron', icon: Icons.today_sharp),
               TabItem(label: 'Exide', icon: Icons.today_sharp),
               TabItem(label: 'Sky', icon: Icons.today_sharp),
             ],
