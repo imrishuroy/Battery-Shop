@@ -150,6 +150,34 @@ class BatteryRepository {
     }
   }
 
+  getVehicleBatteries({
+    required String? vehicleBrandId,
+    required FuelType? fuelType,
+    required String? vehicleId,
+  }) async {
+    try {
+      final fuelPath = EnumToString.convertToString(fuelType);
+      print('VehicleBrand Id $vehicleBrandId');
+      print('Fuel Path $fuelPath');
+      print('Vehicle Id $vehicleId');
+
+      final querySnapshot = await _fireStore
+          .collection(Paths.vehicle_brands)
+          .doc(vehicleBrandId)
+          .collection(fuelPath)
+          .doc(vehicleId)
+          .collection(Paths.batteries)
+          .get();
+
+      return querySnapshot.docs
+          .map((doc) async => await Battery.fromDocument(doc.data()))
+          .toList();
+    } catch (error) {
+      print('Error getting vehilce batteries ');
+      throw error;
+    }
+  }
+
   // Future<Battery?> getBattery({required String batteryPath}) async {
   //   try {
   //     _fireStore.

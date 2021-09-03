@@ -3,6 +3,7 @@ import 'package:admin_battery/enums/enums.dart';
 import 'package:admin_battery/repositories/battery/battery_repository.dart';
 import 'package:admin_battery/repositories/rest-apis/rest_apis_repo.dart';
 import 'package:admin_battery/screens/amaron/bloc/amaron_bloc.dart';
+import 'package:admin_battery/screens/battery/set_battery_priority.dart';
 import 'package:admin_battery/screens/exide/bloc/exide_bloc.dart';
 import 'package:admin_battery/screens/remote-battery/remote_amaron_tab.dart';
 import 'package:admin_battery/screens/remote-battery/remote_exide_batteries.dart';
@@ -81,6 +82,25 @@ class RemoteBatteryScreen extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: Text('Batteries'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(
+                  SetBatteryPriority.routeName,
+                  arguments: BatteryPriorityArgs(
+                    vehicleBrandId: vehicleBrandId,
+                    fuelType: fuelType,
+                    vehicleId: vehicleId,
+                  ),
+                );
+              },
+              child: Text(
+                'Set Priority',
+                style: TextStyle(color: Colors.white, fontSize: 17.0),
+              ),
+            ),
+            const SizedBox(width: 10.0),
+          ],
           bottom: TabBar(
             indicatorColor: Colors.white,
             tabs: [
