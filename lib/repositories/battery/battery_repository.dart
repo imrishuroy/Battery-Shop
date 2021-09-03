@@ -178,6 +178,34 @@ class BatteryRepository {
     }
   }
 
+  Future<void> editBatteryPriority(
+      {required String? vehicleBrandId,
+      required FuelType? fuelType,
+      required String? vehicleId,
+      // required Battery? battery,
+      required String? type,
+      required int? priority}) async {
+    print('VehicleBrand Id $vehicleBrandId');
+
+    print('Vehicle Id $vehicleId');
+    print('Battery Type $type');
+    try {
+      final fuelPath = EnumToString.convertToString(fuelType);
+      print('Fuel Path $fuelPath');
+      _fireStore
+          .collection(Paths.vehicle_brands)
+          .doc(vehicleBrandId)
+          .collection(fuelPath)
+          .doc(vehicleId)
+          .collection(Paths.batteries)
+          .doc(type)
+          .update({'priority': priority});
+    } catch (error) {
+      print(error.toString());
+      throw error;
+    }
+  }
+
   // Future<Battery?> getBattery({required String batteryPath}) async {
   //   try {
   //     _fireStore.

@@ -78,26 +78,26 @@ class BatteryTile extends StatelessWidget {
                     ],
                   ),
                 ),
-                Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
-                  child: InkWell(
-                    onTap: () {
-                      // launch('tel://1234567890');
-                    },
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.call,
-                          color: Colors.green,
-                        ),
-                        const SizedBox(height: 6.0),
-                        Text('Call'),
-                        Text('Distributor')
-                      ],
-                    ),
-                  ),
-                )
+                // Spacer(),
+                // Padding(
+                //   padding: const EdgeInsets.only(right: 5.0),
+                //   child: InkWell(
+                //     onTap: () {
+                //       // launch('tel://1234567890');
+                //     },
+                //     child: Column(
+                //       children: [
+                //         Icon(
+                //           Icons.call,
+                //           color: Colors.green,
+                //         ),
+                //         const SizedBox(height: 6.0),
+                //         Text('Call'),
+                //         Text('Distributor')
+                //       ],
+                //     ),
+                //   ),
+                // )
               ],
             ),
             const SizedBox(height: 4.5),

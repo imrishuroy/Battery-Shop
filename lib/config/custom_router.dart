@@ -1,6 +1,6 @@
 import 'package:admin_battery/config/auth_wrapper.dart';
 import 'package:admin_battery/screens/battery/battery_dashboard.dart';
-import 'package:admin_battery/screens/battery/set_battery_priority.dart';
+import 'package:admin_battery/screens/set-priority/set_battery_priority.dart';
 import 'package:admin_battery/screens/home/home_screen.dart';
 import 'package:admin_battery/screens/login/login_screen.dart';
 import 'package:admin_battery/screens/remote-battery/remote-battery_screen.dart';

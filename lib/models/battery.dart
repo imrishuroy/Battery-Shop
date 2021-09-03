@@ -10,6 +10,7 @@ class Battery extends Equatable {
   final double? mrp;
   final int? scrap;
   final String? warranty;
+  final int? priority;
 
   const Battery({
     required this.type,
@@ -18,6 +19,7 @@ class Battery extends Equatable {
     required this.mrp,
     required this.scrap,
     required this.warranty,
+    required this.priority,
   });
 
   @override
@@ -40,6 +42,7 @@ class Battery extends Equatable {
     double? mrp,
     int? scrap,
     String? warranty,
+    int? priority,
   }) {
     return Battery(
       //   id: id ?? this.id,
@@ -49,6 +52,7 @@ class Battery extends Equatable {
       mrp: mrp ?? this.mrp,
       scrap: scrap ?? this.scrap,
       warranty: warranty ?? this.warranty,
+      priority: priority ?? this.priority,
     );
   }
 
@@ -61,6 +65,7 @@ class Battery extends Equatable {
       'mrp': mrp,
       'scrap': scrap,
       'warranty': warranty,
+      'priority': priority,
     };
   }
 
@@ -71,6 +76,7 @@ class Battery extends Equatable {
     mrp: 0.0,
     scrap: 0,
     warranty: '',
+    priority: 0,
   );
 
   factory Battery.fromMap(Map<String, dynamic> map) {
@@ -82,6 +88,7 @@ class Battery extends Equatable {
       mrp: map['mrp'],
       scrap: map['scrap'],
       warranty: map['warranty'],
+      priority: map['priority'] ?? 0,
     );
   }
 
