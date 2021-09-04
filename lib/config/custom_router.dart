@@ -1,3 +1,4 @@
+import 'package:battery_shop/screens/about/about_screen.dart';
 import 'package:battery_shop/screens/battery/battery_req_screen.dart';
 import 'package:battery_shop/screens/home/home_screen.dart';
 import 'package:battery_shop/screens/vehicles/vehicles_screen.dart';
@@ -22,6 +23,9 @@ class CustomRouter {
       case BatteryRequiredScreen.routeName:
         return BatteryRequiredScreen.route(
             args: settings.arguments as BatteryRequiredArgs?);
+
+      case AboutScreen.routeName:
+        return AboutScreen.route();
 
       default:
         return _errorRoute();

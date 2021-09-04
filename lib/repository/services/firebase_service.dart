@@ -64,6 +64,7 @@ class FirebaseServices extends BaseFirebaseRepository {
           .collection(fuelPath)
           .doc(vehicleId)
           .collection(Paths.batteries)
+          .orderBy('priority', descending: false)
           .snapshots()
           .map((snaps) => snaps.docs
               .map((doc) => Battery.fromDocument(doc.data()))

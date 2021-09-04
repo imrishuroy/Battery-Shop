@@ -1,3 +1,4 @@
+import 'package:battery_shop/screens/about/about_screen.dart';
 import 'package:battery_shop/screens/inverter/inverter_tab.dart';
 import 'package:battery_shop/screens/vehicles/widgets/tab_item.dart';
 
@@ -19,30 +20,44 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            'DashBoard',
-            style: TextStyle(
-              letterSpacing: 1.2,
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            title: const Text(
+              'DashBoard',
+              style: TextStyle(
+                letterSpacing: 1.2,
+              ),
+            ),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(AboutScreen.routeName);
+                },
+                icon: Icon(Icons.info),
+              ),
+            ],
+            bottom: TabBar(
+              tabs: [
+                TabItem(label: 'Battery', icon: FontAwesomeIcons.carBattery),
+                TabItem(label: 'Inverter', icon: Icons.today_sharp),
+              ],
             ),
           ),
-          bottom: TabBar(
-            tabs: [
-              TabItem(label: 'Battery', icon: FontAwesomeIcons.carBattery),
-              TabItem(label: 'Inverter', icon: Icons.today_sharp),
+          body: TabBarView(
+            children: [
+              const BatteryTab(),
+              //const Center(child: Text('N/A')),
+              InveterTab(),
             ],
           ),
-        ),
-        body: TabBarView(
-          children: [
-            const BatteryTab(),
-            //const Center(child: Text('N/A')),
-            InveterTab(),
-          ],
         ),
       ),
     );
