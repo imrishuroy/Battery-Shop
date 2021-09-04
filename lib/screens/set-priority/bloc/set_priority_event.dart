@@ -8,7 +8,7 @@ abstract class SetPriorityEvent extends Equatable {
 }
 
 class LoadPriorityBatteries extends SetPriorityEvent {
-  final List<Battery?> batteries;
+  final List<VehicleBattery?> batteries;
 
   LoadPriorityBatteries({
     required this.batteries,
@@ -16,15 +16,20 @@ class LoadPriorityBatteries extends SetPriorityEvent {
 }
 
 class UpdateBatteryPriority extends SetPriorityEvent {
-  final int? oldIndex;
-  final int? newIndex;
-  final String? type1;
-  final String? type2;
+  // final int? oldIndex;
+  // final int? newIndex;
+  // final String? type1;
+  // final String? type2;
+
+  final VehicleBattery vehicleBattery;
 
   UpdateBatteryPriority({
-    required this.oldIndex,
-    required this.newIndex,
-    required this.type2,
-    required this.type1,
+    // required this.oldIndex,
+    // required this.newIndex,
+    // required this.type2,
+    // required this.type1,
+    required this.vehicleBattery,
   });
 }
+
+class RefreshPriotity extends SetPriorityEvent {}

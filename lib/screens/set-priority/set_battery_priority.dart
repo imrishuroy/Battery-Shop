@@ -2,6 +2,8 @@ import 'package:admin_battery/enums/enums.dart';
 import 'package:admin_battery/models/battery.dart';
 import 'package:admin_battery/repositories/battery/battery_repository.dart';
 import 'package:admin_battery/screens/battery/battery_tile.dart';
+import 'package:admin_battery/screens/set-priority/battery_priority_tile.dart';
+import 'package:admin_battery/screens/set-priority/priority_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -59,19 +61,19 @@ class SetBatteryPriority extends StatelessWidget {
     print('FuelType ${fuelType?.index}');
     print('Vehicle Id $vehicleId');
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await _batteryRepo.editBatteryPriority(
-            vehicleBrandId: vehicleBrandId,
-            fuelType: fuelType,
-            vehicleId: vehicleId,
-            //  battery: event.oldIndex,
-            type: '12BOSS2.5L-C',
-            priority: 1,
-          );
-        },
-        child: Icon(Icons.ad_units),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     await _batteryRepo.editBatteryPriority(
+      //       vehicleBrandId: vehicleBrandId,
+      //       fuelType: fuelType,
+      //       vehicleId: vehicleId,
+      //       //  battery: event.oldIndex,
+      //       type: '12BOSS2.5L-C',
+      //       priority: 1,
+      //     );
+      //   },
+      //   child: Icon(Icons.ad_units),
+      // ),
       appBar: AppBar(
         centerTitle: true,
         title: Text('Set Priorities'),
@@ -87,49 +89,83 @@ class SetBatteryPriority extends StatelessWidget {
                     return Center(child: Text('Something went wrong'));
 
                   case PriortyStatus.succuss:
-                    // return ListView.builder(
-                    //   itemCount: state.batteries.length,
-                    //   itemBuilder: (context, index) {
-                    //     final battery = state.batteries[index];
-                    //     return BatteryTile(battery: battery);
-                    //   },
-                    // );
-
-                    return ReorderableListView.builder(
+                    if (state.batteries.isEmpty)
+                      return Center(
+                        child: Text('No Battery Added'),
+                      );
+                    return ListView.builder(
                       itemCount: state.batteries.length,
-                      onReorder: (int oldIndex, int newIndex) {
-                        print('Old Index $oldIndex');
-                        print('New Index $newIndex');
-                        final oldBattery = state.batteries[oldIndex];
-                        final newBattery = state.batteries[newIndex];
-
-                        print('Battery 1 Type ${oldBattery?.type}');
-                        print('Battery 2 Type ${newBattery?.type}');
-
-                        context.read<SetPriorityBloc>().add(
-                              UpdateBatteryPriority(
-                                oldIndex: oldIndex,
-                                newIndex: newIndex,
-                                type2: oldBattery?.type,
-                                type1: newBattery?.type,
-                              ),
-                            );
-
-                        // context.read<SetPriorityBloc>().add(
-                        //       UpdateBatteryPriority(
-                        //         oldIndex:
-                        //             oldBattery?.copyWith(priority: oldIndex),
-                        //         newIndex:
-                        //             newBattery?.copyWith(priority: newIndex),
-                        //       ),
-                        //     );
-                      },
                       itemBuilder: (context, index) {
-                        final battery = state.batteries[index];
-                        return BatteryTile(
-                            key: Key(battery!.type!), battery: battery);
+                        final vehicleBattery = state.batteries[index];
+                        // return BatteryTile(battery: battery);
+                        // return PriorityTile(
+                        //   battery: battery,
+                        //   fuelType: fuelType,
+                        //   vehicleBrandId: vehicleBrandId,
+                        //   vehicleId: vehicleId,
+                        // );
+                        return BatteryPriorityTile(
+                          vehicleBattery: vehicleBattery,
+                          vehicleBrandId: vehicleBrandId,
+                          vehicleId: vehicleId,
+                          fuelType: fuelType,
+                        );
                       },
                     );
+
+                  // return ReorderableListView.builder(
+                  //   itemCount: state.batteries.length,
+                  //   onReorder: (int oldIndex, int newIndex) async {
+                  //     print('List length ${state.batteries.length}');
+                  //     print('Old Index $oldIndex');
+                  //     print('New Index $newIndex');
+                  //     int priority = newIndex + 1;
+                  //     final oldBattery = state.batteries[oldIndex];
+                  //     final newBattery = state.batteries[newIndex];
+
+                  //     print('Battery 1 Type ${oldBattery?.type}');
+                  //     print('Battery 2 Type ${newBattery?.type}');
+                  // await _batteryRepo.editBatteryPriority(
+                  //   vehicleBrandId: vehicleBrandId,
+                  //   fuelType: fuelType,
+                  //   vehicleId: vehicleId,
+                  //   //  battery: event.oldIndex,
+                  //   type: oldBattery?.type,
+                  //   priority: priority,
+                  // );
+                  // await _batteryRepo.editBatteryPriority(
+                  //   vehicleBrandId: vehicleBrandId,
+                  //   fuelType: fuelType,
+                  //   vehicleId: vehicleId,
+                  //   //  battery: event.oldIndex,
+                  //   type: newBattery?.type,
+                  //   priority: oldIndex,
+                  // );
+
+                  // context.read<SetPriorityBloc>().add(
+                  //       UpdateBatteryPriority(
+                  //         oldIndex: oldIndex,
+                  //         newIndex: newIndex,
+                  //         type2: oldBattery?.type,
+                  //         type1: newBattery?.type,
+                  //       ),
+                  //     );
+
+                  // context.read<SetPriorityBloc>().add(
+                  //       UpdateBatteryPriority(
+                  //         oldIndex:
+                  //             oldBattery?.copyWith(priority: oldIndex),
+                  //         newIndex:
+                  //             newBattery?.copyWith(priority: newIndex),
+                  //       ),
+                  //     );
+                  //   },
+                  //   itemBuilder: (context, index) {
+                  //     final battery = state.batteries[index];
+                  //     return BatteryTile(
+                  //         key: Key(battery!.type!), battery: battery);
+                  //   },
+                  // );
 
                   default:
                     return Center(

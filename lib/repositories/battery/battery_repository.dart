@@ -1,6 +1,7 @@
 import 'package:admin_battery/config/paths.dart';
 import 'package:admin_battery/enums/enums.dart';
 import 'package:admin_battery/models/battery.dart';
+import 'package:admin_battery/models/vehicle_battery.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 
@@ -56,12 +57,40 @@ class BatteryRepository {
           .collection(fuelPath)
           .doc(vehicleId)
           .collection(Paths.batteries)
+          .orderBy('priority', descending: false)
           .snapshots()
           .map((snaps) => snaps.docs
               .map((doc) => Battery.fromDocument(doc.data()))
               .toList());
     } catch (error) {
       print('Error getting batteries ${error.toString()}');
+      throw error;
+    }
+  }
+
+  // this is used for priority batteries
+  Stream<List<Future<VehicleBattery?>>> streamBatteries({
+    required String? vehicleBrandId,
+    required FuelType fuelType,
+    required String? vehicleId,
+  }) {
+    final fuelPath = EnumToString.convertToString(fuelType);
+    print('VehicleBrand Id $vehicleBrandId');
+    print('Fuel Path $fuelPath');
+    print('Vehicle Id $vehicleId');
+    try {
+      return _fireStore
+          .collection(Paths.vehicle_brands)
+          .doc(vehicleBrandId)
+          .collection(fuelPath)
+          .doc(vehicleId)
+          .collection(Paths.batteries)
+          .orderBy('priority', descending: false)
+          .snapshots()
+          .map((snaps) => snaps.docs
+              .map((doc) => VehicleBattery.fromDocument(doc.data()))
+              .toList());
+    } catch (error) {
       throw error;
     }
   }
@@ -178,13 +207,14 @@ class BatteryRepository {
     }
   }
 
-  Future<void> editBatteryPriority(
-      {required String? vehicleBrandId,
-      required FuelType? fuelType,
-      required String? vehicleId,
-      // required Battery? battery,
-      required String? type,
-      required int? priority}) async {
+  Future<void> editBatteryPriority({
+    required String? vehicleBrandId,
+    required FuelType? fuelType,
+    required String? vehicleId,
+    // required Battery? battery,
+    required String? type,
+    required int? priority,
+  }) async {
     print('VehicleBrand Id $vehicleBrandId');
 
     print('Vehicle Id $vehicleId');
@@ -192,7 +222,7 @@ class BatteryRepository {
     try {
       final fuelPath = EnumToString.convertToString(fuelType);
       print('Fuel Path $fuelPath');
-      _fireStore
+      await _fireStore
           .collection(Paths.vehicle_brands)
           .doc(vehicleBrandId)
           .collection(fuelPath)
@@ -202,6 +232,31 @@ class BatteryRepository {
           .update({'priority': priority});
     } catch (error) {
       print(error.toString());
+      throw error;
+    }
+  }
+
+  Future<int> getBatteryPriority({
+    required String? vehicleBrandId,
+    required FuelType? fuelType,
+    required String? vehicleId,
+    // required Battery? battery,
+    required String? type,
+  }) async {
+    try {
+      final fuelPath = EnumToString.convertToString(fuelType);
+      print('Fuel Path $fuelPath');
+      final doc = await _fireStore
+          .collection(Paths.vehicle_brands)
+          .doc(vehicleBrandId)
+          .collection(fuelPath)
+          .doc(vehicleId)
+          .collection(Paths.batteries)
+          .doc(type)
+          .get();
+      return doc.data()?['priority'] ?? 0;
+    } catch (error) {
+      print('Error getting priorities ${error.toString()}');
       throw error;
     }
   }

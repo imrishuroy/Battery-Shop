@@ -1,87 +1,72 @@
 import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
-class VehicleBattery extends Equatable {
-  final String? id;
-  final String? type;
-  final int? ratting;
-  final double? price;
-  final double? mrp;
-  final int? scrap;
-  final String? warranty;
+import 'package:admin_battery/models/battery.dart';
 
+class VehicleBattery extends Equatable {
+  final Battery? battery;
+  final int? priority;
   VehicleBattery({
-    this.id,
-    required this.type,
-    required this.ratting,
-    required this.price,
-    required this.mrp,
-    required this.scrap,
-    required this.warranty,
+    this.battery,
+    this.priority,
   });
 
-  @override
-  List<Object?> get props {
-    return [
-      id,
-      type,
-      ratting,
-      price,
-      mrp,
-      scrap,
-      warranty,
-    ];
-  }
-
   VehicleBattery copyWith({
-    String? id,
-    String? type,
-    int? ratting,
-    double? price,
-    double? mrp,
-    int? scrap,
-    String? warranty,
+    Battery? battery,
+    int? priority,
   }) {
     return VehicleBattery(
-      id: id ?? this.id,
-      type: type ?? this.type,
-      ratting: ratting ?? this.ratting,
-      price: price ?? this.price,
-      mrp: mrp ?? this.mrp,
-      scrap: scrap ?? this.scrap,
-      warranty: warranty ?? this.warranty,
+      battery: battery ?? this.battery,
+      priority: priority ?? this.priority,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'type': type,
-      'ratting': ratting,
-      'price': price,
-      'mrp': mrp,
-      'scrap': scrap,
-      'warranty': warranty,
+      'battery': battery?.toMap(),
+      'priority': priority ?? 0,
     };
   }
 
-  factory VehicleBattery.fromMap(Map<String, dynamic> map) {
-    return VehicleBattery(
-      id: map['id'],
-      type: map['type'],
-      ratting: map['ratting'],
-      price: map['price'],
-      mrp: map['mrp'],
-      scrap: map['scrap'],
-      warranty: map['warranty'],
-    );
+  // factory VehicleBattery.fromMap(Map<String, dynamic> map) {
+  //   return VehicleBattery(
+  //     battery: Battery.fromMap(map['battery']),
+  //     priority: map['priority'],
+  //   );
+  // }
+
+  static Future<VehicleBattery?> fromDocument(Map<String, dynamic> map) async {
+    print('Map $map');
+
+    final DocumentReference? doc = map['battery'];
+    //  print('Runtime ${doc.runtimeType}');
+    // print('Doc $doc');
+    final response = await doc?.get();
+    final data = response?.data() as Map<String, dynamic>?;
+    // print('Data $data');
+
+    // if (data != null) {
+    //   return Battery.fromMap(data);
+    // }
+    if (data != null) {
+      return VehicleBattery(
+        //battery: await Battery.fromDocument(map['battery']),
+        battery: Battery.fromMap(data),
+        priority: map['priority'],
+      );
+    }
   }
 
   String toJson() => json.encode(toMap());
 
-  factory VehicleBattery.fromJson(String source) =>
-      VehicleBattery.fromMap(json.decode(source));
+  // factory VehicleBattery.fromJson(String source) =>
+  //     VehicleBattery.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;
+
+  @override
+  List<Object?> get props => [battery, priority];
 }

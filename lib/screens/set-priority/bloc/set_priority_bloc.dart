@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:admin_battery/enums/enums.dart';
 import 'package:admin_battery/models/battery.dart';
 import 'package:admin_battery/models/failure.dart';
+import 'package:admin_battery/models/vehicle_battery.dart';
 import 'package:admin_battery/repositories/battery/battery_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -29,10 +30,16 @@ class SetPriorityBloc extends Bloc<SetPriorityEvent, SetPriorityState> {
         super(SetPriorityState.initial()) {
     _batterySubscription?.cancel();
     _batterySubscription = _batteryRepository
-        .streamVehiclesBatteries(
-            vehicleBrandId: _vehicleBrandId,
-            fuelType: _fuelType,
-            vehicleId: _vehicleId)
+        .streamBatteries(
+      vehicleBrandId: _vehicleBrandId,
+      fuelType: _fuelType,
+      vehicleId: _vehicleId,
+    )
+
+        // .streamVehiclesBatteries(
+        //     vehicleBrandId: _vehicleBrandId,
+        //     fuelType: _fuelType,
+        //     vehicleId: _vehicleId)
         .listen((snaps) async {
       final batteries = await Future.wait(snaps);
       add(LoadPriorityBatteries(batteries: batteries));
@@ -53,6 +60,8 @@ class SetPriorityBloc extends Bloc<SetPriorityEvent, SetPriorityState> {
       yield* _mapLoadPriorityBatteriesToState(event);
     } else if (event is UpdateBatteryPriority) {
       _mapUpdateBatteryPriorityToState(event);
+    } else if (event is RefreshPriotity) {
+      _mapRefreshBatteryPriorityToState();
     }
   }
 
@@ -71,19 +80,19 @@ class SetPriorityBloc extends Bloc<SetPriorityEvent, SetPriorityState> {
       fuelType: _fuelType,
       vehicleId: _vehicleId,
       //   battery: event.newIndex,
-      type: event.type1,
+      type: event.vehicleBattery.battery?.type,
 
-      priority: event.newIndex,
+      priority: event.vehicleBattery.priority,
     );
 
-    await _batteryRepository.editBatteryPriority(
-      vehicleBrandId: _vehicleBrandId,
-      fuelType: _fuelType,
-      vehicleId: _vehicleId,
-      //  battery: event.oldIndex,
-      type: event.type2,
-      priority: event.oldIndex,
-    );
+    // await _batteryRepository.editBatteryPriority(
+    //   vehicleBrandId: _vehicleBrandId,
+    //   fuelType: _fuelType,
+    //   vehicleId: _vehicleId,
+    //   //  battery: event.oldIndex,
+    //   type: event.type2,
+    //   priority: event.oldIndex,
+    // );
     // _batterySubscription = _batteryRepository
     //     .streamVehiclesBatteries(
     //         vehicleBrandId: _vehicleBrandId,
@@ -93,5 +102,22 @@ class SetPriorityBloc extends Bloc<SetPriorityEvent, SetPriorityState> {
     //   final batteries = await Future.wait(snaps);
     //   add(LoadPriorityBatteries(batteries: batteries));
     // });
+  }
+
+  Stream<SetPriorityState> _mapRefreshBatteryPriorityToState() async* {
+    _batterySubscription?.cancel();
+    _batterySubscription = _batteryRepository
+        .streamBatteries(
+            vehicleBrandId: _vehicleBrandId,
+            fuelType: _fuelType,
+            vehicleId: _vehicleId)
+        // .streamVehiclesBatteries(
+        //     vehicleBrandId: _vehicleBrandId,
+        //     fuelType: _fuelType,
+        //     vehicleId: _vehicleId)
+        .listen((snaps) async {
+      final batteries = await Future.wait(snaps);
+      add(LoadPriorityBatteries(batteries: batteries));
+    });
   }
 }
