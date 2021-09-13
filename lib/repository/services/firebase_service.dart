@@ -1,6 +1,5 @@
 import 'package:battery_shop/config/paths.dart';
 import 'package:battery_shop/models/battery.dart';
-
 import 'package:battery_shop/models/vehicle.dart';
 import 'package:battery_shop/models/vehicle_type.dart';
 import 'package:battery_shop/models/vehilce_brands.dart';

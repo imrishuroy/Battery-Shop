@@ -1,6 +1,4 @@
 import 'package:battery_shop/constants/constants.dart';
-
-import 'package:battery_shop/screens/home/search_bar.dart';
 import 'package:battery_shop/screens/vehicle-brands/vehilce_brands.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +23,7 @@ class BatteryTab extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            Search(),
+            //  Search(),
             VehicleBrands(),
           ],
         ),

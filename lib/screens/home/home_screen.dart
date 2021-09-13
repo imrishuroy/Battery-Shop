@@ -1,5 +1,6 @@
 import 'package:battery_shop/screens/about/about_screen.dart';
 import 'package:battery_shop/screens/inverter/inverter_tab.dart';
+import 'package:battery_shop/screens/price-list/price_list_tab.dart';
 import 'package:battery_shop/screens/vehicles/widgets/tab_item.dart';
 
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'battery_tab.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const String routeName = '/home-screen';
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -19,13 +20,41 @@ class HomeScreen extends StatelessWidget {
   }
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  TabController? _tabController;
+
+  int _selectedIndex = 0;
+  @override
+  void initState() {
+    _tabController = TabController(length: 3, vsync: this);
+    _tabController?.addListener(() {
+      setState(() {
+        _selectedIndex = _tabController!.index;
+      });
+      print("Selected Index: " + _tabController!.index.toString());
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _tabController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
         return false;
       },
       child: DefaultTabController(
-        length: 2,
+        length: 3,
+        initialIndex: _selectedIndex,
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -41,21 +70,28 @@ class HomeScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pushNamed(AboutScreen.routeName);
                 },
-                icon: Icon(Icons.info),
+                icon: const Icon(Icons.info),
               ),
             ],
             bottom: TabBar(
+              controller: _tabController,
+              isScrollable: true,
               tabs: [
                 TabItem(label: 'Battery', icon: FontAwesomeIcons.carBattery),
                 TabItem(label: 'Inverter', icon: Icons.today_sharp),
+                TabItem(label: 'Price', icon: Icons.monetization_on_sharp)
               ],
             ),
           ),
           body: TabBarView(
+            controller: _tabController,
             children: [
               const BatteryTab(),
               //const Center(child: Text('N/A')),
-              InveterTab(),
+              InveterTab(
+                tabController: _tabController,
+              ),
+              PriceListTab(),
             ],
           ),
         ),
