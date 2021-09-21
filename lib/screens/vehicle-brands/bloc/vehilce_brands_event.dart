@@ -10,7 +10,7 @@ abstract class VehilceBrandsEvent extends Equatable {
 class LoadVehicleBrands extends VehilceBrandsEvent {
   final List<VehicleBrand?> vehicleBrands;
 
-  LoadVehicleBrands({required this.vehicleBrands});
+  const LoadVehicleBrands({required this.vehicleBrands});
 
   @override
   List<Object> get props => [vehicleBrands];

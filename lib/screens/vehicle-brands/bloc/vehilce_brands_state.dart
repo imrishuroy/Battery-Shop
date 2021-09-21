@@ -16,7 +16,7 @@ class VehilceBrandsState extends Equatable {
   @override
   List<Object?> get props => [vehicleBrands, failure, status];
 
-  factory VehilceBrandsState.initial() => VehilceBrandsState(
+  factory VehilceBrandsState.initial() => const VehilceBrandsState(
       vehicleBrands: [],
       failure: Failure(),
       status: VehicleBrandsStatus.initial);

@@ -25,6 +25,7 @@ dependencies:
   cloud_firestore: ^2.4.0
   connectivity_plus: ^1.0.6
   cupertino_icons: ^1.0.2
+  dio: ^4.0.0
   enum_to_string: ^2.0.1
   equatable: ^2.0.3
   expansion_tile_card: ^2.0.0
@@ -48,8 +49,10 @@ dependencies:
   uuid: ^3.0.4
 
 dev_dependencies:
+  flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

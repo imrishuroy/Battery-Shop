@@ -1,23 +1,23 @@
-import '/config/custom_router.dart';
-import '/repository/services/firebase_service.dart';
-import '/screens/home/home_screen.dart';
-import '/screens/vehicle-brands/bloc/vehilce_brands_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import '/config/custom_router.dart';
+import '/repository/rest-apis/rest_apis_repo.dart';
+import '/repository/services/firebase_service.dart';
+import '/screens/home/home_screen.dart';
+import '/screens/vehicle-brands/bloc/vehilce_brands_bloc.dart';
 import 'blocs/simple_bloc_observer.dart';
 import 'config/shared_prefs.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Bloc.observer = SimpleBlocObserver();
   EquatableConfig.stringify = kDebugMode;
   await SharedPrefs().init();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,11 +30,14 @@ class MyApp extends StatelessWidget {
         RepositoryProvider<FirebaseServices>(
           create: (_) => FirebaseServices(),
         ),
+        RepositoryProvider<RestApisRepository>(
+          create: (_) => RestApisRepository(),
+        )
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider<VehilceBrandsBloc>(
-            create: (context) => VehilceBrandsBloc(
+            create: (BuildContext context) => VehilceBrandsBloc(
               firebaseService: context.read<FirebaseServices>(),
             ),
           ),
@@ -42,7 +45,9 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           theme: ThemeData(
             appBarTheme: AppBarTheme(
-                backgroundColor: Colors.redAccent.shade700, centerTitle: true),
+              backgroundColor: Colors.redAccent.shade700,
+              centerTitle: true,
+            ),
             primaryColor: Colors.redAccent.shade700,
             elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(

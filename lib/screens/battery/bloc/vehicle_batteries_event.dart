@@ -10,7 +10,7 @@ abstract class VehicleBatteriesEvent extends Equatable {
 class LoadVehicleBatteries extends VehicleBatteriesEvent {
   final List<Battery?> vehicleBatteries;
 
-  LoadVehicleBatteries({required this.vehicleBatteries});
+  const LoadVehicleBatteries({required this.vehicleBatteries});
 
   @override
   List<Object> get props => [vehicleBatteries];
@@ -22,7 +22,7 @@ class LoadVehicleBatteries extends VehicleBatteriesEvent {
 class UpdateVehicleBatteries extends VehicleBatteriesEvent {
   final List<Battery?> updatedBatteries;
 
-  UpdateVehicleBatteries({required this.updatedBatteries});
+  const UpdateVehicleBatteries({required this.updatedBatteries});
 
   @override
   List<Object> get props => [updatedBatteries];
@@ -34,7 +34,7 @@ class UpdateVehicleBatteries extends VehicleBatteriesEvent {
 class DeleteAVehicleBattery extends VehicleBatteriesEvent {
   final Battery battery;
 
-  DeleteAVehicleBattery({required this.battery});
+  const DeleteAVehicleBattery({required this.battery});
   @override
   List<Object> get props => [battery];
 
@@ -45,7 +45,7 @@ class DeleteAVehicleBattery extends VehicleBatteriesEvent {
 class AddAVehicleBattery extends VehicleBatteriesEvent {
   final Battery battery;
 
-  AddAVehicleBattery({required this.battery});
+  const AddAVehicleBattery({required this.battery});
   @override
   List<Object> get props => [battery];
 

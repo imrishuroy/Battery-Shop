@@ -1,5 +1,5 @@
-import 'package:battery_shop/screens/vehicle-brands/bloc/vehilce_brands_bloc.dart';
-import 'package:battery_shop/screens/vehicle-brands/vehilce_brand_card.dart';
+import '/screens/vehicle-brands/bloc/vehilce_brands_bloc.dart';
+import '/screens/vehicle-brands/vehilce_brand_card.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +24,7 @@ class VehicleBrands extends StatelessWidget {
               return AnimationLimiter(
                 child: GridView.builder(
                   itemCount: brands.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                   ),
                   itemBuilder: (context, index) {

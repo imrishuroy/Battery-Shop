@@ -2,7 +2,7 @@
     package="com.sixteenbrains.battery_shop">
    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="battery_shop"
+        android:label="Battery"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

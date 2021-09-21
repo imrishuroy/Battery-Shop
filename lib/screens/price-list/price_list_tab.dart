@@ -1,4 +1,4 @@
-import 'package:battery_shop/config/shared_prefs.dart';
+import '/config/shared_prefs.dart';
 
 import '/screens/price-list/widgets/inverter_list.dart';
 import 'package:flutter/material.dart';
@@ -69,8 +69,8 @@ class _PriceListTabState extends State<PriceListTab> {
           ),
           const SizedBox(height: 10.0),
           _dropdownValue == 'Battery Pricelist'
-              ? BatteryList()
-              : InverterList(),
+              ? const BatteryList()
+              : const InverterList(),
         ],
       ),
     );

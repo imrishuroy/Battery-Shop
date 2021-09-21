@@ -1,6 +1,6 @@
-import 'package:battery_shop/models/vehilce_brands.dart';
-import 'package:battery_shop/screens/vehicle-type/vehicle_type_screen.dart';
-import 'package:battery_shop/widgets/display_image.dart';
+import '/models/vehilce_brands.dart';
+import '/screens/vehicle-type/vehicle_type_screen.dart';
+import '/widgets/display_image.dart';
 import 'package:flutter/material.dart';
 
 class VehicleBrandCard extends StatelessWidget {
@@ -33,25 +33,25 @@ class VehicleBrandCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Spacer(),
-              Container(
+              const Spacer(),
+              SizedBox(
                 height: 100.0,
                 width: 100.0,
                 child: DisplayImage(imageUrl: vehicleBrand?.logoUrl),
               ),
-              Spacer(),
+              const Spacer(),
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.black87),
                   // color: Color(0xffDDDDDD),
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(6.0),
                     bottomRight: Radius.circular(6.0),
                   ),
                 ),
                 child: Text(
-                  '${vehicleBrand?.name}',
-                  style: TextStyle(
+                  vehicleBrand?.name ?? 'N/A',
+                  style: const TextStyle(
                     fontSize: 18.0,
                     // fontWeight: FontWeight.w500,
                     letterSpacing: 1.2,

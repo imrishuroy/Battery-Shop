@@ -1,7 +1,7 @@
-import 'package:battery_shop/models/battery.dart';
-import 'package:battery_shop/models/vehicle_type.dart';
-import 'package:battery_shop/repository/services/firebase_service.dart';
-import 'package:battery_shop/screens/battery/bloc/vehicle_batteries_bloc.dart';
+import '/models/battery.dart';
+import '/models/vehicle_type.dart';
+import '/repository/services/firebase_service.dart';
+import '/screens/battery/bloc/vehicle_batteries_bloc.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,11 +15,13 @@ class BatteryRequiredArgs {
   final String? vehicleBrandId;
   final FuelType fuelType;
   final String? vehicleId;
+  final String vehicleType;
 
   const BatteryRequiredArgs({
     required this.vehicleBrandId,
     required this.fuelType,
     required this.vehicleId,
+    required this.vehicleType,
   });
 }
 
@@ -39,15 +41,16 @@ class BatteryRequiredScreen extends StatelessWidget {
 
   static Route route({required BatteryRequiredArgs? args}) {
     return MaterialPageRoute(
-      settings: RouteSettings(name: routeName),
+      settings: const RouteSettings(name: routeName),
       builder: (context) => BlocProvider(
         create: (context) => VehicleBatteriesBloc(
           batteryRepository: context.read<FirebaseServices>(),
           vehicleBrandId: args?.vehicleBrandId,
           fuelType: args!.fuelType,
           vehicleId: args.vehicleId,
+          vehicleType: args.vehicleType,
         ),
-        child: BatteryRequiredScreen(),
+        child: const BatteryRequiredScreen(),
       ),
     );
   }
@@ -116,8 +119,8 @@ class BatteryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(14.0, 20.0, 14.0, 3.0),
-      child: Container(
+      padding: const EdgeInsets.fromLTRB(14.0, 20.0, 14.0, 3.0),
+      child: SizedBox(
         child: Column(
           children: [
             Row(
@@ -125,7 +128,7 @@ class BatteryTile extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 80.0,
                       width: 80.0,
                       child: Image.asset('assets/battery.png'),
@@ -137,7 +140,7 @@ class BatteryTile extends StatelessWidget {
                     Text(
                       // '₹9999',
                       '₹${battery?.mrp}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w600,
                         letterSpacing: 1.2,
@@ -146,14 +149,14 @@ class BatteryTile extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(width: 15.0),
-                Container(
+                SizedBox(
                   width: 175,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         '${battery?.type}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.w600,
                           letterSpacing: 1.0,
@@ -178,11 +181,11 @@ class BatteryTile extends StatelessWidget {
                       // ),
                       const SizedBox(height: 30.0),
                       // Text('Dealer Price'),
-                      Text('( Excluding GST )')
+                      const Text('( Excluding GST )')
                     ],
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.only(right: 5.0),
                   child: InkWell(
@@ -190,12 +193,12 @@ class BatteryTile extends StatelessWidget {
                       launch('tel://1234567890');
                     },
                     child: Column(
-                      children: [
+                      children: const <Widget>[
                         Icon(
                           Icons.call,
                           color: Colors.green,
                         ),
-                        const SizedBox(height: 6.0),
+                        SizedBox(height: 6.0),
                         Text('Call'),
                         Text('Distributor')
                       ],

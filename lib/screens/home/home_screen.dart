@@ -1,12 +1,12 @@
-import 'package:battery_shop/screens/about/about_screen.dart';
-import 'package:battery_shop/screens/inverter/inverter_tab.dart';
-import 'package:battery_shop/screens/price-list/price_list_tab.dart';
-import 'package:battery_shop/screens/vehicles/widgets/tab_item.dart';
+import '/screens/about/about_screen.dart';
+import '/screens/inverter/inverter_tab.dart';
+import '/screens/price-list/price_list_tab.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'battery_tab.dart';
+import 'widgets/tab_item.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/home-screen';
@@ -14,8 +14,8 @@ class HomeScreen extends StatefulWidget {
 
   static Route route() {
     return MaterialPageRoute(
-      settings: RouteSettings(name: routeName),
-      builder: (context) => HomeScreen(),
+      settings: const RouteSettings(name: routeName),
+      builder: (context) => const HomeScreen(),
     );
   }
 
@@ -74,12 +74,14 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ],
             bottom: TabBar(
+              indicatorColor: Colors.white,
+              indicatorWeight: 1.8,
               controller: _tabController,
               isScrollable: true,
-              tabs: [
+              tabs: const <Widget>[
                 TabItem(label: 'Battery', icon: FontAwesomeIcons.carBattery),
                 TabItem(label: 'Inverter', icon: Icons.today_sharp),
-                TabItem(label: 'Price', icon: Icons.monetization_on_sharp)
+                TabItem(label: 'Price List', icon: Icons.monetization_on_sharp)
               ],
             ),
           ),
@@ -91,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen>
               InveterTab(
                 tabController: _tabController,
               ),
-              PriceListTab(),
+              const PriceListTab(),
             ],
           ),
         ),

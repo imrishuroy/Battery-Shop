@@ -8,7 +8,8 @@ enum FuelType { petrol, diesel }
 class VehicleType extends Equatable {
   final FuelType? type;
   final String? imageUrl;
-  VehicleType({
+
+  const VehicleType({
     required this.type,
     required this.imageUrl,
   });

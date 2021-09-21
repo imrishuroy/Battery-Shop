@@ -10,7 +10,7 @@ abstract class VehiclesBlocEvent extends Equatable {
 class LoadVehicles extends VehiclesBlocEvent {
   final List<Vehicle?> vehicles;
 
-  LoadVehicles({required this.vehicles});
+  const LoadVehicles({required this.vehicles});
 
   @override
   List<Object> get props => [vehicles];

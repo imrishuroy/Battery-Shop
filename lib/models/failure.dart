@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
 class Failure extends Equatable {
-  final String code;
-  final String message;
-
-  Failure({
+  const Failure({
     this.code = '',
     this.message = '',
   });
+
+  final String code;
+  final String message;
 
   @override
   bool? get stringify => true;

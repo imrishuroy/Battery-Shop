@@ -8,21 +8,24 @@ enum VehiclesBlocStatus {
 }
 
 class VehiclesBlocState extends Equatable {
-  final List<Vehicle?> vehicles;
-  final Failure failure;
-  final VehiclesBlocStatus status;
-
   const VehiclesBlocState({
     required this.vehicles,
     required this.failure,
     required this.status,
   });
 
-  @override
-  List<Object> get props => [vehicles, failure, status];
+  factory VehiclesBlocState.initial() => const VehiclesBlocState(
+        vehicles: <Vehicle?>[],
+        failure: Failure(),
+        status: VehiclesBlocStatus.initial,
+      );
 
-  factory VehiclesBlocState.initial() => VehiclesBlocState(
-      vehicles: [], failure: Failure(), status: VehiclesBlocStatus.initial);
+  final List<Vehicle?> vehicles;
+  final Failure failure;
+  final VehiclesBlocStatus status;
+
+  @override
+  List<Object> get props => <Object>[vehicles, failure, status];
 
   VehiclesBlocState copyWith({
     List<Vehicle?>? vehicles,

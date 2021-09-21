@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
-  static const String routeName = '/about';
   const AboutScreen({Key? key}) : super(key: key);
+  static const String routeName = '/about';
 
   static Route route() {
     return MaterialPageRoute(
-      settings: RouteSettings(name: routeName),
-      builder: (context) => AboutScreen(),
+      settings: const RouteSettings(name: routeName),
+      builder: (context) => const AboutScreen(),
     );
   }
 
@@ -18,7 +18,7 @@ class AboutScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('About'),
+        title: const Text('About'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -30,7 +30,7 @@ class AboutScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10.0),
-              Text(
+              const Text(
                 'Disclaimer',
                 style: TextStyle(
                   fontSize: 19.0,
@@ -39,7 +39,7 @@ class AboutScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10.0),
-              Text(
+              const Text(
                 _disclaimer,
                 style: TextStyle(
                   fontSize: 16.0,
@@ -47,7 +47,7 @@ class AboutScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 15.0),
-              Text(
+              const Text(
                 'Contact',
                 style: TextStyle(
                   fontSize: 19.0,
@@ -58,12 +58,12 @@ class AboutScreen extends StatelessWidget {
               const SizedBox(height: 10.0),
               RichText(
                 text: TextSpan(
-                  style: TextStyle(color: Colors.black, fontSize: 17.0),
+                  style: const TextStyle(color: Colors.black, fontSize: 17.0),
                   children: [
-                    TextSpan(text: 'Ph - '),
+                    const TextSpan(text: 'Ph - '),
                     TextSpan(
                       text: '9035797534',
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () => launch('tel://9035797534'),
                     ),
@@ -73,12 +73,12 @@ class AboutScreen extends StatelessWidget {
               const SizedBox(height: 8.0),
               RichText(
                 text: TextSpan(
-                  style: TextStyle(color: Colors.black, fontSize: 17.0),
+                  style: const TextStyle(color: Colors.black, fontSize: 17.0),
                   children: [
                     const TextSpan(text: 'Gmail - '),
                     TextSpan(
                       text: 'textfawaz@gmail.com',
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () => launch('mailto:textfawaz@gmail.com'),
                     ),
@@ -119,4 +119,5 @@ class AboutScreen extends StatelessWidget {
 }
 
 const String _disclaimer =
+    // ignore: avoid_escaping_inner_quotes
     'Battery dealers is app, owned and operated by Fawaz for all kind spare parts and do not own or control any car make or spare parts brand.\n\nAll Car Make, Marque, Model, Submodel, Modification, Variants names are respective trademarks of OEM\'s (“Original Equipment Manufacturer”) and this battery dealer app has no relation to them.\n\nNeither endorses any aftermarket or replacement car parts nor claims any such part as genuine or OEM authorised. The app is the facilitator for all kind of spare parts sales and not acting on behalf of the OEM and/or supplier.\n\nAll car images, logos on this site are the property of their respective owners. We do not hold any copyright in regards to these pictures . These pictures have been collected from different public sources including various websites, considered to be in public domain. If any one has any objection to display of any picture, image or text it may be brought to our notice by sending an email (contact us) and the disputed media will be be removed immediately, after verification of the claim.\n\nIts App offers to customer goods of relevant pages randomly, sorted or filtered by customer’s choice. goods are intentionally prioritised in search results it is stated clearly. It is on the sole discretion of the user to decide and opt for any kind of goods.';

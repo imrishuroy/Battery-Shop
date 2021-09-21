@@ -1,5 +1,5 @@
-import 'package:battery_shop/constants/constants.dart';
-import 'package:battery_shop/screens/vehicle-brands/vehilce_brands.dart';
+import '/constants/constants.dart';
+import '/screens/vehicle-brands/vehilce_brands.dart';
 import 'package:flutter/material.dart';
 
 class BatteryTab extends StatelessWidget {
@@ -15,7 +15,7 @@ class BatteryTab extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: 140.0,
               width: double.infinity,
               child: Image.network(
@@ -24,7 +24,7 @@ class BatteryTab extends StatelessWidget {
               ),
             ),
             //  Search(),
-            VehicleBrands(),
+            const VehicleBrands(),
           ],
         ),
       ),

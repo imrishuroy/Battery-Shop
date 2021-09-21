@@ -3,20 +3,20 @@ part of 'vehicle_batteries_bloc.dart';
 enum VehicleBatteriesStatus { initial, loading, succuss, error }
 
 class VehicleBatteriesState extends Equatable {
-  final List<Battery?> vehicleBatteries;
-  final Failure failure;
-  final VehicleBatteriesStatus status;
-
-  VehicleBatteriesState({
+  const VehicleBatteriesState({
     required this.vehicleBatteries,
     required this.failure,
     required this.status,
   });
 
+  final List<Battery?> vehicleBatteries;
+  final Failure failure;
+  final VehicleBatteriesStatus status;
+
   @override
   List<Object> get props => [vehicleBatteries, failure, status];
 
-  factory VehicleBatteriesState.initial() => VehicleBatteriesState(
+  factory VehicleBatteriesState.initial() => const VehicleBatteriesState(
       vehicleBatteries: [],
       failure: Failure(),
       status: VehicleBatteriesStatus.initial);
@@ -24,7 +24,7 @@ class VehicleBatteriesState extends Equatable {
   factory VehicleBatteriesState.loaded({required List<Battery?> batteries}) =>
       VehicleBatteriesState(
         vehicleBatteries: batteries,
-        failure: Failure(),
+        failure: const Failure(),
         status: VehicleBatteriesStatus.succuss,
       );
 

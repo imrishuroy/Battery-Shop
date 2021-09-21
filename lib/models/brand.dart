@@ -7,7 +7,7 @@ class Brand extends Equatable {
   final String? logoUrl;
   final String? id;
 
-  Brand({
+  const Brand({
     required this.name,
     required this.logoUrl,
     required this.id,
@@ -23,7 +23,7 @@ class Brand extends Equatable {
   }) {
     return Brand(
       name: name ?? this.name,
-      logoUrl: logo ?? this.logoUrl,
+      logoUrl: logo ?? logoUrl,
       id: id ?? this.id,
     );
   }

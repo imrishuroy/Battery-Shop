@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:battery_shop/models/failure.dart';
-import 'package:battery_shop/models/vehilce_brands.dart';
-import 'package:battery_shop/repository/services/firebase_service.dart';
+import '/models/failure.dart';
+import '/models/vehilce_brands.dart';
+import '/repository/services/firebase_service.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 

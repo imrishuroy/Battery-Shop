@@ -1,4 +1,4 @@
-import 'package:battery_shop/config/shared_prefs.dart';
+import '/config/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -17,24 +17,134 @@ class InveterTab extends StatefulWidget {
 }
 
 class _InveterTabState extends State<InveterTab> {
-  // var _load = ['20', '50', '70', '100'];
+  final _load = ['20', '50', '70', '100'];
 
-  // String? _currentSelectedValue = '50';
+  String? _runningLoad = '50';
   bool isFanTileExpaned = false;
   bool isTvTileExpanded = false;
   bool isPcTIleExpaned = false;
   bool isMotoTileExpanded = false;
 
+  // void _displayDialog({
+  //   required int? load,
+  //   required int? ah,
+  //   required int? noOfBattery,
+  // }) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         title: const Center(
+  //           child: Text(
+  //             'Recomendation for your perfect inverter battery',
+  //             style: TextStyle(
+  //               fontSize: 18.0,
+  //               fontWeight: FontWeight.w500,
+  //             ),
+  //             textAlign: TextAlign.center,
+  //           ),
+  //         ),
+  //         content: Column(
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             Row(
+  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //               children: [
+  //                 const Text(
+  //                   'Battery',
+  //                   style: _klabelStyle,
+  //                 ),
+  //                 Text(
+  //                   // '100AH',
+  //                   '${ah ?? 'N/A'} AH',
+  //                   style: _kValueStyle,
+  //                 ),
+  //               ],
+  //             ),
+  //             const SizedBox(height: 3.0),
+  //             Row(
+  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //               children: [
+  //                 const Text(
+  //                   'Inverter',
+  //                   style: _klabelStyle,
+  //                 ),
+  //                 Text(
+  //                   //'650AV',
+  //                   '${load ?? 'N/A'} AV',
+  //                   style: _kValueStyle,
+  //                 ),
+  //               ],
+  //             ),
+  //             const SizedBox(height: 3.0),
+  //             Row(
+  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //               children: [
+  //                 const Text(
+  //                   'No Of Battery',
+  //                   style: _klabelStyle,
+  //                 ),
+  //                 const SizedBox(width: 17.0),
+  //                 Text(
+  //                   '${noOfBattery ?? 'N/A'}',
+  //                   style: _kValueStyle,
+  //                 ),
+  //                 const SizedBox(height: 3.0),
+  //               ],
+  //             ),
+  //             const SizedBox(height: 15.0),
+  //             Row(
+  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //               children: [
+  //                 ElevatedButton(
+  //                   style: ElevatedButton.styleFrom(),
+  //                   onPressed: () async {
+  //                     await SharedPrefs().setPriceList('Inverter Pricelist');
+  //                     Navigator.of(context).pop();
+  //                     //DefaultTabController.of(context)?.animateTo(3);
+  //                     widget.tabController?.animateTo(2);
+  //                   },
+  //                   child: const Text('Buy Inverter'),
+  //                 ),
+  //                 ElevatedButton(
+  //                   style: ElevatedButton.styleFrom(),
+  //                   onPressed: () async {
+  //                     await SharedPrefs().setPriceList('Battery Pricelist');
+  //                     Navigator.of(context).pop();
+
+  //                     widget.tabController?.animateTo(2);
+  //                   },
+  //                   child: const Text('Buy Battery'),
+  //                 ),
+  //               ],
+  //             ),
+  //             const SizedBox(height: 5.0),
+  //             TextButton(
+  //               style: TextButton.styleFrom(
+  //                   primary: Colors.redAccent.shade700,
+  //                   textStyle: const TextStyle(fontSize: 17.0)),
+  //               onPressed: () {
+  //                 Navigator.of(context).pop();
+  //               },
+  //               child: const Text('Re calculate'),
+  //             )
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
   void _displayDialog({
-    required int? load,
-    required int? ah,
+    required int? inverterVA,
+    required int? batteryCapacity,
     required int? noOfBattery,
   }) {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Center(
+          title: const Center(
             child: Text(
               'Recomendation for your perfect inverter battery',
               style: TextStyle(
@@ -51,13 +161,13 @@ class _InveterTabState extends State<InveterTab> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Battery',
+                  const Text(
+                    'Inverter VA Rating - ',
                     style: _klabelStyle,
                   ),
                   Text(
                     // '100AH',
-                    '${ah ?? 'N/A'} AH',
+                    '${inverterVA ?? 'N/A'} VA',
                     style: _kValueStyle,
                   ),
                 ],
@@ -66,13 +176,13 @@ class _InveterTabState extends State<InveterTab> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Inverter',
+                  const Text(
+                    'Battery Capacity - ',
                     style: _klabelStyle,
                   ),
                   Text(
                     //'650AV',
-                    '${load ?? 'N/A'}' + 'AV',
+                    '${batteryCapacity ?? 'N/A'} Ah',
                     style: _kValueStyle,
                   ),
                 ],
@@ -81,8 +191,8 @@ class _InveterTabState extends State<InveterTab> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'No Of Battery',
+                  const Text(
+                    'No Of Batteries - ',
                     style: _klabelStyle,
                   ),
                   const SizedBox(width: 17.0),
@@ -105,7 +215,7 @@ class _InveterTabState extends State<InveterTab> {
                       //DefaultTabController.of(context)?.animateTo(3);
                       widget.tabController?.animateTo(2);
                     },
-                    child: Text('Buy Inverter'),
+                    child: const Text('Buy Inverter'),
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(),
@@ -115,7 +225,7 @@ class _InveterTabState extends State<InveterTab> {
 
                       widget.tabController?.animateTo(2);
                     },
-                    child: Text('Buy Battery'),
+                    child: const Text('Buy Battery'),
                   ),
                 ],
               ),
@@ -123,11 +233,11 @@ class _InveterTabState extends State<InveterTab> {
               TextButton(
                 style: TextButton.styleFrom(
                     primary: Colors.redAccent.shade700,
-                    textStyle: TextStyle(fontSize: 17.0)),
+                    textStyle: const TextStyle(fontSize: 17.0)),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('Re calculate'),
+                child: const Text('Re calculate'),
               )
             ],
           ),
@@ -157,27 +267,108 @@ class _InveterTabState extends State<InveterTab> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      if (_loadInWatt != null && _backupInHour != null) {
+      if (_loadInWatt != null &&
+          _backupInHour != null &&
+          _runningLoad != null) {
         double? load = double.tryParse(_loadInWatt!);
         double? _backup = double.tryParse(_backupInHour!);
-        if (load != null && _backup != null) {
-          double initialLoad = int.parse(_loadController.text) / 0.8;
-          double initialAH = initialLoad * _backup / 12;
-          int totalAH = (initialAH * 0.35).ceil();
-          print('Total Ah $totalAH');
+        double? _averageRunnigLoad = double.tryParse(_runningLoad!);
+        print('Average running load $_averageRunnigLoad');
 
-          double twentyFivePer = initialLoad * 0.25;
-          double total = initialLoad + twentyFivePer;
-          print('Total ${total.ceil()}');
-          print('Total ${total.runtimeType}');
+        if (load != null && _backup != null && _averageRunnigLoad != null) {
+          double inverterRequired = 0.0;
+          double batteryAhRequired = 0.0;
+          _averageRunnigLoad *= 0.01;
+          print('Average running load $_averageRunnigLoad');
+          double noOfBatteries = 1;
 
-          if (totalAH > 220) {
-            _displayDialog(load: total.ceil(), noOfBattery: 2, ah: totalAH);
-            // _displayDialog(
-            //     load: 1500, ah: (totalAH / 2).ceil(), noOfBattery: 2);
-          } else {
-            _displayDialog(load: total.ceil(), noOfBattery: 1, ah: totalAH);
+          double realLoad = (load * 1.25) /
+              0.8; //1.25 is 25% of the given load & 0.8 powerfactor
+
+          inverterRequired = realLoad / 0.9; //0.9 is efficiency of inverter
+
+          batteryAhRequired = (realLoad * _backup) / 12;
+
+          batteryAhRequired *= _averageRunnigLoad;
+
+          inverterRequired *= _averageRunnigLoad;
+          double unChnagedAH = batteryAhRequired;
+
+          //correction of battery numbers and ah
+          if (inverterRequired >= 10000 || batteryAhRequired > 3300) {
+            noOfBatteries = batteryAhRequired / 220;
+            batteryAhRequired = 220;
+          } else if (inverterRequired >= 10000 || batteryAhRequired > 2200) {
+            batteryAhRequired = batteryAhRequired / 15;
+            noOfBatteries = 15;
+          } else if (inverterRequired >= 7500 || batteryAhRequired > 1760) {
+            batteryAhRequired = batteryAhRequired / 10;
+            noOfBatteries = 10;
+          } else if (inverterRequired >= 5500 || batteryAhRequired > 1320) {
+            batteryAhRequired = batteryAhRequired / 8;
+            noOfBatteries = 8;
+          } else if (inverterRequired >= 5000 || batteryAhRequired > 880) {
+            batteryAhRequired = batteryAhRequired / 6;
+            noOfBatteries = 6;
+          } else if (inverterRequired >= 3500 || batteryAhRequired > 660) {
+            batteryAhRequired = batteryAhRequired / 4;
+            noOfBatteries = 4;
+          } else if (inverterRequired >= 2500 || batteryAhRequired > 440) {
+            batteryAhRequired = batteryAhRequired / 3;
+            noOfBatteries = 3;
+          } else if (inverterRequired >= 1500 || batteryAhRequired > 220) {
+            batteryAhRequired = batteryAhRequired / 2;
+            noOfBatteries = 2;
           }
+
+          //correction for inverter va rating
+
+          if (!(inverterRequired >= 10000) && unChnagedAH > 2200) {
+            inverterRequired = 10000;
+          } else if (!(inverterRequired >= 7500) && unChnagedAH > 1760) {
+            inverterRequired = 7500;
+          } else if (!(inverterRequired >= 5500) && unChnagedAH > 1320) {
+            inverterRequired = 5500;
+          } else if (!(inverterRequired >= 5000) && unChnagedAH > 880) {
+            inverterRequired = 5000;
+          } else if (!(inverterRequired >= 3500) && unChnagedAH > 660) {
+            inverterRequired = 3500;
+          } else if (!(inverterRequired >= 2500) && unChnagedAH > 440) {
+            inverterRequired = 2500;
+          } else if (!(inverterRequired >= 1500) && unChnagedAH > 220) {
+            inverterRequired = 1500;
+          }
+
+          if (inverterRequired > 15000) {
+            inverterRequired = 15000;
+          } else if (inverterRequired < 300) {
+            inverterRequired = 300;
+          } else if (unChnagedAH < 35) {
+            batteryAhRequired = 35;
+          }
+
+          _displayDialog(
+              inverterVA: inverterRequired.ceil(),
+              batteryCapacity: batteryAhRequired.ceil(),
+              noOfBattery: noOfBatteries.ceil());
+
+          // double initialLoad = int.parse(_loadController.text) / 0.8;
+          // double initialAH = initialLoad * _backup / 12;
+          // int totalAH = (initialAH * 0.35).ceil();
+          // print('Total Ah $totalAH');
+
+          // double twentyFivePer = initialLoad * 0.25;
+          // double total = initialLoad + twentyFivePer;
+          // print('Total ${total.ceil()}');
+          // print('Total ${total.runtimeType}');
+
+          // if (totalAH > 220) {
+          //   _displayDialog(load: total.ceil(), noOfBattery: 2, ah: totalAH);
+          //   // _displayDialog(
+          //   //     load: 1500, ah: (totalAH / 2).ceil(), noOfBattery: 2);
+          // } else {
+          //   _displayDialog(load: total.ceil(), noOfBattery: 1, ah: totalAH);
+          // }
         }
       }
     }
@@ -228,7 +419,7 @@ class _InveterTabState extends State<InveterTab> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 20.0),
-                Text(
+                const Text(
                   'Inverter & Battery Calculator',
                   style: TextStyle(
                     fontSize: 17.0,
@@ -249,7 +440,7 @@ class _InveterTabState extends State<InveterTab> {
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(RegExp('[0-9]+')),
                         ],
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 17.0,
                           fontWeight: FontWeight.w600,
                           letterSpacing: 1.0,
@@ -269,7 +460,7 @@ class _InveterTabState extends State<InveterTab> {
                         decoration: InputDecoration(
                           hintText: 'Enter load ( In Watt )',
                           labelText: 'Load ( In Watt )',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w600,
                             letterSpacing: 1.2,
@@ -302,7 +493,7 @@ class _InveterTabState extends State<InveterTab> {
                         decoration: InputDecoration(
                           hintText: 'Backup Required ( In Hours )',
                           labelText: 'Backup Required ( In Hours )',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w600,
                             letterSpacing: 1.2,
@@ -312,39 +503,45 @@ class _InveterTabState extends State<InveterTab> {
                           ),
                         ),
                       ),
-                      //TextFormField(),
-                      // const SizedBox(height: 25.0),
-                      // FormField<String>(
-                      //   builder: (FormFieldState<String> state) {
-                      //     return InputDecorator(
-                      //       decoration: InputDecoration(
-                      //           //labelStyle: textStyle,
-                      //           errorStyle: TextStyle(
-                      //               color: Colors.redAccent, fontSize: 16.0),
-                      //           hintText: 'Please select expense',
-                      //           border: OutlineInputBorder(
-                      //               borderRadius: BorderRadius.circular(5.0))),
-                      //       isEmpty: _currentSelectedValue == '',
-                      //       child: DropdownButtonHideUnderline(
-                      //         child: DropdownButton<String>(
-                      //           value: _currentSelectedValue,
-                      //           isDense: true,
-                      //           onChanged: (value) {
-                      //             setState(() {
-                      //               _currentSelectedValue = value;
-                      //             });
-                      //           },
-                      //           items: _load.map((String value) {
-                      //             return DropdownMenuItem<String>(
-                      //               value: value,
-                      //               child: Text(value),
-                      //             );
-                      //           }).toList(),
-                      //         ),
-                      //       ),
-                      //     );
-                      //   },
-                      // ),
+                      // TextFormField(),
+                      const SizedBox(height: 25.0),
+                      FormField<String>(
+                        builder: (FormFieldState<String> state) {
+                          return InputDecorator(
+                            decoration: InputDecoration(
+                                labelText: 'Average running load',
+                                labelStyle: const TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w600,
+                                  letterSpacing: 1.2,
+                                ),
+                                //labelStyle: textStyle,
+                                errorStyle: const TextStyle(
+                                    color: Colors.redAccent, fontSize: 16.0),
+                                hintText: 'Please select average running load',
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5.0))),
+                            isEmpty: _runningLoad == '',
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: _runningLoad,
+                                isDense: true,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _runningLoad = value;
+                                  });
+                                },
+                                items: _load.map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text('$value %'),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                       const SizedBox(height: 10.0),
                       ExpansionTile(
                         onExpansionChanged: (value) {
@@ -353,13 +550,13 @@ class _InveterTabState extends State<InveterTab> {
                             isTvTileExpanded = value;
                           });
                         },
-                        title: Text('Fan & Cooler'),
+                        title: const Text('Fan & Cooler'),
                         leading: isTvTileExpanded
-                            ? Icon(Icons.remove_circle_outline_outlined)
-                            : Icon(Icons.add_circle_outline_rounded),
-                        trailing: SizedBox.shrink(),
+                            ? const Icon(Icons.remove_circle_outline_outlined)
+                            : const Icon(Icons.add_circle_outline_rounded),
+                        trailing: const SizedBox.shrink(),
                         children: [
-                          WattAndQty(),
+                          const WattAndQty(),
                           const SizedBox(height: 10.0),
                           ExpansionItem(
                             label: 'Fan',
@@ -392,13 +589,13 @@ class _InveterTabState extends State<InveterTab> {
                             isFanTileExpaned = value;
                           });
                         },
-                        title: Text('TV & Other'),
+                        title: const Text('TV & Other'),
                         leading: isFanTileExpaned
-                            ? Icon(Icons.remove_circle_outline_outlined)
-                            : Icon(Icons.add_circle_outline_rounded),
-                        trailing: SizedBox.shrink(),
+                            ? const Icon(Icons.remove_circle_outline_outlined)
+                            : const Icon(Icons.add_circle_outline_rounded),
+                        trailing: const SizedBox.shrink(),
                         children: [
-                          WattAndQty(),
+                          const WattAndQty(),
                           const SizedBox(height: 10.0),
                           ExpansionItem(
                             label: 'Television (LED)',
@@ -442,13 +639,13 @@ class _InveterTabState extends State<InveterTab> {
                             isPcTIleExpaned = value;
                           });
                         },
-                        title: Text('PC & Other'),
+                        title: const Text('PC & Other'),
                         leading: isPcTIleExpaned
-                            ? Icon(Icons.remove_circle_outline_outlined)
-                            : Icon(Icons.add_circle_outline_rounded),
-                        trailing: SizedBox.shrink(),
+                            ? const Icon(Icons.remove_circle_outline_outlined)
+                            : const Icon(Icons.add_circle_outline_rounded),
+                        trailing: const SizedBox.shrink(),
                         children: [
-                          WattAndQty(),
+                          const WattAndQty(),
                           const SizedBox(height: 10.0),
                           ExpansionItem(
                             label: 'Laptop',
@@ -493,13 +690,13 @@ class _InveterTabState extends State<InveterTab> {
                             isMotoTileExpanded = value;
                           });
                         },
-                        title: Text('Motor'),
+                        title: const Text('Motor'),
                         leading: isMotoTileExpanded
-                            ? Icon(Icons.remove_circle_outline_outlined)
-                            : Icon(Icons.add_circle_outline_rounded),
-                        trailing: SizedBox.shrink(),
+                            ? const Icon(Icons.remove_circle_outline_outlined)
+                            : const Icon(Icons.add_circle_outline_rounded),
+                        trailing: const SizedBox.shrink(),
                         children: [
-                          WattAndQty(),
+                          const WattAndQty(),
                           const SizedBox(height: 10.0),
                           ExpansionItem(
                             label: 'Water Pump (0.5 HP)',
@@ -531,7 +728,7 @@ class _InveterTabState extends State<InveterTab> {
                         width: 160.0,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 1.2,
@@ -539,7 +736,7 @@ class _InveterTabState extends State<InveterTab> {
                           ),
                           onPressed: _calculateInverter,
                           //   onPressed: _calculate,
-                          child: Text('Calculate'),
+                          child: const Text('Calculate'),
                         ),
                       ),
                       const SizedBox(height: 50.0),
@@ -563,7 +760,7 @@ class WattAndQty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [
+      children: const <Widget>[
         Spacer(),
         Text(
           'Watt',
@@ -573,7 +770,7 @@ class WattAndQty extends StatelessWidget {
         ),
         SizedBox(width: 39.0),
         Padding(
-          padding: const EdgeInsets.only(right: 10.0),
+          padding: EdgeInsets.only(right: 10.0),
           child: Text(
             'Qty',
             style: TextStyle(
@@ -621,7 +818,7 @@ class _ExpansionItemState extends State<ExpansionItem> {
           width: 100.0,
           child: Text(
             '${widget.label}',
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16.5,
               //fontWeight: FontWeight.w500,
             ),
@@ -632,7 +829,7 @@ class _ExpansionItemState extends State<ExpansionItem> {
 
         Text(
           '${widget.watt}',
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 17.5,
             fontWeight: FontWeight.w600,
           ),
@@ -647,14 +844,14 @@ class _ExpansionItemState extends State<ExpansionItem> {
                   widget.onPressIncrease();
                 });
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.add_circle_outline_rounded,
                 color: Colors.green,
               ),
             ),
             Text(
               '$value',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 15.0,
               ),
             ),
@@ -669,7 +866,7 @@ class _ExpansionItemState extends State<ExpansionItem> {
                       });
                     }
                   : null,
-              icon: Icon(
+              icon: const Icon(
                 Icons.remove_circle_outline_outlined,
                 color: Colors.red,
               ),

@@ -7,7 +7,7 @@ class VehicleBrand extends Equatable {
   final String? logoUrl;
   final String? id;
 
-  VehicleBrand({
+  const VehicleBrand({
     required this.name,
     required this.logoUrl,
     required this.id,
@@ -23,7 +23,7 @@ class VehicleBrand extends Equatable {
   }) {
     return VehicleBrand(
       name: name ?? this.name,
-      logoUrl: logo ?? this.logoUrl,
+      logoUrl: logo ?? logoUrl,
       id: id ?? this.id,
     );
   }

@@ -34,8 +34,8 @@ class DropDownTile extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 12.0),
                 child: Text('$label'),
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 10.0),
+              const Padding(
+                padding: EdgeInsets.only(right: 10.0),
                 child: Icon(Icons.arrow_drop_down, size: 35.0),
               ),
             ],

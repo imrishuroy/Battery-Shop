@@ -7,7 +7,7 @@ class Vehicle extends Equatable {
   final String? name;
   final String? imageUrl;
 
-  Vehicle({
+  const Vehicle({
     required this.vehicleId,
     required this.name,
     required this.imageUrl,

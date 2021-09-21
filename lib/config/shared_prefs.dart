@@ -10,9 +10,7 @@ class SharedPrefs {
   SharedPrefs._internal();
 
   Future<void> init() async {
-    if (_sharedPrefs == null) {
-      _sharedPrefs = await SharedPreferences.getInstance();
-    }
+    _sharedPrefs ??= await SharedPreferences.getInstance();
   }
 
   Future<void> setPriceList(String value) async {

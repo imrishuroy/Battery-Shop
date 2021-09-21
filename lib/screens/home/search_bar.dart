@@ -1,6 +1,6 @@
-import 'package:battery_shop/models/vehicle_type.dart';
-import 'package:battery_shop/screens/home/widgets/drop_down_tile.dart';
-import 'package:battery_shop/screens/vehicles/vehicles_screen.dart';
+import '/models/vehicle_type.dart';
+import '/screens/home/widgets/drop_down_tile.dart';
+import '/screens/vehicles/vehicles_catelog.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -37,7 +37,7 @@ class _SearchState extends State<Search> {
     'BUGATTI'
   ];
 
-  List<String> _models = [
+  final List<String> _models = [
     'Model 1',
     'Model 2',
     'Model 3',
@@ -74,7 +74,7 @@ class _SearchState extends State<Search> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          contentPadding: EdgeInsets.symmetric(
+          contentPadding: const EdgeInsets.symmetric(
             horizontal: 22.0,
             vertical: 25.0,
           ),
@@ -94,7 +94,7 @@ class _SearchState extends State<Search> {
                       ),
                       child: InkWell(
                         onTap: () => _onSelectModel(item),
-                        child: Container(
+                        child: SizedBox(
                           width: double.infinity,
                           child: Text(
                             item,
@@ -117,7 +117,7 @@ class _SearchState extends State<Search> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          contentPadding: EdgeInsets.symmetric(
+          contentPadding: const EdgeInsets.symmetric(
             horizontal: 22.0,
             vertical: 25.0,
           ),
@@ -137,7 +137,7 @@ class _SearchState extends State<Search> {
                       ),
                       child: InkWell(
                         onTap: () => _onSelectBrand(item),
-                        child: Container(
+                        child: SizedBox(
                           width: double.infinity,
                           child: Text(
                             item,
@@ -160,7 +160,7 @@ class _SearchState extends State<Search> {
       context: context,
       builder: (context) => Container(
         height: 320.0,
-        padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
         // color: Colors.red,
         // width: double.infinity,
         child: Column(
@@ -170,7 +170,7 @@ class _SearchState extends State<Search> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   'Search your vehicles',
                   style: TextStyle(
                     fontSize: 18.0,
@@ -180,7 +180,7 @@ class _SearchState extends State<Search> {
                 ),
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.search),
+                  icon: const Icon(Icons.search),
                 )
               ],
             ),
@@ -199,8 +199,8 @@ class _SearchState extends State<Search> {
                 ),
                 child: Center(
                   child: Text(
-                    '${_selectedBrand ?? ''}',
-                    style: TextStyle(
+                    _selectedBrand ?? '',
+                    style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       letterSpacing: 1.2,
                     ),
@@ -226,7 +226,7 @@ class _SearchState extends State<Search> {
                     });
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (_) => VehiclesScreen(
+                        builder: (_) => const VehiclesCatelog(
                           vehicleBrandId: '',
                           fuelType: FuelType.petrol,
                         ),
@@ -235,7 +235,7 @@ class _SearchState extends State<Search> {
                   },
                   child: Column(
                     children: [
-                      Container(
+                      SizedBox(
                         height: 50.0,
                         width: 50.0,
                         child: Image.asset(
@@ -244,7 +244,7 @@ class _SearchState extends State<Search> {
                         ),
                       ),
                       const SizedBox(height: 3.8),
-                      Text('Petrol')
+                      const Text('Petrol')
                     ],
                   ),
                 ),
@@ -258,7 +258,7 @@ class _SearchState extends State<Search> {
                     });
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (_) => VehiclesScreen(
+                        builder: (_) => const VehiclesCatelog(
                           vehicleBrandId: '',
                           fuelType: FuelType.petrol,
                         ),
@@ -267,7 +267,7 @@ class _SearchState extends State<Search> {
                   },
                   child: Column(
                     children: [
-                      Container(
+                      SizedBox(
                         height: 50.0,
                         width: 50.0,
                         child: Image.asset(
@@ -276,7 +276,7 @@ class _SearchState extends State<Search> {
                         ),
                       ),
                       const SizedBox(height: 3.8),
-                      Text('Diesel')
+                      const Text('Diesel')
                     ],
                   ),
                 ),
@@ -339,15 +339,15 @@ class _SearchState extends State<Search> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 12.0),
+            const Padding(
+              padding: EdgeInsets.only(left: 12.0),
               child: Text('Search your vehicles'),
             ),
             Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: InkWell(
                 onTap: _showBrandDialog,
-                child: Icon(
+                child: const Icon(
                   Icons.arrow_drop_down,
                   size: 35.0,
                 ),
@@ -416,7 +416,7 @@ class _BrandDropDownState extends State<BrandDropDown> {
       ].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: Container(
+          child: SizedBox(
             //height: 400.0,
             width: 150,
             child: Center(
@@ -445,9 +445,9 @@ class _BrandDropDownState extends State<BrandDropDown> {
 
 
 
-// import 'package:battery_shop/models/vehicle_type.dart';
-// import 'package:battery_shop/screens/home/widgets/drop_down_tile.dart';
-// import 'package:battery_shop/screens/vehicles/vehicles_screen.dart';
+// import '/models/vehicle_type.dart';
+// import '/screens/home/widgets/drop_down_tile.dart';
+// import '/screens/vehicles/vehicles_screen.dart';
 // import 'package:flutter/material.dart';
 // import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 

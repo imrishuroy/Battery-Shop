@@ -4,14 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ErrorDialog extends StatelessWidget {
-  final String? title;
-  final String? content;
-
   const ErrorDialog({
     Key? key,
     this.title = 'Error !',
-    @required this.content,
+    required this.content,
   }) : super(key: key);
+
+  final String? title;
+  final String? content;
+
   @override
   Widget build(BuildContext context) {
     return Platform.isIOS
@@ -21,12 +22,12 @@ class ErrorDialog extends StatelessWidget {
 
   CupertinoAlertDialog _showIOSDialog(BuildContext context) {
     return CupertinoAlertDialog(
-      title: Text('${title ?? ''}'),
+      title: Text(title ?? ''),
       content: Text(
-        '${content ?? ''}',
-        style: TextStyle(color: Colors.black),
+        content ?? '',
+        style: const TextStyle(color: Colors.black),
       ),
-      actions: [
+      actions: <Widget>[
         CupertinoDialogAction(
           child: const Text('OK'),
           onPressed: () => Navigator.of(context).pop(),
@@ -37,12 +38,12 @@ class ErrorDialog extends StatelessWidget {
 
   AlertDialog _showAndroidDialog(BuildContext context) {
     return AlertDialog(
-      title: Text('${title ?? ''}'),
+      title: Text(title ?? ''),
       content: Text(content ?? ''),
-      actions: [
+      actions: <Widget>[
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text('OK'),
+          child: const Text('OK'),
         ),
       ],
     );

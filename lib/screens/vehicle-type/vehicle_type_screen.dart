@@ -1,14 +1,14 @@
-import 'package:battery_shop/models/vehicle_type.dart';
-import 'package:battery_shop/screens/vehicles/vehicles_screen.dart';
+import '/models/vehicle_type.dart';
+import '/screens/vehicles/vehicles_catelog.dart';
 
 import 'package:flutter/material.dart';
 
 List<VehicleType> vehiclesType = [
-  VehicleType(
+  const VehicleType(
     type: FuelType.petrol,
     imageUrl: 'assets/petrol.png',
   ),
-  VehicleType(
+  const VehicleType(
     type: FuelType.diesel,
     imageUrl: 'assets/diesel.png',
   )
@@ -25,26 +25,26 @@ class VehicleTypeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Choose Your Vehicle'),
+        title: const Text('Choose Your Vehicle'),
       ),
       body: Column(
         //crossAxisAlignment: CrossAxisAlignment.,
         children: [
-          Spacer(),
+          const Spacer(),
           VehicleTypeCard(
             imageUrl: 'assets/petrol.png',
             label: 'PETROL',
             fuelType: FuelType.petrol,
             vehicleBrandId: vehicleBrandId,
           ),
-          Spacer(),
+          const Spacer(),
           VehicleTypeCard(
             imageUrl: 'assets/diesel.png',
             label: 'DIESEL',
             fuelType: FuelType.diesel,
             vehicleBrandId: vehicleBrandId,
           ),
-          Spacer(),
+          const Spacer(),
         ],
       ),
     );
@@ -69,8 +69,8 @@ class VehicleTypeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed(VehiclesScreen.routeName,
-            arguments: VehiclesScreenArgs(
+        Navigator.of(context).pushNamed(VehiclesCatelog.routeName,
+            arguments: VehiclesCatelogArgs(
                 vehilceBrandId: vehicleBrandId, fuelType: fuelType));
 
         // Navigator.of(context).push(
@@ -85,7 +85,7 @@ class VehicleTypeCard extends StatelessWidget {
       child: Column(
         children: [
           Center(
-            child: Container(
+            child: SizedBox(
               height: 200.0,
               width: 200.0,
               child: Image.asset(
@@ -97,7 +97,7 @@ class VehicleTypeCard extends StatelessWidget {
           const SizedBox(height: 12.0),
           Text(
             label,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.w600,
               letterSpacing: 1.2,

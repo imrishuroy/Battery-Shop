@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:battery_shop/models/battery.dart';
-import 'package:battery_shop/models/failure.dart';
-import 'package:battery_shop/models/vehicle_type.dart';
-import 'package:battery_shop/repository/services/firebase_service.dart';
+import '/models/battery.dart';
+import '/models/failure.dart';
+import '/models/vehicle_type.dart';
+import '/repository/services/firebase_service.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -18,16 +18,19 @@ class VehicleBatteriesBloc
   final String? _vehicleBrandId;
   final FuelType _fuelType;
   final String? _vehicleId;
+  final String _vehilceType;
 
   VehicleBatteriesBloc({
     required FirebaseServices batteryRepository,
     required String? vehicleBrandId,
     required FuelType fuelType,
     required String? vehicleId,
+    required String vehicleType,
   })  : _firebaseServices = batteryRepository,
         _fuelType = fuelType,
         _vehicleBrandId = vehicleBrandId,
         _vehicleId = vehicleId,
+        _vehilceType = vehicleType,
         super(VehicleBatteriesState.initial()) {
     _batterySubscription?.cancel();
     _batterySubscription = _firebaseServices
@@ -35,6 +38,7 @@ class VehicleBatteriesBloc
       vehicleBrandId: _vehicleBrandId,
       fuelType: _fuelType,
       vehicleId: _vehicleId,
+      vehilceType: _vehilceType,
     )
         .listen((batteries) async {
       final vehicleBatteries = await Future.wait(batteries);

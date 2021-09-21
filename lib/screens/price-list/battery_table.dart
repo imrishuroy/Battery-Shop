@@ -1,32 +1,44 @@
-import '/models/inverter_wave.dart';
+import '/models/battery.dart';
 import '/repository/rest-apis/rest_apis_repo.dart';
-import '/screens/price-list/widgets/table_entry.dart';
-import '/screens/price-list/widgets/table_header_txt.dart';
 import 'package:flutter/material.dart';
+import 'widgets/table_entry.dart';
+import 'widgets/table_header_txt.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class InverterExcel extends StatelessWidget {
+class BatteryTable extends StatelessWidget {
   final String url;
-  final String inverterWave;
+  final String batteryBrand;
 
-  const InverterExcel({Key? key, required this.url, required this.inverterWave})
+  const BatteryTable({Key? key, required this.url, required this.batteryBrand})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _restRepo = context.read<RestApisRepository>();
+    final _restApisRepo = context.read<RestApisRepository>();
     return Scaffold(
       appBar: AppBar(
-        title: Text(inverterWave),
+        title: Text(batteryBrand),
       ),
-      body: FutureBuilder<List<InverterWave?>>(
-        future: _restRepo.getWaveInverter(url),
+      body: FutureBuilder<List<Battery?>>(
+        future: _restApisRepo.getBatteries(url),
         builder: (context, snaphsot) {
           if (snaphsot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+              child: Column(
+                children: const <Widget>[
+                  CircularProgressIndicator(),
+                  SizedBox(height: 5.0),
+                  Text('Loading please wait...')
+                ],
+              ),
+            );
           }
-          final inverters = snaphsot.data;
 
+          final batteries = snaphsot.data;
+          if (batteries == null) {
+            return const Center(child: Text('No data found :('));
+          }
           return Center(
             child: SingleChildScrollView(
               child: Column(
@@ -48,41 +60,37 @@ class InverterExcel extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.only(left: 6.0),
                                 child: TableHeadingText(
-                                  label: 'M0DEL',
+                                  label: 'TYPE',
                                   textAlign: TextAlign.start,
                                 ),
                               ),
-                              TableHeadingText(label: 'DEALER PRICE'),
+                              TableHeadingText(label: 'AH RATING'),
+                              TableHeadingText(label: 'WARRANTY'),
+                              TableHeadingText(label: 'DP PRICE'),
                               TableHeadingText(label: 'MRP'),
+                              TableHeadingText(label: 'SCRAP'),
                             ],
                           ),
-                          for (int i = 0; i < inverters!.length; i++)
+                          for (int i = 0; i < batteries.length; i++)
+                            //   for (var amaronBatteries[i] in amaronBatteries)
+
                             TableRow(
                               children: [
                                 TableEntryText(value: '${i + 1}'),
-                                TableCell(
-                                  verticalAlignment:
-                                      TableCellVerticalAlignment.top,
-                                  child: SizedBox(
-                                    height: 52,
-                                    width: 102,
-                                    // color: Colors.red,
-                                    child: Center(
-                                      child: Text(
-                                        inverters[i]?.model ?? 'N/A',
-                                        style: const TextStyle(fontSize: 16.0),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 6.0),
+                                  child: TableEntryText(
+                                    value: batteries[i]?.type,
+                                    textAlign: TextAlign.start,
                                   ),
                                 ),
-
                                 TableEntryText(
-                                    value: '${inverters[i]?.dealerPrice}'),
-                                TableEntryText(value: '${inverters[i]?.mrp}'),
-
-                                // TableEntryText(value: '${batteries[i]?.mrp}'),
-                                // TableEntryText(value: '${batteries[i]?.scrap}'),
+                                    value: '${batteries[i]?.ratting}'),
+                                TableEntryText(
+                                    value: '${batteries[i]?.warranty}'),
+                                TableEntryText(value: '${batteries[i]?.price}'),
+                                TableEntryText(value: '${batteries[i]?.mrp}'),
+                                TableEntryText(value: '${batteries[i]?.scrap}'),
                               ],
                             )
                         ],

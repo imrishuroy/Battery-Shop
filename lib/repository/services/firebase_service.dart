@@ -1,9 +1,9 @@
-import 'package:battery_shop/config/paths.dart';
-import 'package:battery_shop/models/battery.dart';
-import 'package:battery_shop/models/vehicle.dart';
-import 'package:battery_shop/models/vehicle_type.dart';
-import 'package:battery_shop/models/vehilce_brands.dart';
-import 'package:battery_shop/repository/services/base_firebase_repo.dart';
+import '/config/paths.dart';
+import '/models/battery.dart';
+import '/models/vehicle.dart';
+import '/models/vehicle_type.dart';
+import '/models/vehilce_brands.dart';
+import '/repository/services/base_firebase_repo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 
@@ -13,7 +13,7 @@ class FirebaseServices extends BaseFirebaseRepository {
   Future<List<VehicleBrand?>> getVehicleBrands() async {
     try {
       final querySnapshot = await _firestore
-          .collection(Paths.vehicle_brands)
+          .collection(Paths.vehicleBrands)
           .withConverter<VehicleBrand>(
               fromFirestore: (snapshot, _) =>
                   VehicleBrand.fromMap(snapshot.data()),
@@ -22,20 +22,22 @@ class FirebaseServices extends BaseFirebaseRepository {
       return querySnapshot.docs.map((doc) => doc.data()).toList();
     } catch (error) {
       print('Errort getting vehilce brands ${error.toString()}');
-      throw error;
+      rethrow;
     }
   }
 
   Future<List<Vehicle?>> getVehiclesAssociatedWithBrands({
     required String? vehicleBrandId,
     required FuelType fuelType,
+    required String vehicleType,
   }) async {
     final fuelTypeString = EnumToString.convertToString(fuelType);
+    print('Fuel Type $fuelTypeString');
     try {
       final querySnapshot = await _firestore
-          .collection(Paths.vehicle_brands)
+          .collection(Paths.vehicleBrands)
           .doc(vehicleBrandId)
-          .collection(fuelTypeString)
+          .collection('$fuelTypeString-$vehicleType')
           .withConverter<Vehicle>(
               fromFirestore: (snapshot, _) => Vehicle.fromMap(snapshot.data()!),
               toFirestore: (vehicle, _) => vehicle.toMap())
@@ -43,24 +45,24 @@ class FirebaseServices extends BaseFirebaseRepository {
       return querySnapshot.docs.map((doc) => doc.data()).toList();
     } catch (error) {
       print('Error getting vehilces ${error.toString()}');
-      throw error;
+      rethrow;
     }
   }
 
-  Stream<List<Future<Battery?>>> streamVehiclesBatteries({
-    required String? vehicleBrandId,
-    required FuelType fuelType,
-    required String? vehicleId,
-  }) {
+  Stream<List<Future<Battery?>>> streamVehiclesBatteries(
+      {required String? vehicleBrandId,
+      required FuelType fuelType,
+      required String? vehicleId,
+      required String vehilceType}) {
     final fuelPath = EnumToString.convertToString(fuelType);
     print('VehicleBrand Id $vehicleBrandId');
     print('Fuel Path $fuelPath');
     print('Vehicle Id $vehicleId');
     try {
       return _firestore
-          .collection(Paths.vehicle_brands)
+          .collection(Paths.vehicleBrands)
           .doc(vehicleBrandId)
-          .collection(fuelPath)
+          .collection('$fuelPath-$vehilceType')
           .doc(vehicleId)
           .collection(Paths.batteries)
           .orderBy('priority', descending: false)
@@ -70,7 +72,7 @@ class FirebaseServices extends BaseFirebaseRepository {
               .toList());
     } catch (error) {
       print('Error getting batteries ${error.toString()}');
-      throw error;
+      rethrow;
     }
   }
 }

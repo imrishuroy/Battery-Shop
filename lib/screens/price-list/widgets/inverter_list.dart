@@ -1,4 +1,4 @@
-import 'package:battery_shop/screens/price-list/widgets/inverter_type.dart';
+import '/screens/price-list/widgets/inverter_type.dart';
 import 'package:flutter/material.dart';
 
 final List<String> inverterBrands = [
@@ -21,12 +21,12 @@ class InverterList extends StatelessWidget {
             children: [
               ListTile(
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => InverterTypeScreen()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (_) => const InverterTypeScreen()));
                 },
                 title: Text(
                   inverterBrands[index],
-                  style: TextStyle(fontSize: 17.0),
+                  style: const TextStyle(fontSize: 17.0),
                 ),
                 trailing: SizedBox(
                   height: 50.0,

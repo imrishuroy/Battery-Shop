@@ -1,35 +1,44 @@
 import 'dart:async';
+import '/models/failure.dart';
+import '/models/vehicle.dart';
+import '/models/vehicle_type.dart';
+import '/repository/services/firebase_service.dart';
 
-import 'package:battery_shop/models/failure.dart';
-import 'package:battery_shop/models/vehicle.dart';
-import 'package:battery_shop/models/vehicle_type.dart';
-import 'package:battery_shop/repository/services/firebase_service.dart';
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'vehicles_bloc_event.dart';
 part 'vehicles_bloc_state.dart';
 
-class VehiclesBlocBloc extends Bloc<VehiclesBlocEvent, VehiclesBlocState> {
-  final FirebaseServices _firebaseServices;
-  StreamSubscription? _vehiclesSubscription;
-  final String? _vehicleBrandId;
-  final FuelType _fuelType;
-
-  VehiclesBlocBloc({
+class VehiclesBloc extends Bloc<VehiclesBlocEvent, VehiclesBlocState> {
+  VehiclesBloc({
     required FirebaseServices firebaseServices,
     required String? vehicleBrandId,
     required FuelType fuelType,
+    required String vehicleType,
   })  : _firebaseServices = firebaseServices,
         _vehicleBrandId = vehicleBrandId,
         _fuelType = fuelType,
+        _vehilceType = vehicleType,
         super(VehiclesBlocState.initial()) {
     _vehiclesSubscription?.cancel();
-    _vehiclesSubscription = Stream.fromFuture(
-            _firebaseServices.getVehiclesAssociatedWithBrands(
-                vehicleBrandId: _vehicleBrandId, fuelType: _fuelType))
-        .listen((vehicles) => add(LoadVehicles(vehicles: vehicles)));
+    _vehiclesSubscription = Stream<List<Vehicle?>>.fromFuture(
+        _firebaseServices.getVehiclesAssociatedWithBrands(
+      vehicleBrandId: _vehicleBrandId,
+      fuelType: _fuelType,
+      vehicleType: _vehilceType,
+    )).listen(
+      (List<Vehicle?> vehicles) => add(
+        LoadVehicles(vehicles: vehicles),
+      ),
+    );
   }
+
+  final FirebaseServices _firebaseServices;
+  StreamSubscription<dynamic>? _vehiclesSubscription;
+  final String? _vehicleBrandId;
+  final FuelType _fuelType;
+  final String _vehilceType;
 
   @override
   Future<void> close() {
@@ -58,9 +67,12 @@ class VehiclesBlocBloc extends Bloc<VehiclesBlocEvent, VehiclesBlocState> {
 
   Stream<VehiclesBlocState> _mapRefreshVehiclesToState() async* {
     _vehiclesSubscription?.cancel();
-    _vehiclesSubscription = Stream.fromFuture(
+    _vehiclesSubscription = Stream<List<Vehicle?>>.fromFuture(
             _firebaseServices.getVehiclesAssociatedWithBrands(
-                vehicleBrandId: _vehicleBrandId, fuelType: _fuelType))
-        .listen((vehicles) => add(LoadVehicles(vehicles: vehicles)));
+                vehicleBrandId: _vehicleBrandId,
+                fuelType: _fuelType,
+                vehicleType: _vehilceType))
+        .listen(
+            (List<Vehicle?> vehicles) => add(LoadVehicles(vehicles: vehicles)));
   }
 }
