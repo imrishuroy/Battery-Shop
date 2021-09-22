@@ -1,5 +1,5 @@
-import 'package:admin_battery/models/failure.dart';
-import 'package:admin_battery/repositories/auth/base_auth_repo.dart';
+import '/models/failure.dart';
+import '/repositories/auth/base_auth_repo.dart';
 
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/services.dart';

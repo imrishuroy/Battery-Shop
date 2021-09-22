@@ -1,6 +1,6 @@
-import 'package:admin_battery/constants/constants.dart';
-import 'package:admin_battery/models/vehicle_brands.dart';
-import 'package:admin_battery/screens/fule-type/fule_type_screen.dart';
+import '/constants/constants.dart';
+import '/models/vehicle_brands.dart';
+import '/screens/fule-type/fule_type_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';

@@ -24,7 +24,7 @@ class _AddVehicleBrandScreenState extends State<AddVehicleBrandScreen> {
     final ImagePicker _picker = ImagePicker();
 
     final XFile? pickedImage =
-        await _picker.pickImage(source: ImageSource.gallery);
+        await _picker.pickImage(source: ImageSource.gallery, imageQuality: 40);
     print('Image $pickedImage');
     print('Image ${pickedImage?.path}');
     if (pickedImage != null) {
@@ -59,8 +59,8 @@ class _AddVehicleBrandScreenState extends State<AddVehicleBrandScreen> {
         final _firebaseService = context.read<FirebaseServices>();
         if (_file != null) {
           final id = Uuid().v4();
-          final imageUrl =
-              await _storageRepo.uploadImageWeb(file: _file!, id: id);
+          final imageUrl = await _storageRepo.uploadImageWeb(
+              file: _file!, id: id, path: 'brands');
           final brand = VehicleBrand(name: _name, logoUrl: imageUrl, id: id);
           await _firebaseService.addNewVehicle(brand: brand);
         }

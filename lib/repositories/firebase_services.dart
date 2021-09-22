@@ -1,10 +1,10 @@
-import 'package:admin_battery/config/paths.dart';
-import 'package:admin_battery/models/battery.dart';
-import 'package:admin_battery/models/vehicle_brands.dart';
-import 'package:admin_battery/models/failure.dart';
-import 'package:admin_battery/models/vehicle.dart';
+import '/config/paths.dart';
+import '/models/battery.dart';
+import '/models/vehicle_brands.dart';
+import '/models/failure.dart';
+import '/models/vehicle.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:admin_battery/enums/enums.dart';
+import '/enums/enums.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 
 class FirebaseServices {
@@ -26,7 +26,7 @@ class FirebaseServices {
     }
   }
 
-  Future addNewVehicle({required VehicleBrand brand}) async {
+  Future<void> addNewVehicle({required VehicleBrand brand}) async {
     try {
       await _fireStore
           .collection(Paths.vehicle_brands)
@@ -38,18 +38,19 @@ class FirebaseServices {
     }
   }
 
-  Future<bool> addVehicleToBrand(
-      {required String? vehicleBrandId,
-      required Vehicle? vehicle,
-      required FuelType? fuelType,
-      required}) async {
+  Future<bool> addVehicleToBrand({
+    required String? vehicleBrandId,
+    required Vehicle? vehicle,
+    required FuelType? fuelType,
+    required String vehicleType,
+  }) async {
     final vehiclepath = EnumToString.convertToString(fuelType);
     try {
       if (vehicle != null) {
         await _fireStore
             .collection(Paths.vehicle_brands)
             .doc(vehicleBrandId)
-            .collection(vehiclepath)
+            .collection('$vehiclepath-$vehicleType')
             .doc(vehicle.vehicleId)
             .set(vehicle.toMap());
         return true;
@@ -61,14 +62,17 @@ class FirebaseServices {
     }
   }
 
-  Stream<List<Vehicle?>> vehiclesAssociatedWithBransStream(
-      {required String? vehicleBrandId, required FuelType fuelType}) {
+  Stream<List<Vehicle?>> vehiclesAssociatedWithBransStream({
+    required String? vehicleBrandId,
+    required FuelType fuelType,
+    required String vehicleType,
+  }) {
     final vehiclepath = EnumToString.convertToString(fuelType);
     try {
       return _fireStore
           .collection(Paths.vehicle_brands)
           .doc(vehicleBrandId)
-          .collection(vehiclepath)
+          .collection('$vehiclepath-$vehicleType')
           .withConverter<Vehicle>(
               fromFirestore: (snapshot, _) => Vehicle.fromMap(snapshot.data()!),
               toFirestore: (vehicle, _) => vehicle.toMap())

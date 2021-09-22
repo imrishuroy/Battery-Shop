@@ -1,12 +1,12 @@
-import 'package:admin_battery/constants/urls.dart';
-import 'package:admin_battery/repositories/rest-apis/rest_apis_repo.dart';
-import 'package:admin_battery/screens/amaron/amaron_tab.dart';
-import 'package:admin_battery/screens/amaron/bloc/amaron_bloc.dart';
-import 'package:admin_battery/screens/exide/bloc/exide_bloc.dart';
-import 'package:admin_battery/screens/exide/exide_tab.dart';
-import 'package:admin_battery/screens/sky/bloc/sky_bloc.dart';
-import 'package:admin_battery/screens/sky/sky_tab.dart';
-import 'package:admin_battery/widgets/tab_item.dart';
+import '/constants/urls.dart';
+import '/repositories/rest-apis/rest_apis_repo.dart';
+import '/screens/amaron/amaron_tab.dart';
+import '/screens/amaron/bloc/amaron_bloc.dart';
+import '/screens/exide/bloc/exide_bloc.dart';
+import '/screens/exide/exide_tab.dart';
+import '/screens/sky/bloc/sky_bloc.dart';
+import '/screens/sky/sky_tab.dart';
+import '/widgets/tab_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

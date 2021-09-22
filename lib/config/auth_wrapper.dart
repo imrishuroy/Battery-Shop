@@ -1,7 +1,7 @@
-import 'package:admin_battery/blocs/auth/auth_bloc.dart';
-import 'package:admin_battery/screens/home/home_screen.dart';
-import 'package:admin_battery/screens/login/login_screen.dart';
-import 'package:admin_battery/widgets/loading_indicator.dart';
+import '/blocs/auth/auth_bloc.dart';
+import '/screens/home/home_screen.dart';
+import '/screens/login/login_screen.dart';
+import '/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

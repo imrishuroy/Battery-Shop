@@ -1,5 +1,5 @@
-import 'package:admin_battery/screens/home/brand_cards.dart';
-import 'package:admin_battery/screens/vehicle-brands/bloc/vehicle_brands_bloc.dart';
+import '/screens/home/brand_cards.dart';
+import '/screens/vehicle-brands/bloc/vehicle_brands_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,52 +22,75 @@ class VehicleBrandsTab extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                  child: BlocConsumer<VehicleBrandsBloc, VehicleBrandsState>(
-                listener: (context, state) {},
-                builder: (context, state) {
-                  switch (state.status) {
-                    case VehicleBrandsStatus.error:
-                      return Center(
-                        child: Text('Something went wrong'),
-                      );
-                    case VehicleBrandsStatus.succuss:
-                      return AnimationLimiter(
-                        child: GridView.builder(
-                          itemCount: state.brands.length,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: size.isDesktop
-                                ? 4
-                                : size.isMobile
-                                    ? 2
-                                    : 3,
-                            // crossAxisCount: size.isMobile ? 2 : 3,
-                            //childAspectRatio: 2.5,
-                          ),
-                          itemBuilder: (context, index) {
-                            final brand = state.brands[index];
-                            return AnimationConfiguration.staggeredGrid(
-                              duration: const Duration(milliseconds: 375),
-                              position: index,
-                              columnCount: state.brands.length,
-                              child: ScaleAnimation(
-                                child: FadeInAnimation(
-                                  child: BrandCard(
-                                    vehicleBrand: brand,
+                child: BlocConsumer<VehicleBrandsBloc, VehicleBrandsState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    switch (state.status) {
+                      case VehicleBrandsStatus.error:
+                        return Center(
+                          child: Text('Something went wrong'),
+                        );
+                      case VehicleBrandsStatus.succuss:
+                        return AnimationLimiter(
+                          child: GridView.builder(
+                            itemCount: state.brands.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: size.isDesktop
+                                  ? 4
+                                  : size.isMobile
+                                      ? 2
+                                      : 3,
+                              // crossAxisCount: size.isMobile ? 2 : 3,
+                              //childAspectRatio: 2.5,
+                            ),
+                            itemBuilder: (context, index) {
+                              final brand = state.brands[index];
+                              return AnimationConfiguration.staggeredGrid(
+                                duration: const Duration(milliseconds: 375),
+                                position: index,
+                                columnCount: state.brands.length,
+                                child: ScaleAnimation(
+                                  child: FadeInAnimation(
+                                    child: BrandCard(
+                                      vehicleBrand: brand,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    default:
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                  }
-                },
-              )),
+                              );
+                            },
+                          ),
+                        );
+                      default:
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                    }
+                  },
+                ),
+              ),
+              Center(
+                child: Text(
+                  'Made with ❤️ by sixteenbrains.com',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    letterSpacing: 1.2,
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 2.0),
+              Center(
+                child: Text(
+                  'version 1.0.0',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.grey.shade600,
+                    letterSpacing: 1.2,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 3.0),
             ],
           ),
         );

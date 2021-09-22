@@ -1,4 +1,4 @@
-import 'package:admin_battery/models/battery.dart';
+import '/models/battery.dart';
 import 'package:flutter/material.dart';
 
 class BatteryTile extends StatelessWidget {

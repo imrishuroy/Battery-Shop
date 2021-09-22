@@ -1,5 +1,5 @@
-import 'package:admin_battery/models/battery.dart';
-import 'package:admin_battery/models/failure.dart';
+import '/models/battery.dart';
+import '/models/failure.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirebaseRepository {

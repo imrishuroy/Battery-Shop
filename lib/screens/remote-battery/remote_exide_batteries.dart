@@ -1,10 +1,10 @@
-import 'package:admin_battery/blocs/vehicle-blocs/vehicle_batteries_bloc.dart';
-import 'package:admin_battery/config/paths.dart';
-import 'package:admin_battery/enums/enums.dart';
-import 'package:admin_battery/repositories/battery/battery_repository.dart';
+import '/blocs/vehicle-blocs/vehicle_batteries_bloc.dart';
+import '/config/paths.dart';
+import '/enums/enums.dart';
+import '/repositories/battery/battery_repository.dart';
 
-import 'package:admin_battery/screens/battery/select_battery_tabel.dart';
-import 'package:admin_battery/screens/exide/bloc/exide_bloc.dart';
+import '/screens/battery/select_battery_tabel.dart';
+import '/screens/exide/bloc/exide_bloc.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

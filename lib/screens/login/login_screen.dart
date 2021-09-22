@@ -1,8 +1,7 @@
-import 'package:admin_battery/models/failure.dart';
-import 'package:admin_battery/repositories/auth/auth_repo.dart';
-import 'package:admin_battery/widgets/loading_indicator.dart';
-import 'package:admin_battery/widgets/show_mesage.dart';
-
+import '/models/failure.dart';
+import '/repositories/auth/auth_repo.dart';
+import '/widgets/loading_indicator.dart';
+import '/widgets/show_message.dart';
 import 'package:flutter/material.dart';
 
 import 'package:responsive_builder/responsive_builder.dart';
@@ -54,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
             _isLoading = false;
           });
           ShowMessage.showSuccussMessage(context,
-              message: 'Successful, Welcome to the console!');
+              message: 'Successful, Welcome to the console !');
         }
       }
     } on Failure catch (error) {

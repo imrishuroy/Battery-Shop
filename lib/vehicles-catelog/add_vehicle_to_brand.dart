@@ -1,9 +1,9 @@
 import 'dart:io';
-import 'package:admin_battery/enums/enums.dart';
-import 'package:admin_battery/models/vehicle.dart';
-import 'package:admin_battery/repositories/firebase_services.dart';
-import 'package:admin_battery/repositories/storage/storage_repo.dart';
-import 'package:admin_battery/widgets/loading_indicator.dart';
+import '/enums/enums.dart';
+import '/models/vehicle.dart';
+import '/repositories/firebase_services.dart';
+import '/repositories/storage/storage_repo.dart';
+import '/widgets/loading_indicator.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +15,13 @@ import 'package:uuid/uuid.dart';
 class AddVehicleToBrand extends StatefulWidget {
   final String? vehicleBrandId;
   final FuelType? fuelType;
+  final String vehilceType;
 
   const AddVehicleToBrand({
     Key? key,
     required this.vehicleBrandId,
     required this.fuelType,
+    required this.vehilceType,
   }) : super(key: key);
 
   @override
@@ -31,7 +33,7 @@ class _AddVehicleToBrandState extends State<AddVehicleToBrand> {
     final ImagePicker _picker = ImagePicker();
 
     final XFile? pickedImage =
-        await _picker.pickImage(source: ImageSource.gallery);
+        await _picker.pickImage(source: ImageSource.gallery, imageQuality: 40);
     print('Image $pickedImage');
     print('Image ${pickedImage?.path}');
     if (pickedImage != null) {
@@ -66,15 +68,17 @@ class _AddVehicleToBrandState extends State<AddVehicleToBrand> {
         final _firebaseService = context.read<FirebaseServices>();
         if (_file != null) {
           final id = Uuid().v4();
-          final imageUrl =
-              await _storageRepo.uploadImageWeb(file: _file!, id: id);
+          final imageUrl = await _storageRepo.uploadImageWeb(
+              file: _file!, id: id, path: 'vehicles');
           final vehicle =
               Vehicle(vehicleId: id, name: _name, imageUrl: imageUrl);
 
           await _firebaseService.addVehicleToBrand(
-              fuelType: widget.fuelType,
-              vehicleBrandId: widget.vehicleBrandId,
-              vehicle: vehicle);
+            fuelType: widget.fuelType,
+            vehicleBrandId: widget.vehicleBrandId,
+            vehicle: vehicle,
+            vehicleType: widget.vehilceType,
+          );
         }
       }
       setState(() {

@@ -25,10 +25,10 @@ class StorageRepository extends BaseStorageRepository {
   }
 
   Future<String?> uploadImageWeb(
-      {required XFile file, required String id}) async {
+      {required XFile file, required String id, required String path}) async {
     final downloadUrl = await _firebaseStorage
         .ref()
-        .child('images/$id')
+        .child('$path/$id')
         .putData(await file.readAsBytes(),
             SettableMetadata(contentType: 'image/jpeg'))
         .then((taskSnapshot) => taskSnapshot.ref.getDownloadURL());

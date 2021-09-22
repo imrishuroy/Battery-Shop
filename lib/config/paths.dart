@@ -16,4 +16,10 @@ class Paths {
 
   static const String vehicles = 'vehicles';
   static const String batteries = 'batteries';
+
+  static const String twoWheeler = 'two-wheeler';
+
+  static const String heavyVehicles = 'heavy-vehicles';
+
+  static const String fourWheeler = 'four-wheeler';
 }

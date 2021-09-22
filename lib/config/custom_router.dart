@@ -1,10 +1,10 @@
-import 'package:admin_battery/config/auth_wrapper.dart';
-import 'package:admin_battery/screens/battery/battery_dashboard.dart';
-import 'package:admin_battery/screens/set-priority/set_battery_priority.dart';
-import 'package:admin_battery/screens/home/home_screen.dart';
-import 'package:admin_battery/screens/login/login_screen.dart';
-import 'package:admin_battery/screens/remote-battery/remote-battery_screen.dart';
-import 'package:admin_battery/succus_screen.dart';
+import '/config/auth_wrapper.dart';
+import '/screens/battery/battery_dashboard.dart';
+import '/screens/set-priority/set_battery_priority.dart';
+import '/screens/home/home_screen.dart';
+import '/screens/login/login_screen.dart';
+import '/screens/remote-battery/remote-battery_screen.dart';
+
 import 'package:flutter/material.dart';
 
 class CustomRouter {
@@ -36,9 +36,6 @@ class CustomRouter {
       case SetBatteryPriority.routeName:
         return SetBatteryPriority.route(
             args: settings.arguments as BatteryPriorityArgs?);
-
-      case SuccussScreen.routeName:
-        return SuccussScreen.route();
 
       default:
         return ErrorRoute.route();

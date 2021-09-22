@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:admin_battery/constants/urls.dart';
-import 'package:admin_battery/models/battery.dart';
-import 'package:admin_battery/models/failure.dart';
+import '/constants/urls.dart';
+import '/models/battery.dart';
+import '/models/failure.dart';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';

@@ -6,19 +6,25 @@ import 'package:admin_battery/repositories/firebase/firebase_repository.dart';
 import 'package:admin_battery/repositories/firebase_services.dart';
 import 'package:admin_battery/repositories/rest-apis/rest_apis_repo.dart';
 import 'package:admin_battery/repositories/storage/storage_repo.dart';
+import 'package:admin_battery/repositories/vehicles/vehicle_repository.dart';
 import 'package:admin_battery/screens/home/bloc/app_actions_bloc.dart';
 import 'package:admin_battery/screens/vehicle-brands/bloc/vehicle_brands_bloc.dart';
+import 'package:equatable/equatable.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'blocs/simple_bloc_observer.dart';
 import 'config/auth_wrapper.dart';
 import 'config/custom_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  Bloc.observer = SimpleBlocObserver();
+  EquatableConfig.stringify = kDebugMode;
   runApp(MyApp());
 }
 
@@ -44,8 +50,11 @@ class MyApp extends StatelessWidget {
         RepositoryProvider<RestApisRepository>(
           create: (_) => RestApisRepository(),
         ),
-        RepositoryProvider(
+        RepositoryProvider<BatteryRepository>(
           create: (_) => BatteryRepository(),
+        ),
+        RepositoryProvider<VehicleRepository>(
+          create: (_) => VehicleRepository(),
         )
       ],
       child: MultiBlocProvider(

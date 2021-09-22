@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:admin_battery/enums/enums.dart';
-import 'package:admin_battery/models/failure.dart';
-import 'package:admin_battery/models/vehicle.dart';
-import 'package:admin_battery/repositories/firebase_services.dart';
+import '/enums/enums.dart';
+import '/models/failure.dart';
+import '/models/vehicle.dart';
+import '/repositories/firebase_services.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -15,18 +15,23 @@ class VehiclesBloc extends Bloc<VehiclesEvent, VehiclesState> {
   StreamSubscription? _vehicleSubscription;
   final String? _vehicleBrandId;
   final FuelType _fuelType;
+  final String _vehicleType;
   VehiclesBloc({
     required FirebaseServices firebaseServices,
     required String? vehicleBrandId,
     required FuelType fuelType,
+    required String vehicleType,
   })  : _firebaseServices = firebaseServices,
         _vehicleBrandId = vehicleBrandId,
         _fuelType = fuelType,
+        _vehicleType = vehicleType,
         super(VehiclesState.initial()) {
     _vehicleSubscription?.cancel();
     _vehicleSubscription = _firebaseServices
         .vehiclesAssociatedWithBransStream(
-            vehicleBrandId: _vehicleBrandId, fuelType: _fuelType)
+            vehicleBrandId: _vehicleBrandId,
+            fuelType: _fuelType,
+            vehicleType: _vehicleType)
         .listen((vehicles) => add(LoadVehicles(vehicles: vehicles)));
   }
 
@@ -59,7 +64,9 @@ class VehiclesBloc extends Bloc<VehiclesEvent, VehiclesState> {
     _vehicleSubscription?.cancel();
     _vehicleSubscription = _firebaseServices
         .vehiclesAssociatedWithBransStream(
-            vehicleBrandId: _vehicleBrandId, fuelType: _fuelType)
+            vehicleBrandId: _vehicleBrandId,
+            fuelType: _fuelType,
+            vehicleType: _vehicleType)
         .listen((vehicles) => add(LoadVehicles(vehicles: vehicles)));
   }
 }

@@ -1,6 +1,6 @@
-import 'package:admin_battery/models/battery.dart';
-import 'package:admin_battery/models/failure.dart';
-import 'package:admin_battery/repositories/firebase/firebase_repository.dart';
+import '/models/battery.dart';
+import '/models/failure.dart';
+import '/repositories/firebase/firebase_repository.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,10 +1,8 @@
 import 'dart:async';
-
-import 'package:admin_battery/enums/enums.dart';
-import 'package:admin_battery/models/battery.dart';
-import 'package:admin_battery/models/failure.dart';
-import 'package:admin_battery/models/vehicle_battery.dart';
-import 'package:admin_battery/repositories/battery/battery_repository.dart';
+import '/enums/enums.dart';
+import '/models/failure.dart';
+import '/models/vehicle_battery.dart';
+import '/repositories/battery/battery_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 

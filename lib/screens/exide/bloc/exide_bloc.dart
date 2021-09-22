@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:admin_battery/constants/constants.dart';
-import 'package:admin_battery/models/battery.dart';
-import 'package:admin_battery/models/failure.dart';
-import 'package:admin_battery/repositories/rest-apis/rest_apis_repo.dart';
+import '/constants/constants.dart';
+import '/models/battery.dart';
+import '/models/failure.dart';
+import '/repositories/rest-apis/rest_apis_repo.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 

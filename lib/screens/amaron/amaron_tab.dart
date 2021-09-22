@@ -1,8 +1,8 @@
-import 'package:admin_battery/config/paths.dart';
-import 'package:admin_battery/screens/amaron/bloc/amaron_bloc.dart';
-import 'package:admin_battery/screens/amaron/upload_to_databse_button.dart';
+import '/config/paths.dart';
+import '/screens/amaron/bloc/amaron_bloc.dart';
+import '/screens/amaron/upload_to_databse_button.dart';
 
-import 'package:admin_battery/screens/battery/battery_table.dart';
+import '/screens/battery/battery_table.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

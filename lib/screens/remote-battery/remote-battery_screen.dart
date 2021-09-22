@@ -1,15 +1,15 @@
-import 'package:admin_battery/config/paths.dart';
-import 'package:admin_battery/enums/enums.dart';
-import 'package:admin_battery/repositories/battery/battery_repository.dart';
-import 'package:admin_battery/repositories/rest-apis/rest_apis_repo.dart';
-import 'package:admin_battery/screens/amaron/bloc/amaron_bloc.dart';
-import 'package:admin_battery/screens/set-priority/set_battery_priority.dart';
-import 'package:admin_battery/screens/exide/bloc/exide_bloc.dart';
-import 'package:admin_battery/screens/remote-battery/remote_amaron_tab.dart';
-import 'package:admin_battery/screens/remote-battery/remote_exide_batteries.dart';
-import 'package:admin_battery/screens/remote-battery/remote_sky_tab.dart';
-import 'package:admin_battery/screens/sky/bloc/sky_bloc.dart';
-import 'package:admin_battery/widgets/tab_item.dart';
+import '/config/paths.dart';
+import '/enums/enums.dart';
+import '/repositories/battery/battery_repository.dart';
+import '/repositories/rest-apis/rest_apis_repo.dart';
+import '/screens/amaron/bloc/amaron_bloc.dart';
+import '/screens/set-priority/set_battery_priority.dart';
+import '/screens/exide/bloc/exide_bloc.dart';
+import '/screens/remote-battery/remote_amaron_tab.dart';
+import '/screens/remote-battery/remote_exide_batteries.dart';
+import '/screens/remote-battery/remote_sky_tab.dart';
+import '/screens/sky/bloc/sky_bloc.dart';
+import '/widgets/tab_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

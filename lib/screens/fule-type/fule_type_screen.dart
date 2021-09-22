@@ -1,10 +1,6 @@
-import 'package:admin_battery/enums/enums.dart';
-import 'package:admin_battery/repositories/firebase_services.dart';
-import 'package:admin_battery/vehicles/bloc/vehicles_bloc.dart';
-import 'package:admin_battery/vehicles/vehicles_screen.dart';
-
+import '/vehicles-catelog/vehicles_catelog.dart';
+import '/enums/enums.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FuleTypeScreen extends StatelessWidget {
   final String? vehicleBrandId;
@@ -66,18 +62,25 @@ class VehicleTypeCard extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 PageRouteBuilder(
-                  pageBuilder: (context, _, __) => BlocProvider<VehiclesBloc>(
-                    create: (context) => VehiclesBloc(
-                        firebaseServices: context.read<FirebaseServices>(),
-                        fuelType: fuelType,
-                        vehicleBrandId: vehicleBrandId),
-                    child: VehiclesScreen(
-                      vehicleBrandId: vehicleBrandId,
-                      fuelType: fuelType,
-                    ),
-                  ),
+                  pageBuilder: (context, _, __) => VehiclesCatelog(
+                      vehicleBrandId: vehicleBrandId, fuelType: fuelType),
                 ),
               );
+
+              // Navigator.of(context).push(
+              //   PageRouteBuilder(
+              //     pageBuilder: (context, _, __) => BlocProvider<VehiclesBloc>(
+              //       create: (context) => VehiclesBloc(
+              //           firebaseServices: context.read<FirebaseServices>(),
+              //           fuelType: fuelType,
+              //           vehicleBrandId: vehicleBrandId),
+              //       child: VehiclesScreen(
+              //         vehicleBrandId: vehicleBrandId,
+              //         fuelType: fuelType,
+              //       ),
+              //     ),
+              //   ),
+              // );
             },
             child: Container(
               height: 200.0,

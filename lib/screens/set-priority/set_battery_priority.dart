@@ -1,9 +1,9 @@
-import 'package:admin_battery/enums/enums.dart';
-import 'package:admin_battery/models/battery.dart';
-import 'package:admin_battery/repositories/battery/battery_repository.dart';
-import 'package:admin_battery/screens/battery/battery_tile.dart';
-import 'package:admin_battery/screens/set-priority/battery_priority_tile.dart';
-import 'package:admin_battery/screens/set-priority/priority_tile.dart';
+import '/enums/enums.dart';
+
+import '/repositories/battery/battery_repository.dart';
+
+import '/screens/set-priority/battery_priority_tile.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -56,7 +56,7 @@ class SetBatteryPriority extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _batteryRepo = context.read<BatteryRepository>();
+    //final _batteryRepo = context.read<BatteryRepository>();
     print('VehicleBrand Id $vehicleBrandId');
     print('FuelType ${fuelType?.index}');
     print('Vehicle Id $vehicleId');

@@ -1,7 +1,7 @@
-import 'package:admin_battery/enums/enums.dart';
-import 'package:admin_battery/models/vehicle_battery.dart';
-import 'package:admin_battery/repositories/battery/battery_repository.dart';
-import 'package:admin_battery/screens/set-priority/bloc/set_priority_bloc.dart';
+import '/enums/enums.dart';
+import '/models/vehicle_battery.dart';
+import '/repositories/battery/battery_repository.dart';
+import '/screens/set-priority/bloc/set_priority_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,4 +1,4 @@
-import 'package:admin_battery/screens/home/bloc/app_actions_bloc.dart';
+import '/screens/home/bloc/app_actions_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

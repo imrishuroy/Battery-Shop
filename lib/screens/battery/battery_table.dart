@@ -1,6 +1,6 @@
-import 'package:admin_battery/models/battery.dart';
-import 'package:admin_battery/widgets/table_entry_text.dart';
-import 'package:admin_battery/widgets/table_heading_text.dart';
+import '/models/battery.dart';
+import '/widgets/table_entry_text.dart';
+import '/widgets/table_heading_text.dart';
 
 import 'package:flutter/material.dart';
 

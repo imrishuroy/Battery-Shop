@@ -1,7 +1,7 @@
-import 'package:admin_battery/config/paths.dart';
-import 'package:admin_battery/enums/enums.dart';
-import 'package:admin_battery/models/battery.dart';
-import 'package:admin_battery/models/vehicle_battery.dart';
+import '/config/paths.dart';
+import '/enums/enums.dart';
+import '/models/battery.dart';
+import '/models/vehicle_battery.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 
@@ -146,7 +146,8 @@ class BatteryRepository {
           .collection(Paths.batteries)
           .doc(batteryType)
           .set({
-        'battery': _fireStore.collection(batteryBrand).doc(batteryType)
+        'battery': _fireStore.collection(batteryBrand).doc(batteryType),
+        'priority': 0,
       });
     } catch (error) {
       throw error;
