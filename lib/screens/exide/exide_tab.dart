@@ -1,3 +1,5 @@
+import '/widgets/loading_indicator.dart';
+
 import '/config/paths.dart';
 import '/screens/amaron/upload_to_databse_button.dart';
 
@@ -54,9 +56,7 @@ class ExideTab extends StatelessWidget {
             );
 
           default:
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return LoadingIndicator();
         }
       },
     );

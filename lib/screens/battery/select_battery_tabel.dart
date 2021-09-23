@@ -1,3 +1,5 @@
+import '/widgets/loading_indicator.dart';
+
 import '/blocs/vehicle-blocs/vehicle_batteries_bloc.dart';
 import '/enums/enums.dart';
 import '/models/battery.dart';
@@ -138,7 +140,7 @@ class SelectBatteryTable extends StatelessWidget {
               );
 
             default:
-              return Center(child: CircularProgressIndicator());
+              return LoadingIndicator();
           }
         },
       ),

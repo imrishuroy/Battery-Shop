@@ -1,3 +1,5 @@
+import '/widgets/loading_indicator.dart';
+
 import '/screens/home/brand_cards.dart';
 import '/screens/vehicle-brands/bloc/vehicle_brands_bloc.dart';
 import 'package:flutter/material.dart';
@@ -62,9 +64,7 @@ class VehicleBrandsTab extends StatelessWidget {
                           ),
                         );
                       default:
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
+                        return LoadingIndicator();
                     }
                   },
                 ),

@@ -1,3 +1,4 @@
+import '/widgets/loading_indicator.dart';
 import '/blocs/vehicle-blocs/vehicle_batteries_bloc.dart';
 import '/config/paths.dart';
 import '/enums/enums.dart';
@@ -11,13 +12,15 @@ class AddBatteryToVehicle extends StatefulWidget {
   final String? vehicleBrandId;
   final FuelType fuelType;
   final String? vehicleId;
+  final String vehicleType;
 
-  const AddBatteryToVehicle(
-      {Key? key,
-      required this.vehicleBrandId,
-      required this.fuelType,
-      required this.vehicleId})
-      : super(key: key);
+  const AddBatteryToVehicle({
+    Key? key,
+    required this.vehicleBrandId,
+    required this.fuelType,
+    required this.vehicleId,
+    required this.vehicleType,
+  }) : super(key: key);
 
   @override
   _AddBatteryToVehicleState createState() => _AddBatteryToVehicleState();
@@ -76,11 +79,13 @@ class _AddBatteryToVehicleState extends State<AddBatteryToVehicle> {
                   case AmaronStatus.loaded:
                     return BlocProvider<VehicleBatteriesBloc>(
                       create: (context) => VehicleBatteriesBloc(
-                          batteryRepository: context.read<BatteryRepository>(),
-                          vehicleBrandId: widget.vehicleBrandId,
-                          fuelType: widget.fuelType,
-                          vehicleId: widget.vehicleId,
-                          batteryBrand: Paths.amaron),
+                        batteryRepository: context.read<BatteryRepository>(),
+                        vehicleBrandId: widget.vehicleBrandId,
+                        fuelType: widget.fuelType,
+                        vehicleId: widget.vehicleId,
+                        vehicleType: widget.vehicleType,
+                        batteryBrand: Paths.amaron,
+                      ),
                       child: SelectBatteryTable(
                         batteries: state.batteries,
                         vehicleBrandId: widget.vehicleBrandId,
@@ -90,9 +95,7 @@ class _AddBatteryToVehicleState extends State<AddBatteryToVehicle> {
                     );
 
                   default:
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return LoadingIndicator();
                 }
               },
             ))

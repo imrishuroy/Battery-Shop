@@ -1,3 +1,5 @@
+import '/widgets/loading_indicator.dart';
+
 import '/enums/enums.dart';
 import '/models/battery.dart';
 import '/repositories/battery/battery_repository.dart';
@@ -10,6 +12,7 @@ class PriorityTile extends StatefulWidget {
   final String? vehicleBrandId;
   final FuelType? fuelType;
   final String? vehicleId;
+  final String vehicleType;
 
   const PriorityTile({
     Key? key,
@@ -17,6 +20,7 @@ class PriorityTile extends StatefulWidget {
     this.vehicleBrandId,
     required this.fuelType,
     this.vehicleId,
+    required this.vehicleType,
   }) : super(key: key);
 
   @override
@@ -45,6 +49,7 @@ class _PriorityTileState extends State<PriorityTile> {
       fuelType: widget.fuelType,
       vehicleId: widget.vehicleId,
       type: widget.battery?.type,
+      vehicleType: widget.vehicleType,
     );
     _priorityController.text = value.toString();
     setState(() {
@@ -61,6 +66,7 @@ class _PriorityTileState extends State<PriorityTile> {
         fuelType: widget.fuelType,
         vehicleId: widget.vehicleId,
         type: widget.battery?.type,
+        vehicleType: widget.vehicleType,
         priority: int.tryParse(_priorityController.text),
       );
       context.read<SetPriorityBloc>().add(RefreshPriotity());
@@ -81,7 +87,7 @@ class _PriorityTileState extends State<PriorityTile> {
         key: _formKey,
         child: Container(
           child: _isLoading
-              ? Center(child: CircularProgressIndicator())
+              ? LoadingIndicator()
               : Column(
                   children: [
                     Row(

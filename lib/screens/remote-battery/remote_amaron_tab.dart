@@ -1,3 +1,5 @@
+import '/widgets/loading_indicator.dart';
+
 import '/blocs/vehicle-blocs/vehicle_batteries_bloc.dart';
 import '/config/paths.dart';
 import '/enums/enums.dart';
@@ -12,13 +14,15 @@ class RemoteAmaronTab extends StatelessWidget {
   final String? vehicleBrandId;
   final FuelType fuelType;
   final String? vehicleId;
+  final String vehilceType;
 
-  const RemoteAmaronTab(
-      {Key? key,
-      required this.vehicleBrandId,
-      required this.fuelType,
-      required this.vehicleId})
-      : super(key: key);
+  const RemoteAmaronTab({
+    Key? key,
+    required this.vehicleBrandId,
+    required this.fuelType,
+    required this.vehicleId,
+    required this.vehilceType,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AmaronBloc, AmaronState>(
@@ -38,6 +42,7 @@ class RemoteAmaronTab extends StatelessWidget {
                 fuelType: fuelType,
                 vehicleId: vehicleId,
                 batteryBrand: Paths.amaron,
+                vehicleType: vehilceType,
               ),
               child: Column(
                 children: [
@@ -71,9 +76,7 @@ class RemoteAmaronTab extends StatelessWidget {
             );
 
           default:
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return LoadingIndicator();
         }
       },
     );

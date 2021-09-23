@@ -18,6 +18,7 @@ class VehicleBatteriesBloc
   final FuelType _fuelType;
   final String? _vehicleId;
   final String? _batteryBrand;
+  final String _vehicleType;
 
   VehicleBatteriesBloc({
     required BatteryRepository batteryRepository,
@@ -25,11 +26,13 @@ class VehicleBatteriesBloc
     required FuelType fuelType,
     required String? vehicleId,
     required String? batteryBrand,
+    required String vehicleType,
   })  : _batteryRepository = batteryRepository,
         _fuelType = fuelType,
         _vehicleBrandId = vehicleBrandId,
         _vehicleId = vehicleId,
         _batteryBrand = batteryBrand,
+        _vehicleType = vehicleType,
         super(VehicleBatteriesState.initial()) {
     _batterySubscription?.cancel();
     _batterySubscription = _batteryRepository
@@ -37,6 +40,7 @@ class VehicleBatteriesBloc
       vehicleBrandId: _vehicleBrandId,
       fuelType: _fuelType,
       vehicleId: _vehicleId,
+      vehicleType: vehicleType,
     )
         .listen((batteries) async {
       final vehicleBatteries = await Future.wait(batteries);
@@ -98,12 +102,12 @@ class VehicleBatteriesBloc
       AddAVehicleBattery event) async* {
     if (_batteryBrand != null) {
       _batteryRepository.addBatteryToVehicle(
-        vehicleBrandId: _vehicleBrandId,
-        fuelType: _fuelType,
-        vehicleId: _vehicleId,
-        batteryType: event.battery.type,
-        batteryBrand: _batteryBrand!,
-      );
+          vehicleBrandId: _vehicleBrandId,
+          fuelType: _fuelType,
+          vehicleId: _vehicleId,
+          batteryType: event.battery.type,
+          batteryBrand: _batteryBrand!,
+          vehicleType: _vehicleType);
     }
   }
 
@@ -114,6 +118,7 @@ class VehicleBatteriesBloc
       fuelType: _fuelType,
       vehicleId: _vehicleId,
       batteryType: event.battery.type,
+      vehicleType: _vehicleType,
     );
 
     // if (state.vehicleBatteries.contains(event.battery)) {

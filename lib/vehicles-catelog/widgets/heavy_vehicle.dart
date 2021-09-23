@@ -1,3 +1,5 @@
+import '/widgets/loading_indicator.dart';
+
 import '/repositories/vehicles/vehicle_repository.dart';
 import '/screens/remote-battery/remote-battery_screen.dart';
 import '/services/services.dart';
@@ -108,6 +110,8 @@ class HeavyVehicles extends StatelessWidget {
                                                 vehicleBrandId: vehicleBrandId,
                                                 fuelType: fuelType,
                                                 vehicleId: vehicle?.vehicleId,
+                                                vehicleType:
+                                                    Paths.heavyVehicles,
                                               ),
                                             );
                                           },
@@ -173,7 +177,7 @@ class HeavyVehicles extends StatelessWidget {
                     );
 
                   default:
-                    return const Center(child: CircularProgressIndicator());
+                    return const LoadingIndicator();
                 }
               },
             ),

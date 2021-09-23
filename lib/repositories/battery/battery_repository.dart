@@ -45,6 +45,7 @@ class BatteryRepository {
     required String? vehicleBrandId,
     required FuelType fuelType,
     required String? vehicleId,
+    required String vehicleType,
   }) {
     final fuelPath = EnumToString.convertToString(fuelType);
     print('VehicleBrand Id $vehicleBrandId');
@@ -54,7 +55,7 @@ class BatteryRepository {
       return _fireStore
           .collection(Paths.vehicle_brands)
           .doc(vehicleBrandId)
-          .collection(fuelPath)
+          .collection('$fuelPath-$vehicleType')
           .doc(vehicleId)
           .collection(Paths.batteries)
           .orderBy('priority', descending: false)
@@ -73,6 +74,7 @@ class BatteryRepository {
     required String? vehicleBrandId,
     required FuelType fuelType,
     required String? vehicleId,
+    required String vehicleType,
   }) {
     final fuelPath = EnumToString.convertToString(fuelType);
     print('VehicleBrand Id $vehicleBrandId');
@@ -82,7 +84,7 @@ class BatteryRepository {
       return _fireStore
           .collection(Paths.vehicle_brands)
           .doc(vehicleBrandId)
-          .collection(fuelPath)
+          .collection('$fuelPath-$vehicleType')
           .doc(vehicleId)
           .collection(Paths.batteries)
           .orderBy('priority', descending: false)
@@ -99,6 +101,7 @@ class BatteryRepository {
     required String? vehicleBrandId,
     required FuelType fuelType,
     required String? vehicleId,
+    required String vehicleType,
   }) {
     final fuelPath = EnumToString.convertToString(fuelType);
     print('VehicleBrand Id $vehicleBrandId');
@@ -109,7 +112,7 @@ class BatteryRepository {
       return _fireStore
           .collection(Paths.vehicle_brands)
           .doc(vehicleBrandId)
-          .collection(fuelPath)
+          .collection('$fuelPath-$vehicleType')
           .doc(vehicleId)
           .collection(Paths.batteries)
           .withConverter<Battery>(
@@ -129,6 +132,7 @@ class BatteryRepository {
     required String? vehicleId,
     required String? batteryType,
     required String batteryBrand,
+    required String vehicleType,
   }) async {
     try {
       final fuelPath = EnumToString.convertToString(fuelType);
@@ -141,7 +145,7 @@ class BatteryRepository {
       await _fireStore
           .collection(Paths.vehicle_brands)
           .doc(vehicleBrandId)
-          .collection(fuelPath)
+          .collection('$fuelPath-$vehicleType')
           .doc(vehicleId)
           .collection(Paths.batteries)
           .doc(batteryType)
@@ -159,6 +163,7 @@ class BatteryRepository {
     required FuelType fuelType,
     required String? vehicleId,
     required String? batteryType,
+    required String vehicleType,
   }) async {
     try {
       final fuelPath = EnumToString.convertToString(fuelType);
@@ -170,7 +175,7 @@ class BatteryRepository {
       await _fireStore
           .collection(Paths.vehicle_brands)
           .doc(vehicleBrandId)
-          .collection(fuelPath)
+          .collection('$fuelPath-$vehicleType')
           .doc(vehicleId)
           .collection(Paths.batteries)
           .doc(batteryType)
@@ -215,6 +220,7 @@ class BatteryRepository {
     // required Battery? battery,
     required String? type,
     required int? priority,
+    required String vehicleType,
   }) async {
     print('VehicleBrand Id $vehicleBrandId');
 
@@ -226,7 +232,7 @@ class BatteryRepository {
       await _fireStore
           .collection(Paths.vehicle_brands)
           .doc(vehicleBrandId)
-          .collection(fuelPath)
+          .collection('$fuelPath-$vehicleType')
           .doc(vehicleId)
           .collection(Paths.batteries)
           .doc(type)
@@ -241,6 +247,7 @@ class BatteryRepository {
     required String? vehicleBrandId,
     required FuelType? fuelType,
     required String? vehicleId,
+    required String vehicleType,
     // required Battery? battery,
     required String? type,
   }) async {
@@ -250,7 +257,7 @@ class BatteryRepository {
       final doc = await _fireStore
           .collection(Paths.vehicle_brands)
           .doc(vehicleBrandId)
-          .collection(fuelPath)
+          .collection('$fuelPath-$vehicleType')
           .doc(vehicleId)
           .collection(Paths.batteries)
           .doc(type)

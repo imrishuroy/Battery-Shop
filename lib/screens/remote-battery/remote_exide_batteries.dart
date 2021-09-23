@@ -1,3 +1,4 @@
+import '/widgets/loading_indicator.dart';
 import '/blocs/vehicle-blocs/vehicle_batteries_bloc.dart';
 import '/config/paths.dart';
 import '/enums/enums.dart';
@@ -13,12 +14,14 @@ class RemoteExideTab extends StatelessWidget {
   final String? vehicleBrandId;
   final FuelType fuelType;
   final String? vehicleId;
+  final String vehicleType;
 
   const RemoteExideTab({
     Key? key,
     required this.vehicleBrandId,
     required this.fuelType,
     required this.vehicleId,
+    required this.vehicleType,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -39,6 +42,7 @@ class RemoteExideTab extends StatelessWidget {
                 fuelType: fuelType,
                 vehicleId: vehicleId,
                 batteryBrand: Paths.exide,
+                vehicleType: vehicleType,
               ),
               child: Column(
                 children: [
@@ -72,9 +76,7 @@ class RemoteExideTab extends StatelessWidget {
             );
 
           default:
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return LoadingIndicator();
         }
       },
     );

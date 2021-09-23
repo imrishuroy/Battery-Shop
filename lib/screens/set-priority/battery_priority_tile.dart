@@ -10,13 +10,15 @@ class BatteryPriorityTile extends StatefulWidget {
   final String? vehicleBrandId;
   final FuelType? fuelType;
   final String? vehicleId;
+  final String vehicleType;
 
   const BatteryPriorityTile({
     Key? key,
-    this.vehicleBattery,
-    this.vehicleBrandId,
-    this.fuelType,
-    this.vehicleId,
+    required this.vehicleBattery,
+    required this.vehicleBrandId,
+    required this.fuelType,
+    required this.vehicleId,
+    required this.vehicleType,
   }) : super(key: key);
 
   @override
@@ -36,6 +38,7 @@ class _BatteryPriorityTileState extends State<BatteryPriorityTile> {
           vehicleId: widget.vehicleId,
           type: widget.vehicleBattery?.battery?.type,
           priority: priority,
+          vehicleType: widget.vehicleType,
         );
       }
       context.read<SetPriorityBloc>().add(RefreshPriotity());

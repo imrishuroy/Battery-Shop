@@ -15,16 +15,19 @@ class SetPriorityBloc extends Bloc<SetPriorityEvent, SetPriorityState> {
   final String? _vehicleBrandId;
   final String? _vehicleId;
   final FuelType _fuelType;
+  final String _vehicleType;
 
   SetPriorityBloc({
     required BatteryRepository batteryRepository,
     required String? vehicleBrandId,
     required FuelType fuelType,
     required String? vehicleId,
+    required String vehicleType,
   })  : _batteryRepository = batteryRepository,
         _vehicleBrandId = vehicleBrandId,
         _vehicleId = vehicleId,
         _fuelType = fuelType,
+        _vehicleType = vehicleType,
         super(SetPriorityState.initial()) {
     _batterySubscription?.cancel();
     _batterySubscription = _batteryRepository
@@ -32,6 +35,7 @@ class SetPriorityBloc extends Bloc<SetPriorityEvent, SetPriorityState> {
       vehicleBrandId: _vehicleBrandId,
       fuelType: _fuelType,
       vehicleId: _vehicleId,
+      vehicleType: _vehicleType,
     )
 
         // .streamVehiclesBatteries(
@@ -77,6 +81,7 @@ class SetPriorityBloc extends Bloc<SetPriorityEvent, SetPriorityState> {
       vehicleBrandId: _vehicleBrandId,
       fuelType: _fuelType,
       vehicleId: _vehicleId,
+      vehicleType: _vehicleType,
       //   battery: event.newIndex,
       type: event.vehicleBattery.battery?.type,
 
@@ -106,9 +111,11 @@ class SetPriorityBloc extends Bloc<SetPriorityEvent, SetPriorityState> {
     _batterySubscription?.cancel();
     _batterySubscription = _batteryRepository
         .streamBatteries(
-            vehicleBrandId: _vehicleBrandId,
-            fuelType: _fuelType,
-            vehicleId: _vehicleId)
+      vehicleBrandId: _vehicleBrandId,
+      fuelType: _fuelType,
+      vehicleId: _vehicleId,
+      vehicleType: _vehicleType,
+    )
         // .streamVehiclesBatteries(
         //     vehicleBrandId: _vehicleBrandId,
         //     fuelType: _fuelType,

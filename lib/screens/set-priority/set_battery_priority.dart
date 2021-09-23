@@ -1,3 +1,5 @@
+import 'package:admin_battery/widgets/loading_indicator.dart';
+
 import '/enums/enums.dart';
 
 import '/repositories/battery/battery_repository.dart';
@@ -13,11 +15,14 @@ class BatteryPriorityArgs {
   final String? vehicleBrandId;
   final FuelType? fuelType;
   final String? vehicleId;
+  final String vehicleType;
 
-  BatteryPriorityArgs(
-      {required this.vehicleBrandId,
-      required this.fuelType,
-      required this.vehicleId});
+  BatteryPriorityArgs({
+    required this.vehicleBrandId,
+    required this.fuelType,
+    required this.vehicleId,
+    required this.vehicleType,
+  });
 }
 
 class SetBatteryPriority extends StatelessWidget {
@@ -26,12 +31,14 @@ class SetBatteryPriority extends StatelessWidget {
   final String? vehicleBrandId;
   final FuelType? fuelType;
   final String? vehicleId;
+  final String vehicleType;
 
   const SetBatteryPriority({
     Key? key,
     required this.vehicleBrandId,
     required this.fuelType,
     required this.vehicleId,
+    required this.vehicleType,
   }) : super(key: key);
 
   static Route route({required BatteryPriorityArgs? args}) {
@@ -43,11 +50,13 @@ class SetBatteryPriority extends StatelessWidget {
               vehicleBrandId: args?.vehicleBrandId,
               fuelType: args!.fuelType!,
               vehicleId: args.vehicleId,
+              vehicleType: args.vehicleType,
               batteryRepository: context.read<BatteryRepository>()),
           child: SetBatteryPriority(
             vehicleBrandId: args?.vehicleBrandId,
             fuelType: args?.fuelType,
             vehicleId: args?.vehicleId,
+            vehicleType: args!.vehicleType,
           ),
         );
       },
@@ -109,6 +118,7 @@ class SetBatteryPriority extends StatelessWidget {
                           vehicleBrandId: vehicleBrandId,
                           vehicleId: vehicleId,
                           fuelType: fuelType,
+                          vehicleType: vehicleType,
                         );
                       },
                     );
@@ -168,9 +178,7 @@ class SetBatteryPriority extends StatelessWidget {
                   // );
 
                   default:
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return LoadingIndicator();
                 }
               },
             ),

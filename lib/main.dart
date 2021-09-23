@@ -1,14 +1,14 @@
-import 'package:admin_battery/blocs/auth/auth_bloc.dart';
+import '/blocs/auth/auth_bloc.dart';
 
-import 'package:admin_battery/repositories/auth/auth_repo.dart';
-import 'package:admin_battery/repositories/battery/battery_repository.dart';
-import 'package:admin_battery/repositories/firebase/firebase_repository.dart';
-import 'package:admin_battery/repositories/firebase_services.dart';
-import 'package:admin_battery/repositories/rest-apis/rest_apis_repo.dart';
-import 'package:admin_battery/repositories/storage/storage_repo.dart';
-import 'package:admin_battery/repositories/vehicles/vehicle_repository.dart';
-import 'package:admin_battery/screens/home/bloc/app_actions_bloc.dart';
-import 'package:admin_battery/screens/vehicle-brands/bloc/vehicle_brands_bloc.dart';
+import '/repositories/auth/auth_repo.dart';
+import '/repositories/battery/battery_repository.dart';
+import '/repositories/firebase/firebase_repository.dart';
+import '/repositories/firebase_services.dart';
+import '/repositories/rest-apis/rest_apis_repo.dart';
+import '/repositories/storage/storage_repo.dart';
+import '/repositories/vehicles/vehicle_repository.dart';
+import '/screens/home/bloc/app_actions_bloc.dart';
+import '/screens/vehicle-brands/bloc/vehicle_brands_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:firebase_core/firebase_core.dart';

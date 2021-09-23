@@ -17,11 +17,13 @@ class RemoteBatteryArguments {
   final String? vehicleBrandId;
   final FuelType fuelType;
   final String? vehicleId;
+  final String vehicleType;
 
   const RemoteBatteryArguments({
     required this.vehicleBrandId,
     required this.fuelType,
     required this.vehicleId,
+    required this.vehicleType,
   });
 }
 
@@ -29,6 +31,7 @@ class RemoteBatteryScreen extends StatelessWidget {
   final String? vehicleBrandId;
   final FuelType? fuelType;
   final String? vehicleId;
+  final String vehicleType;
 
   static const String routeName = '/remote-battery';
 
@@ -37,6 +40,7 @@ class RemoteBatteryScreen extends StatelessWidget {
     required this.vehicleBrandId,
     required this.fuelType,
     required this.vehicleId,
+    required this.vehicleType,
   }) : super(key: key);
 
   static Route route({required RemoteBatteryArguments? args}) {
@@ -68,6 +72,7 @@ class RemoteBatteryScreen extends StatelessWidget {
             vehicleBrandId: args?.vehicleBrandId,
             vehicleId: args?.vehicleId,
             fuelType: args?.fuelType,
+            vehicleType: args!.vehicleType,
           ),
         );
       },
@@ -91,6 +96,7 @@ class RemoteBatteryScreen extends StatelessWidget {
                     vehicleBrandId: vehicleBrandId,
                     fuelType: fuelType,
                     vehicleId: vehicleId,
+                    vehicleType: vehicleType,
                   ),
                 );
               },
@@ -117,16 +123,20 @@ class RemoteBatteryScreen extends StatelessWidget {
               vehicleBrandId: vehicleBrandId,
               fuelType: fuelType ?? FuelType.petrol,
               vehicleId: vehicleId,
+              vehilceType: vehicleType,
             ),
             RemoteExideTab(
               vehicleBrandId: vehicleBrandId,
               fuelType: fuelType ?? FuelType.petrol,
               vehicleId: vehicleId,
+              vehicleType: vehicleType,
             ),
             RemoteSkyTab(
-                vehicleBrandId: vehicleBrandId,
-                fuelType: FuelType.petrol,
-                vehicleId: vehicleId),
+              vehicleBrandId: vehicleBrandId,
+              fuelType: FuelType.petrol,
+              vehicleId: vehicleId,
+              vehicleType: vehicleType,
+            ),
             // ExideTab(),
             //  SkyTab(),
           ],

@@ -1,5 +1,5 @@
-import 'package:admin_battery/config/auth_wrapper.dart';
-import 'package:admin_battery/repositories/auth/auth_repo.dart';
+import '/config/auth_wrapper.dart';
+import '/repositories/auth/auth_repo.dart';
 
 import '/screens/battery/battery_dashboard.dart';
 

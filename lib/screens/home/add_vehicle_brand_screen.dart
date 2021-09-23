@@ -1,10 +1,9 @@
 import 'dart:io';
 
-import 'package:admin_battery/models/vehicle_brands.dart';
-import 'package:admin_battery/repositories/firebase_services.dart';
-import 'package:admin_battery/repositories/storage/storage_repo.dart';
-import 'package:admin_battery/widgets/loading_indicator.dart';
-
+import '/models/vehicle_brands.dart';
+import '/repositories/firebase_services.dart';
+import '/repositories/storage/storage_repo.dart';
+import '/widgets/loading_indicator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';

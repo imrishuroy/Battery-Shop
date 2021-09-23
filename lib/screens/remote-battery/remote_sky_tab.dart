@@ -1,3 +1,5 @@
+import '/widgets/loading_indicator.dart';
+
 import '/blocs/vehicle-blocs/vehicle_batteries_bloc.dart';
 import '/config/paths.dart';
 import '/enums/enums.dart';
@@ -13,13 +15,15 @@ class RemoteSkyTab extends StatelessWidget {
   final String? vehicleBrandId;
   final FuelType fuelType;
   final String? vehicleId;
+  final String vehicleType;
 
-  const RemoteSkyTab(
-      {Key? key,
-      required this.vehicleBrandId,
-      required this.fuelType,
-      required this.vehicleId})
-      : super(key: key);
+  const RemoteSkyTab({
+    Key? key,
+    required this.vehicleBrandId,
+    required this.fuelType,
+    required this.vehicleId,
+    required this.vehicleType,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SkyBloc, SkyState>(
@@ -39,6 +43,7 @@ class RemoteSkyTab extends StatelessWidget {
                 fuelType: fuelType,
                 vehicleId: vehicleId,
                 batteryBrand: Paths.sky,
+                vehicleType: vehicleType,
               ),
               child: Column(
                 children: [
@@ -72,9 +77,7 @@ class RemoteSkyTab extends StatelessWidget {
             );
 
           default:
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return LoadingIndicator();
         }
       },
     );

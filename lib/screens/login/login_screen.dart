@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
             _isLoading = false;
           });
           ShowMessage.showSuccussMessage(context,
-              message: 'Successful, Welcome to the console !');
+              message: 'Welcome to the console !');
         }
       }
     } on Failure catch (error) {
@@ -157,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               SizedBox(height: 25.0),
-                              if (_isLoading) CircularProgressIndicator(),
+                              if (_isLoading) LoadingIndicator(),
                               if (!_isLoading)
                                 ElevatedButton(
                                   // style: ButtonStyle(

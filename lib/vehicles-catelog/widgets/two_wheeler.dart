@@ -1,3 +1,5 @@
+import '/widgets/loading_indicator.dart';
+
 import '/screens/remote-battery/remote-battery_screen.dart';
 
 import '/config/paths.dart';
@@ -110,6 +112,7 @@ class TwoWheeler extends StatelessWidget {
                                                 vehicleBrandId: vehicleBrandId,
                                                 fuelType: fuelType,
                                                 vehicleId: vehicle?.vehicleId,
+                                                vehicleType: Paths.twoWheeler,
                                               ),
                                             );
                                           },
@@ -175,7 +178,7 @@ class TwoWheeler extends StatelessWidget {
                     );
 
                   default:
-                    return const Center(child: CircularProgressIndicator());
+                    return const LoadingIndicator();
                 }
               },
             ),
