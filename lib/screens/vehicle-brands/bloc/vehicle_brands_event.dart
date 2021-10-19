@@ -15,3 +15,12 @@ class LoadVehicleBrands extends VehicleBrands {
   @override
   List<Object> get props => [vehicleBrands];
 }
+
+class DeleteVehicleBrand extends VehicleBrands {
+  final String vehicleBrandId;
+
+  DeleteVehicleBrand({required this.vehicleBrandId});
+
+  @override
+  List<Object> get props => [vehicleBrandId];
+}

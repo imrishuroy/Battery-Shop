@@ -28,6 +28,9 @@ class VehicleBrandsBloc extends Bloc<VehicleBrands, VehicleBrandsState> {
   ) async* {
     if (event is LoadVehicleBrands) {
       yield* _mapLoadVehicleBrandsToState(event);
+    } else if (event is DeleteVehicleBrand) {
+      await _firebaseServices.delteVehicleBrand(
+          vehicleBrandId: event.vehicleBrandId);
     }
   }
 

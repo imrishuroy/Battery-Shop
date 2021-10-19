@@ -109,4 +109,15 @@ class FirebaseServices {
       throw error;
     }
   }
+
+  Future<void> delteVehicleBrand({required String vehicleBrandId}) async {
+    try {
+      await _fireStore
+          .collection(Paths.vehicle_brands)
+          .doc(vehicleBrandId)
+          .delete();
+    } catch (error) {
+      print('Error deleting vehicle brand ${error.toString()}');
+    }
+  }
 }
