@@ -1,14 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
-class AdminUser {
-  final String? uid;
+// class AdminUser {
+//   final String? uid;
 
-  AdminUser({this.uid});
+//   AdminUser({this.uid});
 
-  // serializing our own object from firebase user class
-  factory AdminUser.fromDocument(DocumentSnapshot doc) {
-    return AdminUser(
-      uid: doc['id'],
-    );
-  }
-}
+//   // serializing our own object from firebase user class
+//   factory AdminUser.fromDocument(DocumentSnapshot doc) {
+//     return AdminUser(
+//       uid: doc['id'],
+//     );
+//   }
+// }

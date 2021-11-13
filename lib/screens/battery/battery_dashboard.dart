@@ -1,3 +1,11 @@
+import '/screens/livfast/bloc/livfast_bloc.dart';
+import '/screens/livfast/livfast_tab.dart';
+import '/screens/luminous/bloc/luminous_bloc.dart';
+import '/screens/luminous/luminous_tab.dart';
+
+import '/screens/alfa/alfa_tab.dart';
+import '/screens/alfa/bloc/alfa_bloc.dart';
+
 import '/constants/urls.dart';
 import '/repositories/rest-apis/rest_apis_repo.dart';
 import '/screens/amaron/amaron_tab.dart';
@@ -29,12 +37,31 @@ class BatteryDashBoard extends StatelessWidget {
             BlocProvider<SkyBloc>(
               create: (context) => SkyBloc(
                 path: Urls.skyUrl,
-                restApisRepository: context.read<RestApisRepository>(),
+                repository: context.read<RestApisRepository>(),
+              ),
+            ),
+            BlocProvider<AlfaBloc>(
+              create: (context) => AlfaBloc(
+                repository: context.read<RestApisRepository>(),
+                path: Urls.alfaUrl,
               ),
             ),
             BlocProvider<ExideBloc>(
               create: (context) => ExideBloc(
-                restApisRepository: context.read<RestApisRepository>(),
+                path: Urls.exideUrl,
+                repository: context.read<RestApisRepository>(),
+              ),
+            ),
+            BlocProvider<LuminousBloc>(
+              create: (context) => LuminousBloc(
+                repository: context.read<RestApisRepository>(),
+                path: Urls.luminousUrl,
+              ),
+            ),
+            BlocProvider<LivFastBloc>(
+              create: (context) => LivFastBloc(
+                repository: context.read<RestApisRepository>(),
+                path: Urls.livFastUrl,
               ),
             ),
           ],
@@ -49,30 +76,33 @@ class BatteryDashBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 6,
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Text('Battery DashBoard'),
           actions: [
-            TextButton(
-              onPressed: () {},
-              child: Text(
-                'Set Priority',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.0,
-                ),
-              ),
-            ),
+            // TextButton(
+            //   onPressed: () {},
+            //   child: Text(
+            //     'Set Priority',
+            //     style: TextStyle(
+            //       color: Colors.white,
+            //       fontSize: 16.0,
+            //     ),
+            //   ),
+            // ),
             const SizedBox(width: 15.0)
           ],
           bottom: TabBar(
             indicatorColor: Colors.white,
             tabs: [
-              TabItem(label: 'Amaron', icon: Icons.battery_full),
+              TabItem(label: 'Amaron', icon: Icons.today_sharp),
               TabItem(label: 'Exide', icon: Icons.today_sharp),
               TabItem(label: 'Sky', icon: Icons.today_sharp),
+              TabItem(label: 'Alfa', icon: Icons.today_sharp),
+              TabItem(label: 'Luminous', icon: Icons.today_sharp),
+              TabItem(label: 'LivFast', icon: Icons.today_sharp)
             ],
           ),
         ),
@@ -81,6 +111,9 @@ class BatteryDashBoard extends StatelessWidget {
             AmaronTab(),
             ExideTab(),
             SkyTab(),
+            AlfaTab(),
+            LuminousTab(),
+            LivFastTab(),
           ],
         ),
       ),

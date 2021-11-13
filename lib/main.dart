@@ -64,21 +64,6 @@ class MyApp extends StatelessWidget {
               authRepository: context.read<AuthRepository>(),
             ),
           ),
-          // BlocProvider<AmaronBloc>(
-          //   create: (context) => AmaronBloc(
-          //     restApisRepository: context.read<RestApisRepository>(),
-          //   ),
-          // ),
-          // BlocProvider<SkyBloc>(
-          //   create: (context) => SkyBloc(
-          //     restApisRepository: context.read<RestApisRepository>(),
-          //   ),
-          // ),
-          // BlocProvider<ExideBloc>(
-          //   create: (context) => ExideBloc(
-          //     restApisRepository: context.read<RestApisRepository>(),
-          //   ),
-          // ),
           BlocProvider<VehicleBrandsBloc>(
             create: (context) => VehicleBrandsBloc(
               firebaseServices: context.read<FirebaseServices>(),

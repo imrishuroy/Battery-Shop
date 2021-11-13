@@ -1,0 +1,83 @@
+import '/screens/livfast/bloc/livfast_bloc.dart';
+
+import '/widgets/loading_indicator.dart';
+import '/blocs/vehicle-blocs/vehicle_batteries_bloc.dart';
+import '/config/paths.dart';
+import '/enums/enums.dart';
+import '/repositories/battery/battery_repository.dart';
+
+import '/screens/battery/select_battery_tabel.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class RemoteLivFastTab extends StatelessWidget {
+  final String? vehicleBrandId;
+  final FuelType fuelType;
+  final String? vehicleId;
+  final String vehicleType;
+
+  const RemoteLivFastTab({
+    Key? key,
+    required this.vehicleBrandId,
+    required this.fuelType,
+    required this.vehicleId,
+    required this.vehicleType,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<LivFastBloc, LivFastState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        switch (state.status) {
+          case LivFastStatus.error:
+            return Center(
+              child: Text('Something went wrong'),
+            );
+
+          case LivFastStatus.loaded:
+            return BlocProvider(
+              create: (context) => VehicleBatteriesBloc(
+                batteryRepository: context.read<BatteryRepository>(),
+                vehicleBrandId: vehicleBrandId,
+                fuelType: fuelType,
+                vehicleId: vehicleId,
+                batteryBrand: Paths.livFast,
+                vehicleType: vehicleType,
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10.0, top: 10.0),
+                        child: IconButton(
+                          onPressed: () {
+                            BlocProvider.of<LivFastBloc>(context)
+                                .add(RefreshLivFastBatteries());
+                          },
+                          icon: Icon(Icons.refresh),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: SelectBatteryTable(
+                      batteries: state.batteries,
+                      vehicleBrandId: vehicleBrandId,
+                      fuelType: fuelType,
+                      vehicleId: vehicleId,
+                    ),
+                  ),
+                ],
+              ),
+            );
+
+          default:
+            return LoadingIndicator();
+        }
+      },
+    );
+  }
+}

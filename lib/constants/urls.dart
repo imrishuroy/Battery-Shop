@@ -7,4 +7,13 @@ class Urls {
 
   static const exideUrl =
       'https://script.googleusercontent.com/macros/echo?user_content_key=P2H-pFSe1DxnugaiSFHj8HWN2DP_EFHec-ZPJSQVY6jDYMBZedu68zsZncuTh2aodTNRNNpDOTC2FBFUVaob9Th09my2u2RTm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnE9oNAf8bFfwWkF1InI4MGok97c1whMn6rkeEMeP5e7DF8GtiSi2BGucUKvZBdAEJ6KWuyLH9iaUVOcemIALEuL6jz-41VOu99z9Jw9Md8uu&lib=M8YnFwbCKnm7t3RA22Kz39QMz0pnu8441';
+
+  static const livFastUrl =
+      'https://script.googleusercontent.com/macros/echo?user_content_key=9bWAm553fnJ29c5uMvWUFrO-vmorO55GAJlnDZHhqLnSkpMZq8fx15-J3PgbbenTJLWoABPS-7zxS1it_uFRLwVSzEFZHRFsm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnIACGWTwFXvQu2V05ansW-h9wrfsKyUPEzZ2bBSoi1-D0n8-BMKLQSB5LoCaPhQlnmoHiyyfrFfCeBumOVzhk1ctemNj5HSZBdz9Jw9Md8uu&lib=MYRLnDc9RKuqcAj1rje-X4QMz0pnu8441';
+
+  static const luminousUrl =
+      'https://script.googleusercontent.com/macros/echo?user_content_key=Kq1MArICgd8dDBeoMmWJb9HzGV1DU8HFNottIx-soJtV6UjGztfGSUW3bUDNd4ZPy-mcTy4iyj52uGvRBs8un_y4cRSx0s3Pm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnEYVvSYtIj7sizeMTHvVhND_DEO2tuCMwU3Jv8-f6zfQH-fY9OR8bE-E7LoqbDCF4w-j2zM1F_gj5u5TjLLlXDsto5FvOaHvXdz9Jw9Md8uu&lib=MlMxOgUxU7nG_Sy6HGFT-UAMz0pnu8441';
+
+  static const alfaUrl =
+      'https://script.googleusercontent.com/macros/echo?user_content_key=Ps8RipETkvUJiYL90Vw7dg7z8wlN_0-eSZFcekKlRlq5oDwvLpD-VftRIwAyuhi9aAX8N5W7Vum3ibVNemfA1WvWMml8MJkEm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnAam24gWMWXlM5GZWsgy4Du6lBqafR5douzM0NEoMWEdxoyhGFGrLKl-ipszNYAmu9X0a4pBjN-qq108X899A-g_AjwNHSSTZw&lib=MAoO1VjoAD3wq8HffrQGJ93ImAf41yL87';
 }

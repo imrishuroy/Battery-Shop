@@ -12,6 +12,12 @@ class Paths {
 
   static const sky = 'sky';
 
+  static const alfa = 'alfa';
+
+  static const luminous = 'luminous';
+
+  static const livFast = 'livfast';
+
   // Subcollections
 
   static const String vehicles = 'vehicles';

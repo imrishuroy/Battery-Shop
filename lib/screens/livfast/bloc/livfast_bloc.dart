@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '/models/battery.dart';
@@ -6,25 +7,25 @@ import '/models/failure.dart';
 
 import 'package:equatable/equatable.dart';
 
-part 'sky_event.dart';
-part 'sky_state.dart';
+part 'livfast_event.dart';
+part 'livfast_state.dart';
 
-class SkyBloc extends Bloc<SkyEvent, SkyState> {
+class LivFastBloc extends Bloc<LivFastEvent, LivFastState> {
   final _apisRepository;
   StreamSubscription? _batterySubscription;
 
   final String _path;
 
-  SkyBloc({
+  LivFastBloc({
     required repository,
     required String path,
   })  : _apisRepository = repository,
         _path = path,
-        super(SkyState.initial()) {
+        super(LivFastState.initial()) {
     _batterySubscription?.cancel();
     _batterySubscription =
-        Stream.fromFuture(_apisRepository.getBatteries(_path))
-            .listen((batteries) => add(LoadSkyBatteries(batteries: batteries)));
+        Stream.fromFuture(_apisRepository.getBatteries(_path)).listen(
+            (batteries) => add(LoadLivFastBatteries(batteries: batteries)));
   }
 
   @override
@@ -34,28 +35,28 @@ class SkyBloc extends Bloc<SkyEvent, SkyState> {
   }
 
   @override
-  Stream<SkyState> mapEventToState(
-    SkyEvent event,
+  Stream<LivFastState> mapEventToState(
+    LivFastEvent event,
   ) async* {
-    if (event is LoadSkyBatteries) {
+    if (event is LoadLivFastBatteries) {
       yield* _mapLoadExideBatteriesToState(event);
-    } else if (event is RefreshSkyBatteries) {
+    } else if (event is RefreshLivFastBatteries) {
       yield* _mapRefreshExideBatteryToState();
     }
   }
 
-  Stream<SkyState> _mapLoadExideBatteriesToState(
-      LoadSkyBatteries event) async* {
+  Stream<LivFastState> _mapLoadExideBatteriesToState(
+      LoadLivFastBatteries event) async* {
     yield state.copyWith(
       batteries: event.batteries,
-      status: SkyStatus.loaded,
+      status: LivFastStatus.loaded,
     );
   }
 
-  Stream<SkyState> _mapRefreshExideBatteryToState() async* {
+  Stream<LivFastState> _mapRefreshExideBatteryToState() async* {
     _batterySubscription?.cancel();
     _batterySubscription =
-        Stream.fromFuture(_apisRepository.getBatteries(_path))
-            .listen((batteries) => add(LoadSkyBatteries(batteries: batteries)));
+        Stream.fromFuture(_apisRepository.getBatteries(_path)).listen(
+            (batteries) => add(LoadLivFastBatteries(batteries: batteries)));
   }
 }

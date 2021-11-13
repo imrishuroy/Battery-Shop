@@ -1,17 +1,25 @@
+import '/screens/alfa/bloc/alfa_bloc.dart';
+import '/screens/livfast/bloc/livfast_bloc.dart';
+import '/screens/luminous/bloc/luminous_bloc.dart';
+import '/screens/remote-battery/remote_livfast_tab.dart';
+
 import '/config/paths.dart';
 import '/enums/enums.dart';
 import '/repositories/battery/battery_repository.dart';
-import '/repositories/rest-apis/rest_apis_repo.dart';
+
 import '/screens/amaron/bloc/amaron_bloc.dart';
 import '/screens/set-priority/set_battery_priority.dart';
 import '/screens/exide/bloc/exide_bloc.dart';
 import '/screens/remote-battery/remote_amaron_tab.dart';
-import '/screens/remote-battery/remote_exide_batteries.dart';
+import 'remote_alfa_tab.dart';
+import 'remote_exide_tab.dart';
 import '/screens/remote-battery/remote_sky_tab.dart';
 import '/screens/sky/bloc/sky_bloc.dart';
 import '/widgets/tab_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'remote_luminous_tab.dart';
 
 class RemoteBatteryArguments {
   final String? vehicleBrandId;
@@ -59,12 +67,31 @@ class RemoteBatteryScreen extends StatelessWidget {
             BlocProvider<SkyBloc>(
               create: (context) => SkyBloc(
                 path: Paths.sky,
-                restApisRepository: context.read<BatteryRepository>(),
+                repository: context.read<BatteryRepository>(),
               ),
             ),
             BlocProvider<ExideBloc>(
               create: (context) => ExideBloc(
-                restApisRepository: context.read<RestApisRepository>(),
+                path: Paths.exide,
+                repository: context.read<BatteryRepository>(),
+              ),
+            ),
+            BlocProvider<AlfaBloc>(
+              create: (context) => AlfaBloc(
+                path: Paths.alfa,
+                repository: context.read<BatteryRepository>(),
+              ),
+            ),
+            BlocProvider<LuminousBloc>(
+              create: (context) => LuminousBloc(
+                path: Paths.luminous,
+                repository: context.read<BatteryRepository>(),
+              ),
+            ),
+            BlocProvider<LivFastBloc>(
+              create: (context) => LivFastBloc(
+                path: Paths.livFast,
+                repository: context.read<BatteryRepository>(),
               ),
             ),
           ],
@@ -82,7 +109,7 @@ class RemoteBatteryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 6,
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -113,6 +140,9 @@ class RemoteBatteryScreen extends StatelessWidget {
               TabItem(label: 'Amaron', icon: Icons.today_sharp),
               TabItem(label: 'Exide', icon: Icons.today_sharp),
               TabItem(label: 'Sky', icon: Icons.today_sharp),
+              TabItem(label: 'Luminous', icon: Icons.today_sharp),
+              TabItem(label: 'Alfa', icon: Icons.today_sharp),
+              TabItem(label: 'LivFast', icon: Icons.today_sharp),
             ],
           ),
         ),
@@ -137,8 +167,26 @@ class RemoteBatteryScreen extends StatelessWidget {
               vehicleId: vehicleId,
               vehicleType: vehicleType,
             ),
-            // ExideTab(),
-            //  SkyTab(),
+
+            RemoteLuminousTab(
+              vehicleBrandId: vehicleBrandId,
+              fuelType: FuelType.petrol,
+              vehicleId: vehicleId,
+              vehicleType: vehicleType,
+            ),
+
+            RemoteAlfaTab(
+              vehicleBrandId: vehicleBrandId,
+              fuelType: FuelType.petrol,
+              vehicleId: vehicleId,
+              vehilceType: vehicleType,
+            ),
+            RemoteLivFastTab(
+              vehicleBrandId: vehicleBrandId,
+              fuelType: FuelType.petrol,
+              vehicleId: vehicleId,
+              vehicleType: vehicleType,
+            ),
           ],
         ),
       ),

@@ -3,7 +3,6 @@ import 'dart:async';
 import '/constants/constants.dart';
 import '/models/battery.dart';
 import '/models/failure.dart';
-import '/repositories/rest-apis/rest_apis_repo.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -11,15 +10,19 @@ part 'exide_event.dart';
 part 'exide_state.dart';
 
 class ExideBloc extends Bloc<ExideEvent, ExideState> {
-  final RestApisRepository _apisRepository;
+  final _apisRepository;
   StreamSubscription? _batterySubscription;
+  final String _path;
 
-  ExideBloc({required RestApisRepository restApisRepository})
-      : _apisRepository = restApisRepository,
+  ExideBloc({
+    required repository,
+    required String path,
+  })  : _apisRepository = repository,
+        _path = path,
         super(ExideState.initial()) {
     _batterySubscription?.cancel();
     _batterySubscription =
-        Stream.fromFuture(_apisRepository.getBatteries(Urls.exideUrl)).listen(
+        Stream.fromFuture(_apisRepository.getBatteries(_path)).listen(
             (batteries) => add(LoadExideBatteries(batteries: batteries)));
   }
 
