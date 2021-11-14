@@ -56,35 +56,62 @@ class _HomeScreenState extends State<HomeScreen>
         length: 3,
         initialIndex: _selectedIndex,
         child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            centerTitle: true,
-            title: const Text(
-              'DashBoard',
-              style: TextStyle(
-                letterSpacing: 1.2,
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(70.0),
+            child: AppBar(
+              automaticallyImplyLeading: false,
+              bottom: TabBar(
+                indicatorColor: Colors.white,
+                indicatorWeight: 1.8,
+                controller: _tabController,
+                isScrollable: true,
+                tabs: const <Widget>[
+                  TabItem(label: 'Battery', icon: FontAwesomeIcons.carBattery),
+                  TabItem(label: 'Inverter', icon: Icons.today_sharp),
+                  TabItem(
+                      label: 'Price List', icon: Icons.monetization_on_sharp)
+                ],
               ),
-            ),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(AboutScreen.routeName);
-                },
-                icon: const Icon(Icons.info),
-              ),
-            ],
-            bottom: TabBar(
-              indicatorColor: Colors.white,
-              indicatorWeight: 1.8,
-              controller: _tabController,
-              isScrollable: true,
-              tabs: const <Widget>[
-                TabItem(label: 'Battery', icon: FontAwesomeIcons.carBattery),
-                TabItem(label: 'Inverter', icon: Icons.today_sharp),
-                TabItem(label: 'Price List', icon: Icons.monetization_on_sharp)
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(AboutScreen.routeName);
+                  },
+                  icon: const Icon(Icons.info),
+                ),
               ],
             ),
           ),
+
+          //  AppBar(
+          //   automaticallyImplyLeading: false,
+          //   centerTitle: true,
+          //   // title: const Text(
+          //   //   'DashBoard',
+          //   //   style: TextStyle(
+          //   //     letterSpacing: 1.2,
+          //   //   ),
+          //   // ),
+          //   actions: [
+          //     IconButton(
+          //       onPressed: () {
+          //         Navigator.of(context).pushNamed(AboutScreen.routeName);
+          //       },
+          //       icon: const Icon(Icons.info),
+          //     ),
+          //   ],
+          //   bottom: TabBar(
+          //     indicatorColor: Colors.white,
+          //     indicatorWeight: 1.8,
+          //     controller: _tabController,
+          //     isScrollable: true,
+          //     tabs: const <Widget>[
+          //       TabItem(label: 'Battery', icon: FontAwesomeIcons.carBattery),
+          //       TabItem(label: 'Inverter', icon: Icons.today_sharp),
+          //       TabItem(label: 'Price List', icon: Icons.monetization_on_sharp)
+          //     ],
+          //   ),
+          // ),
           body: TabBarView(
             controller: _tabController,
             children: [
@@ -125,6 +152,7 @@ class _HomeScreenState extends State<HomeScreen>
 //         vertical: 4.0,
 //       ),
 //       child: InkWell(
+
 //         onTap: () {
 //           Navigator.of(context).push(
 //             MaterialPageRoute(
