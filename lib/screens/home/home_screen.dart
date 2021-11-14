@@ -9,7 +9,7 @@ import 'battery_tab.dart';
 import 'widgets/tab_item.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const String routeName = '/home-screen';
+  static const String routeName = '/home';
   const HomeScreen({Key? key}) : super(key: key);
 
   static Route route() {

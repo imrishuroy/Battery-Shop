@@ -1,5 +1,6 @@
+import '/screens/vehicles-catelog/vehicles_catelog.dart';
+
 import '/models/vehicle_type.dart';
-import '/screens/vehicles/vehicles_catelog.dart';
 
 import 'package:flutter/material.dart';
 

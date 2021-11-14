@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 
 class Battery extends Equatable {
   // final String? id;
+  final String? brand;
   final String? type;
   final int? ratting;
   final int? price;
@@ -12,6 +13,7 @@ class Battery extends Equatable {
   final String? warranty;
 
   const Battery({
+    this.brand,
     required this.type,
     required this.ratting,
     required this.price,
@@ -23,6 +25,7 @@ class Battery extends Equatable {
   @override
   List<Object?> get props {
     return [
+      brand,
       type,
       ratting,
       price,
@@ -33,6 +36,7 @@ class Battery extends Equatable {
   }
 
   Battery copyWith({
+    String? brand,
     String? id,
     String? type,
     int? ratting,
@@ -42,6 +46,7 @@ class Battery extends Equatable {
     String? warranty,
   }) {
     return Battery(
+      brand: this.brand,
       //   id: id ?? this.id,
       type: type ?? this.type,
       ratting: ratting ?? this.ratting,
@@ -55,6 +60,7 @@ class Battery extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       //   'id': id,
+      'brand': brand,
       'type': type,
       'ratting': ratting,
       'price': price,
@@ -65,36 +71,43 @@ class Battery extends Equatable {
   }
 
   static const emptyBattery = Battery(
-    type: null,
-    ratting: 0,
-    price: 0,
-    mrp: 0,
-    scrap: 0,
-    warranty: '',
-  );
+      type: null,
+      ratting: 0,
+      price: 0,
+      mrp: 0,
+      scrap: 0,
+      warranty: '',
+      brand: '');
 
   factory Battery.fromMap(Map<String, dynamic> map) {
     return Battery(
-      //  id: map['id'],
-      type: map['type'],
-      ratting: map['ratting'],
-      price: map['price'],
-      mrp: map['mrp'],
-      scrap: map['scrap'],
-      warranty: map['warranty'],
-    );
+        //  id: map['id'],
+        type: map['type'],
+        ratting: map['ratting'],
+        price: map['price'],
+        mrp: map['mrp'],
+        scrap: map['scrap'],
+        warranty: map['warranty'],
+        brand: map['brand']);
   }
 
   static Future<Battery?> fromDocument(Map<String, dynamic> map) async {
     // print('Map $map');
+
     final DocumentReference? doc = map['battery'];
+    final String? brand = doc?.path.split('/')[0];
+    print('Battery brand $brand');
+
     //  print('Runtime ${doc.runtimeType}');
     // print('Doc $doc');
     final response = await doc?.get();
     final data = response?.data() as Map<String, dynamic>?;
+
     // print('Data $data');
 
     if (data != null) {
+      data['brand'] = brand?.toUpperCase();
+      print('Data $data');
       return Battery.fromMap(data);
     }
   }

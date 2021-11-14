@@ -9,10 +9,12 @@ class DisplayImage extends StatelessWidget {
     Key? key,
     required this.imageUrl,
     this.width,
+    this.fit = BoxFit.cover,
   }) : super(key: key);
 
   final String? imageUrl;
   final double? width;
+  final BoxFit? fit;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class DisplayImage extends StatelessWidget {
       width: width ?? 1000.0,
       height: double.infinity,
       imageUrl: imageUrl ?? _errorImage,
-      //  fit: BoxFit.cover,
+      fit: fit,
       progressIndicatorBuilder: (
         BuildContext context,
         String url,

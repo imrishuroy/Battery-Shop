@@ -1,3 +1,5 @@
+import '/screens/vehicles-catelog/bloc/vehicles_bloc_bloc.dart';
+
 import '/widgets/display_image.dart';
 
 import '/config/paths.dart';
@@ -11,7 +13,6 @@ import '/models/vehicle.dart';
 import '/models/vehicle_type.dart';
 
 import '/screens/battery/battery_req_screen.dart';
-import '/screens/vehicles/bloc/vehicles_bloc_bloc.dart';
 
 class TwoWheeler extends StatelessWidget {
   const TwoWheeler({

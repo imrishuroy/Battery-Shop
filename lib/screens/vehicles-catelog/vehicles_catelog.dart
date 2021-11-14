@@ -1,13 +1,15 @@
 import '/config/paths.dart';
-import '/screens/vehicles/widgets/four_wheeler.dart';
-import '/screens/vehicles/widgets/heavy_vehicles.dart';
 
-import '/screens/vehicles/widgets/two_wheeler.dart';
 import '/models/vehicle_type.dart';
 import '/repository/services/firebase_service.dart';
-import '/screens/vehicles/bloc/vehicles_bloc_bloc.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'bloc/vehicles_bloc_bloc.dart';
+import 'widgets/four_wheeler.dart';
+import 'widgets/heavy_vehicles.dart';
+import 'widgets/two_wheeler.dart';
 
 class VehiclesCatelogArgs {
   const VehiclesCatelogArgs({
@@ -78,24 +80,14 @@ class VehiclesCatelog extends StatelessWidget {
             // controller: _tabController,
             isScrollable: true,
             tabs: [
-              Text('2 Wheeler'),
               Text('4 Wheeler'),
               Text('Heavy Vehicles'),
+              Text('2 Wheeler'),
             ],
           ),
         ),
         body: TabBarView(
           children: [
-            BlocProvider<VehiclesBloc>(
-              create: (context) => VehiclesBloc(
-                firebaseServices: context.read<FirebaseServices>(),
-                vehicleBrandId: vehicleBrandId,
-                fuelType: fuelType!,
-                vehicleType: Paths.twoWheeler,
-              ),
-              child: TwoWheeler(
-                  vehicleBrandId: vehicleBrandId, fuelType: fuelType),
-            ),
             BlocProvider<VehiclesBloc>(
               create: (context) => VehiclesBloc(
                 firebaseServices: context.read<FirebaseServices>(),
@@ -115,7 +107,17 @@ class VehiclesCatelog extends StatelessWidget {
               ),
               child: HeavyVehicles(
                   vehicleBrandId: vehicleBrandId, fuelType: fuelType),
-            )
+            ),
+            BlocProvider<VehiclesBloc>(
+              create: (context) => VehiclesBloc(
+                firebaseServices: context.read<FirebaseServices>(),
+                vehicleBrandId: vehicleBrandId,
+                fuelType: fuelType!,
+                vehicleType: Paths.twoWheeler,
+              ),
+              child: TwoWheeler(
+                  vehicleBrandId: vehicleBrandId, fuelType: fuelType),
+            ),
           ],
         ),
       ),

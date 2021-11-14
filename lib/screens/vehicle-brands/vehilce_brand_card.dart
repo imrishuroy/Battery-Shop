@@ -11,58 +11,92 @@ class VehicleBrandCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 4.0,
-        vertical: 4.0,
-      ),
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => VehicleTypeScreen(
-                vehicleBrandId: vehicleBrand?.id,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        InkWell(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => VehicleTypeScreen(
+                  vehicleBrandId: vehicleBrand?.id,
+                ),
               ),
+            );
+          },
+          child: CircleAvatar(
+            backgroundColor: Colors.white,
+            radius: 40.0,
+            child: DisplayImage(
+              imageUrl: vehicleBrand?.logoUrl,
+              fit: BoxFit.contain,
             ),
-          );
-        },
-        child: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Spacer(),
-              SizedBox(
-                height: 100.0,
-                width: 100.0,
-                child: DisplayImage(imageUrl: vehicleBrand?.logoUrl),
-              ),
-              const Spacer(),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black87),
-                  // color: Color(0xffDDDDDD),
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(6.0),
-                    bottomRight: Radius.circular(6.0),
-                  ),
-                ),
-                child: Text(
-                  vehicleBrand?.name ?? 'N/A',
-                  style: const TextStyle(
-                    fontSize: 18.0,
-                    // fontWeight: FontWeight.w500,
-                    letterSpacing: 1.2,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              )
-            ],
           ),
         ),
-      ),
+        const SizedBox(height: 5.0),
+        Text(
+          vehicleBrand?.name ?? '',
+          style: const TextStyle(
+            fontWeight: FontWeight.w600,
+            letterSpacing: 1.0,
+          ),
+          textAlign: TextAlign.center,
+        )
+      ],
     );
+
+    // Padding(
+    //   padding: const EdgeInsets.symmetric(
+    //     horizontal: 4.0,
+    //     vertical: 4.0,
+    //   ),
+    //   child: InkWell(
+    //     onTap: () {
+    //       Navigator.of(context).push(
+    //         MaterialPageRoute(
+    //           builder: (context) => VehicleTypeScreen(
+    //             vehicleBrandId: vehicleBrand?.id,
+    //           ),
+    //         ),
+    //       );
+    //     },
+    //     child: Card(
+    //       shape:
+    //           RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
+    //       child: Column(
+    //         mainAxisAlignment: MainAxisAlignment.center,
+    //         crossAxisAlignment: CrossAxisAlignment.stretch,
+    //         children: [
+    //           const Spacer(),
+    //           SizedBox(
+    //             height: 100.0,
+    //             width: 100.0,
+    //             child: DisplayImage(imageUrl: vehicleBrand?.logoUrl),
+    //           ),
+    //           const Spacer(),
+    //           Container(
+    //             decoration: BoxDecoration(
+    //               border: Border.all(color: Colors.black87),
+    //               // color: Color(0xffDDDDDD),
+    //               borderRadius: const BorderRadius.only(
+    //                 bottomLeft: Radius.circular(6.0),
+    //                 bottomRight: Radius.circular(6.0),
+    //               ),
+    //             ),
+    //             child: Text(
+    //               vehicleBrand?.name ?? 'N/A',
+    //               style: const TextStyle(
+    //                 fontSize: 18.0,
+    //                 // fontWeight: FontWeight.w500,
+    //                 letterSpacing: 1.2,
+    //               ),
+    //               textAlign: TextAlign.center,
+    //             ),
+    //           )
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 }

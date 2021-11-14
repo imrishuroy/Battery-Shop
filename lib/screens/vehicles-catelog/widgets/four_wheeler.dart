@@ -1,3 +1,5 @@
+import '/screens/vehicles-catelog/bloc/vehicles_bloc_bloc.dart';
+
 import '/widgets/display_image.dart';
 
 import '/config/paths.dart';
@@ -11,7 +13,6 @@ import '/models/vehicle.dart';
 import '/models/vehicle_type.dart';
 
 import '/screens/battery/battery_req_screen.dart';
-import '/screens/vehicles/bloc/vehicles_bloc_bloc.dart';
 
 class FourWheeler extends StatelessWidget {
   const FourWheeler({
@@ -57,11 +58,7 @@ class FourWheeler extends StatelessWidget {
                             child: FadeInAnimation(
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(
-                                  12.0,
-                                  6,
-                                  12.0,
-                                  0.0,
-                                ),
+                                    12.0, 6, 12.0, 0.0),
                                 child: InkWell(
                                   onTap: () {
                                     Navigator.of(context).pushNamed(

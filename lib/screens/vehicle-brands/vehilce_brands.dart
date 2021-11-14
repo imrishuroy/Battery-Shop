@@ -25,18 +25,18 @@ class VehicleBrands extends StatelessWidget {
                 child: GridView.builder(
                   itemCount: brands.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                    crossAxisCount: 3,
+                    childAspectRatio: 0.9,
                   ),
                   itemBuilder: (context, index) {
+                    // final brand = brands[index];
                     return AnimationConfiguration.staggeredGrid(
                       duration: const Duration(milliseconds: 375),
                       position: index,
                       columnCount: brands.length,
                       child: ScaleAnimation(
                         child: FadeInAnimation(
-                          child: VehicleBrandCard(
-                            vehicleBrand: brands[index],
-                          ),
+                          child: VehicleBrandCard(vehicleBrand: brands[index]),
                         ),
                       ),
                     );
@@ -45,9 +45,7 @@ class VehicleBrands extends StatelessWidget {
               );
 
             default:
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const Center(child: CircularProgressIndicator());
           }
         },
       ),

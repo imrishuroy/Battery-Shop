@@ -276,22 +276,26 @@ class _InveterTabState extends State<InveterTab> {
         print('Average running load $_averageRunnigLoad');
 
         if (load != null && _backup != null && _averageRunnigLoad != null) {
+          print('Give load $load');
           double inverterRequired = 0.0;
           double batteryAhRequired = 0.0;
-          _averageRunnigLoad *= 0.01;
+          //    _averageRunnigLoad *= 0.01;
           print('Average running load $_averageRunnigLoad');
           double noOfBatteries = 1;
 
           double realLoad = (load * 1.25) /
               0.8; //1.25 is 25% of the given load & 0.8 powerfactor
+          _averageRunnigLoad = 0.5;
+
+          realLoad *= _averageRunnigLoad;
 
           inverterRequired = realLoad / 0.9; //0.9 is efficiency of inverter
 
           batteryAhRequired = (realLoad * _backup) / 12;
 
-          batteryAhRequired *= _averageRunnigLoad;
+          // batteryAhRequired *= _averageRunnigLoad;
 
-          inverterRequired *= _averageRunnigLoad;
+          // inverterRequired *= _averageRunnigLoad;
           double unChnagedAH = batteryAhRequired;
 
           //correction of battery numbers and ah

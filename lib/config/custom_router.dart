@@ -1,7 +1,9 @@
+import '/screens/vehicles-catelog/vehicles_catelog.dart';
+
 import '/screens/about/about_screen.dart';
 import '/screens/battery/battery_req_screen.dart';
 import '/screens/home/home_screen.dart';
-import '/screens/vehicles/vehicles_catelog.dart';
+
 import 'package:flutter/material.dart';
 
 class CustomRouter {

@@ -1,8 +1,12 @@
+import '/models/vehilce_brands.dart';
+import '/repository/services/firebase_service.dart';
+import '/screens/vehicles-catelog/vehicles_catelog.dart';
+
 import '/models/vehicle_type.dart';
-import '/screens/home/widgets/drop_down_tile.dart';
-import '/screens/vehicles/vehicles_catelog.dart';
+
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -12,105 +16,132 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  String dropdownValue = 'One';
+  //String dropdownValue = 'One';
 
-  List<String> brands = [
-    'BMW',
-    'CHEVROLET',
-    'FIAT',
-    'FORD',
-    'HONDA',
-    'HYUNDAI',
-    'KIA',
-    'MAHINDRA',
-    'MARUTI',
-    'MERCEDES-BENZ',
-    'NISSAN',
-    'RENAULT',
-    'SKODA',
-    'TATA',
-    'TOYOTA',
-    'VW',
-    'ASHOK LEYLAND',
-    'AUDI',
-    'BENTLEY',
-    'BUGATTI'
-  ];
+  // List<String> brands = [
+  //   'BMW',
+  //   'CHEVROLET',
+  //   'FIAT',
+  //   'FORD',
+  //   'HONDA',
+  //   'HYUNDAI',
+  //   'KIA',
+  //   'MAHINDRA',
+  //   'MARUTI',
+  //   'MERCEDES-BENZ',
+  //   'NISSAN',
+  //   'RENAULT',
+  //   'SKODA',
+  //   'TATA',
+  //   'TOYOTA',
+  //   'VW',
+  //   'ASHOK LEYLAND',
+  //   'AUDI',
+  //   'BENTLEY',
+  //   'BUGATTI'
+  // ];
 
-  final List<String> _models = [
-    'Model 1',
-    'Model 2',
-    'Model 3',
-    'Model 4',
-    'Model 5',
-    'Model 6'
-  ];
+  // final List<String> _models = [
+  //   'Model 1',
+  //   'Model 2',
+  //   'Model 3',
+  //   'Model 4',
+  //   'Model 5',
+  //   'Model 6'
+  // ];
+
+  @override
+  void initState() {
+    super.initState();
+    _getVehiclesBrands();
+  }
+
+  List<VehicleBrand?> _brands = [];
+  bool _loading = false;
+
+  Future<void> _getVehiclesBrands() async {
+    try {
+      final _firebase = context.read<FirebaseServices>();
+      setState(() {
+        _loading = true;
+      });
+
+      _brands = await _firebase.getVehicleBrands();
+      setState(() {
+        _loading = false;
+      });
+    } catch (error) {
+      print('Error getting vehicles brands ${error.toString()}');
+    }
+  }
 
   String? _selectedBrand;
-  String? _selectedModel;
+  // String? _selectedModel;
+  String? _brandId;
 
-  void _onSelectBrand(String value) {
+  void _onSelectBrand({required String? value, required String? brandId}) {
     setState(() {
       _selectedBrand = value;
+      _brandId = brandId;
     });
     Navigator.of(context).pop();
     _showBrandBottomSheet(context);
     print('Selected Value $_selectedBrand');
   }
 
-  void _onSelectModel(String value) {
-    setState(() {
-      _selectedModel = value;
-    });
-    Navigator.of(context).pop();
-    Navigator.of(context).pop();
-    _showBrandBottomSheet(context);
-    //_showBrand(context);
-    print('Selected Value $_selectedModel');
-  }
+  // void _onSelectModel(String value) {
+  //   setState(() {
+  //     _selectedModel = value;
+  //   });
+  //   Navigator.of(context).pop();
+  //   Navigator.of(context).pop();
+  //   _showBrandBottomSheet(context);
+  //   //_showBrand(context);
+  //   print('Selected Value $_selectedModel');
+  // }
 
-  void _showModelDialog() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 22.0,
-            vertical: 25.0,
-          ),
-          content: Container(
-            alignment: Alignment.topLeft,
-            height: 200.0,
-            //color: Colors.red,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  for (var item in _models)
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 7.0,
-                        bottom: 7.0,
-                      ),
-                      child: InkWell(
-                        onTap: () => _onSelectModel(item),
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: Text(
-                            item,
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
+  // void _showModelDialog() {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         contentPadding: const EdgeInsets.symmetric(
+  //           horizontal: 22.0,
+  //           vertical: 25.0,
+  //         ),
+  //         content: Container(
+  //           alignment: Alignment.topLeft,
+  //           height: 200.0,
+  //           //color: Colors.red,
+  //           child: SingleChildScrollView(
+  //             child: Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 for (var item in _models)
+  //                   Padding(
+  //                     padding: const EdgeInsets.only(
+  //                       top: 7.0,
+  //                       bottom: 7.0,
+  //                     ),
+  //                     child: InkWell(
+  //                       onTap: () => _onSelectModel(item),
+  //                       child: SizedBox(
+  //                         width: double.infinity,
+  //                         child: Text(
+  //                           item,
+  //                           textAlign: TextAlign.start,
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   void _showBrandDialog() {
     showDialog(
@@ -123,24 +154,29 @@ class _SearchState extends State<Search> {
           ),
           content: Container(
             alignment: Alignment.topLeft,
-            height: 300.0,
+
+            //height: 300.0,
+            height: _brands.length.toDouble() * 100 >= 300
+                ? 300
+                : _brands.length.toDouble() * 100,
             //color: Colors.red,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  for (var item in brands)
+                  for (var item in _brands)
                     Padding(
                       padding: const EdgeInsets.only(
                         top: 7.0,
                         bottom: 7.0,
                       ),
                       child: InkWell(
-                        onTap: () => _onSelectBrand(item),
+                        onTap: () => _onSelectBrand(
+                            value: item?.name, brandId: item?.id),
                         child: SizedBox(
                           width: double.infinity,
                           child: Text(
-                            item,
+                            item?.name ?? 'N/A',
                             textAlign: TextAlign.start,
                           ),
                         ),
@@ -159,7 +195,7 @@ class _SearchState extends State<Search> {
     showMaterialModalBottomSheet(
       context: context,
       builder: (context) => Container(
-        height: 320.0,
+        height: 250.0,
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
         // color: Colors.red,
         // width: double.infinity,
@@ -209,10 +245,10 @@ class _SearchState extends State<Search> {
                 ),
               ),
             ),
-            const SizedBox(height: 8.0),
-            DropDownTile(
-                label: _selectedModel ?? 'Your model',
-                onPressed: () => _showModelDialog()),
+            // const SizedBox(height: 8.0),
+            // DropDownTile(
+            //     label: _selectedModel ?? 'Your model',
+            //     onPressed: () => _showModelDialog()),
             const SizedBox(height: 24.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -224,10 +260,11 @@ class _SearchState extends State<Search> {
                       _selectedBrand = null;
                       _selectedBrand = null;
                     });
+
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (_) => const VehiclesCatelog(
-                          vehicleBrandId: '',
+                        builder: (_) => VehiclesCatelog(
+                          vehicleBrandId: _brandId,
                           fuelType: FuelType.petrol,
                         ),
                       ),
@@ -258,9 +295,9 @@ class _SearchState extends State<Search> {
                     });
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (_) => const VehiclesCatelog(
-                          vehicleBrandId: '',
-                          fuelType: FuelType.petrol,
+                        builder: (_) => VehiclesCatelog(
+                          vehicleBrandId: _brandId,
+                          fuelType: FuelType.diesel,
                         ),
                       ),
                     );
@@ -330,36 +367,38 @@ class _SearchState extends State<Search> {
         horizontal: 8.0,
         vertical: 4.0,
       ),
-      child: Container(
-        height: 50.0,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4.0),
-          border: Border.all(color: Colors.grey.shade600),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(left: 12.0),
-              child: Text('Search your vehicles'),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: InkWell(
-                onTap: _showBrandDialog,
-                child: const Icon(
-                  Icons.arrow_drop_down,
-                  size: 35.0,
-                ),
+      child: _loading
+          ? const LinearProgressIndicator()
+          : Container(
+              height: 50.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4.0),
+                border: Border.all(color: Colors.grey.shade600),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 12.0),
+                    child: Text('Search your vehicles'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: InkWell(
+                      onTap: _showBrandDialog,
+                      child: const Icon(
+                        Icons.arrow_drop_down,
+                        size: 35.0,
+                      ),
+                    ),
+                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(right: 10.0),
+                  //   child: BrandDropDown(),
+                  // ),
+                ],
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.only(right: 10.0),
-            //   child: BrandDropDown(),
-            // ),
-          ],
-        ),
-      ),
     );
   }
 }
