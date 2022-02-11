@@ -287,13 +287,13 @@ class _InveterTabState extends State<InveterTab> {
               0.8; //1.25 is 25% of the given load & 0.8 powerfactor
           _averageRunnigLoad = 0.5;
 
-          realLoad *= _averageRunnigLoad;
+          //realLoad *= _averageRunnigLoad;
 
-          inverterRequired = realLoad / 0.9; //0.9 is efficiency of inverter
+          inverterRequired = realLoad / 0.8; //0.9 is efficiency of inverter
 
           batteryAhRequired = (realLoad * _backup) / 12;
 
-          // batteryAhRequired *= _averageRunnigLoad;
+          batteryAhRequired *= _averageRunnigLoad;
 
           // inverterRequired *= _averageRunnigLoad;
           double unChnagedAH = batteryAhRequired;

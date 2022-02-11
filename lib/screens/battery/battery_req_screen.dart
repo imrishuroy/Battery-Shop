@@ -186,7 +186,7 @@ class BatteryTile extends StatelessWidget {
                     // ),
                     const SizedBox(height: 30.0),
                     // Text('Dealer Price'),
-                    const Text('( Excluding GST )')
+                    const Text('( Excluding 28% GST )')
                   ],
                 ),
               ),
